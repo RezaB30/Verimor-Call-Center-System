@@ -1,0 +1,31 @@
+﻿div.address-check-bokkmark-container {
+    background-image: url('../Images/Buttons/location-on-map.svg');
+    background-position: 0.2em center;
+    background-repeat: no-repeat;
+    background-size: 1em;
+    padding-left: 1.3em;
+    line-height: 1.5em;
+    padding-right: 0;
+    position: fixed;
+    right: 0;
+    top: 7.75em;
+    background-color: #c3e4d4;
+    border-color: seagreen;
+    border-width: 2px 0 2px 2px;
+    z-index: 10;
+    border-style: solid;
+    border-radius: 0.5em 0 0 0.5em;
+    width: 0;
+    transition: all 0.5s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div.address-check-bokkmark-container:hover{
+    padding-left: 3.3em;
+    padding-right: 0.5em;
+    width: 8em;
+    background-size: 3em;
+    line-height: 3em;
+    top: 7em;
+}

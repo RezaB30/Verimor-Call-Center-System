@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Verimor.Webhook.EventListener", "Verimor.Webhook.EventListener\Verimor.Webhook.EventListener.csproj", "{4C8ED163-137E-4D55-BE07-B2AE0D93EB30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadiusR.Verimor.CallCenter", "RadiusR.Verimor.CallCenter\RadiusR.Verimor.CallCenter.csproj", "{17A07BFC-EEFA-483A-BBE6-AC820BF405BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C8ED163-137E-4D55-BE07-B2AE0D93EB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C8ED163-137E-4D55-BE07-B2AE0D93EB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C8ED163-137E-4D55-BE07-B2AE0D93EB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C8ED163-137E-4D55-BE07-B2AE0D93EB30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A07BFC-EEFA-483A-BBE6-AC820BF405BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A07BFC-EEFA-483A-BBE6-AC820BF405BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A07BFC-EEFA-483A-BBE6-AC820BF405BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A07BFC-EEFA-483A-BBE6-AC820BF405BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {95C70872-F32E-4EB7-AF92-52B08A17B08B}
+	EndGlobalSection
+EndGlobal

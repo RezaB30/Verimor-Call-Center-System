@@ -1,0 +1,55 @@
+﻿div.receipt-wrapper {
+    text-align: center;
+}
+
+div.receipt-container {
+    display: inline-block;
+    min-width: 15em;
+}
+
+div.receipt-logo img {
+    margin: 1em;
+    width: 20em;
+}
+
+div.receipt-row {
+    border-top: 2px solid black;
+    padding: 0.3em 0;
+}
+
+@media only print {
+    
+    html,body{
+        width: 72mm;
+    }
+
+    .non-printable {
+        display: none;
+    }
+
+    div.receipt-wrapper{
+        display: inline-block;
+    }
+
+    div.receipt-container {
+        font-size: 4mm;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 72mm;
+        min-width: 72mm;
+    }
+
+    div.receipt-logo img {
+        width: 55mm;
+    }
+
+    .currency-symbol{
+        color: black;
+    }
+
+    @page {
+        size: portrait;
+        margin: 0;
+    }
+}

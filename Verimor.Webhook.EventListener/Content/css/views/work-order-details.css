@@ -1,0 +1,10 @@
+﻿div.new-message-container{
+    position: relative;
+    z-index: 0;
+    transition: 0.5s all ease;
+    left: 0;
+}
+
+div.new-message-container.hidden{
+    left: -100%;
+}

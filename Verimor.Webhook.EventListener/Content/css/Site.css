@@ -1,0 +1,442 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    min-width: 65em;
+}
+
+html {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12pt;
+    color: #212121;
+    background-color: #F2F7FF;
+    height: 100%;
+    /*background-image: url('../Images/background.svg');*/
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+h1, h2, h3 {
+    font-family: Tahoma;
+    font-size: 2em;
+}
+
+h4 {
+    font-size: 1.2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 10px;
+    text-align: center;
+    text-shadow: 2px 2px 2px darkgray;
+}
+
+th {
+    font-weight: inherit;
+    font-family: 'Racing Sans One', cursive;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+dt {
+    color: #6a984f;
+}
+
+* {
+    outline: 1px dashed transparent;
+    outline-offset: 2px;
+}
+
+    *:focus {
+        outline: dashed 1px rgba(0,0,0,0.2);
+        outline-offset: 1px;
+    }
+
+div.header-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 3.2em;
+    line-height: 3.2em;
+    background-color: #032f4b;
+    z-index: 1000;
+    color: white;
+    text-align: center;
+}
+
+div.header-corner {
+    float: left;
+    width: 15em;
+    height: 3.2em;
+    position: relative;
+    text-align: left;
+}
+
+.navbar-brand {
+}
+
+div.online-count-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url('../Images/shared/wifi.svg');
+    background-position: left center;
+    background-size: 1.6em;
+    background-repeat: no-repeat;
+    text-align: right;
+    width: 4em;
+}
+
+    div.online-count-container div.online-count {
+        position: absolute;
+        left: 0.9em;
+        top: 1.7em;
+        line-height: 1em;
+        background-color: rgb(128, 222, 65);
+        background-color: rgba(128, 222, 65, 0.7);
+        color: #032f4b;
+        border-radius: 0.2em;
+    }
+
+img.logo-tm {
+    vertical-align: middle;
+    height: 2em;
+    margin-left: 0.5em;
+}
+
+span.title {
+    font-size: 1.4em;
+    color: #80de41;
+    text-shadow: 2px 2px 2px black;
+    font-family: 'Racing Sans One', cursive;
+}
+
+div.language-box {
+    position: relative;
+    float: right;
+    line-height: 3.2em;
+    cursor: pointer;
+    text-align: center;
+    min-width: 10em;
+}
+
+    div.language-box:hover div.language-dropdown {
+        display: block;
+    }
+
+div.language-dropdown {
+    position: absolute;
+    background-color: #032f4b;
+    width: 100%;
+    display: none;
+}
+
+    div.language-dropdown ul {
+        padding: 0;
+        list-style: none;
+        line-height: normal;
+        margin: 0;
+    }
+
+    div.language-dropdown li {
+        padding: 3px 0;
+    }
+
+        div.language-dropdown li:hover {
+            background-color: #0767a4;
+        }
+
+        div.language-dropdown li > a {
+            display: block;
+            width: 100%;
+        }
+
+img.language-button {
+    vertical-align: middle;
+    height: 2em;
+}
+
+.m-menu {
+    display: none;
+}
+
+div.settings-link {
+    float: left;
+    font-style: normal;
+    margin-left: 2em;
+}
+
+    div.settings-link .settings-button, div.settings-link .radius-settings-button {
+        display: inline-block;
+    }
+
+div.login-box {
+    float: right;
+}
+
+img.logout-button {
+    height: 2em;
+    vertical-align: middle;
+    margin-right: 0.5em;
+}
+
+div.credit-box {
+    float: right;
+    line-height: 3.2em;
+    font-style: normal;
+}
+
+div.body {
+    margin: 0;
+    padding-top: 3.2em;
+    /*overflow: auto;*/
+    margin-bottom: 2.4em;
+}
+
+    div.body.cashier-body {
+        padding: 3.7em 0.5em 0.5em 0.5em;
+    }
+
+div.nav-bar {
+    width: 15em;
+    position: absolute;
+    background-color: #272727;
+    color: white;
+    z-index: 1;
+    top: 3.2em;
+    bottom: 2.4em;
+    text-indent: 0.5em;
+    overflow: auto;
+    transition: 0.5s all ease;
+    left: 0;
+}
+
+    div.nav-bar.collapsed {
+        left: -15em;
+    }
+
+div.page-contents {
+    margin-left: 15em;
+    padding: 0.5em;
+    /*transition: 0.5s all ease;*/
+}
+
+    div.page-contents.collapsed {
+        margin-left: 0;
+    }
+
+div.footer {
+    color: white;
+    background-color: black;
+    overflow: auto;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.8em;
+    height: 3em;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    line-height: 3em;
+}
+
+    div.footer div.footer-icons-container {
+    }
+
+span.version-tag {
+    text-decoration: underline;
+}
+
+div.search-tag {
+    padding: 10px 5px;
+    min-height: 30px;
+    background-color: #ffffe4;
+    border: 1px solid lightgray;
+}
+
+div.search-bar {
+    margin-bottom: 10px;
+    padding: 10px 5px;
+    background-color: #dbf4fb;
+    /*overflow: auto;*/
+    border: 1px solid #b3aeae;
+}
+
+div.add-bar {
+    text-align: center;
+    padding: 10px;
+    margin: auto 10px;
+}
+
+.text-danger, .validation-summary-errors {
+    color: red;
+    font-style: italic;
+}
+
+    .validation-summary-errors ul {
+        list-style: symbols("-");
+    }
+
+div.cover {
+    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    color: white;
+}
+
+    div.cover > div {
+        text-align: center;
+        overflow: auto;
+        margin-top: 140px;
+    }
+
+@keyframes wait-rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+div.cover svg, div.cover img {
+    animation: wait-rotation 0.8s linear infinite;
+}
+
+@media print {
+    div.headerBar,
+    div.footer {
+        display: none;
+    }
+}
+
+@page {
+    size: A4 landscape;
+}
+
+div.centered-form-wrapper {
+    text-align: center;
+}
+
+div.centered-form {
+    display: inline-block;
+    text-align: initial;
+}
+
+div.settings-attention {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #f0f0ad;
+    color: #c8400b;
+    padding: 3px;
+    border: 1px solid darkgray;
+    border-radius: 3px;
+}
+
+div.attachments {
+    display: none;
+}
+
+div.rate-limit-title {
+    text-align: center;
+    background-color: #272727;
+    color: white;
+}
+
+div.message-date-title {
+    text-align: left;
+    background-color: #457e41;
+    color: #d6fbf9;
+}
+
+div.attention {
+    text-align: center;
+}
+
+    div.attention h3 {
+        color: #931f1f;
+    }
+
+    div.attention p {
+        color: red;
+    }
+
+a.details-link {
+    color: #076b0c;
+    text-decoration: underline dashed;
+    transition: 0.5s all ease;
+}
+
+    a.details-link:hover, a.details-link:focus {
+        text-decoration: none;
+        color: #4c51b6;
+    }
+
+a.phone-call-link {
+    display: inline-block;
+    padding-left: 1.5em;
+    background-position: left center;
+    background-size: 1em;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Shared/telephone.svg');
+}
+
+a.address-on-map-link {
+    display: inline-block;
+    padding-left: 1.5em;
+    background-position: left center;
+    background-size: 1.3em;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Shared/map.svg');
+}
+
+div.logo-watermark {
+    position: relative;
+    background-image: url('/Content/Images/Logo/logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 7em;
+    background-size: contain;
+    opacity: 0.3;
+    z-index: -1;
+    background-color: white;
+    border-radius: 0.3em;
+    box-shadow: 0 0 1em 1em white;
+    margin: 1em;
+    top: 1em;
+}
+
+div.warning-message {
+    color: #9c2c08;
+    background-color: ivory;
+    padding: 1em 1em 1em 3em;
+    text-align: left;
+    border: 1px solid;
+    border-radius: 0.2em;
+    background-repeat: no-repeat;
+    background-position: 0.2em center;
+    background-size: 2.5em;
+    background-image: url('../Images/Shared/warning.svg');
+}
+
+div.button-row{
+    margin: 1em 0;
+}
+
+td.input-table-row-group-separator{
+    border-top: 1px solid grey;
+}

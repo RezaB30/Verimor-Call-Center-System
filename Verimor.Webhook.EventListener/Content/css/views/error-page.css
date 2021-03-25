@@ -1,0 +1,14 @@
+﻿div.error-page-head {
+    color: #954b4b;
+    font-size: 2em;
+}
+
+div.error-page-description {
+    color: #4e4b3e;
+    font-size: 1.2em;
+}
+
+img.error-page-sign{
+    width: 6em;
+    height: 6em;
+}

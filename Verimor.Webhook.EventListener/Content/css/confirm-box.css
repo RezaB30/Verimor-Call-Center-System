@@ -1,0 +1,26 @@
+﻿div.confirm-box-container {
+    display: none;
+}
+
+div.confirm-cover {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.25);
+    text-align: center;
+    z-index: 1001;
+    padding-top: 40vh;
+}
+
+div.confirm-box {
+    display: inline-block;
+    z-index: 1002;
+    border: 1px solid red;
+    box-shadow: 4px 4px 8px 0px black;
+    background-color: #fef8bc;
+    text-align: center;
+    padding: 1em;
+}

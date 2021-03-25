@@ -1,0 +1,154 @@
+﻿@model Verimor.Webhook.EventListener.ViewModels.VerimorDiagramVM
+
+@{
+    ViewBag.Title = "CreateDiagram";
+
+    var ParameterList = ViewBag.Parameters != null ? (SelectList)ViewBag.Parameters : Enumerable.Empty<SelectListItem>();
+}
+<style>
+    input[type=text] {
+        min-width: 14em;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <table class="input-table">
+                    <tbody>
+                        <tr>
+                            <td>@Html.LabelFor(m => m.OperationType)</td>
+                            <td>@Html.DropDownListFor(m => m.OperationType, (SelectList)ViewBag.OperationTypes, new { @style = "width:14em;" })</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(m => m.OperationQueries)</td>
+                            <td>@Html.DropDownListFor(m => m.OperationQueries, (SelectList)ViewBag.OperationQueries, new { @style = "width:14em;" })</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.Phrase)
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(m => m.Phrase, new { autocomplete = "off", style = "min-width:14em; min-height:10em;" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.AnnouncementID)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.AnnouncementID, new { htmlAttributes = new { autocomplete = "off" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.Target)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.Target, new { htmlAttributes = new { autocomplete = "off" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.Max_Digits)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.Max_Digits, new { htmlAttributes = new { autocomplete = "off" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.Min_Digits)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.Min_Digits, new { htmlAttributes = new { autocomplete = "off" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(m => m.Retry_Count)
+                            </td>
+                            <td>
+                                @Html.EditorFor(m => m.Retry_Count, new { htmlAttributes = new { autocomplete = "off" } })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="text-center">
+                                    <input type="submit" value="Ekle" />
+                                    @Html.ActionLink("Geri Dön", "Index", "Verimor", null, new { @class = "link-button" })
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="ErrorMessage" style="color:red">@Html.DisplayFor(m => m.ErrorMessage)</div>
+            }
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <table>
+                @foreach (var item in ParameterList)
+                {
+                    <tr>
+                        <td>
+                            <input class="select-parameter" style="min-width:14em; margin:1em;" type="button" value="@Html.DisplayTextFor(m=>item.Text)" data-value="{@Html.DisplayTextFor(m=>item.Value)}" />
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        setTimeout(function () {
+            $('#ErrorMessage').html("");
+        }, 5000);
+        $('.select-parameter').click(function () {
+            var value = $(this).attr("data-value");
+            $('#Phrase').val($('#Phrase').val() + " " + value);
+        });
+        $("#OperationType").change(function () {
+            var val = $(this).val();
+            if (val == 0) {
+                $('#OperationQueries').parent("td").parent("tr").show();
+
+                $('#AnnouncementID').parent("td").parent("tr").hide();
+                $('#Target').parent("td").parent("tr").hide();
+                $('#Max_Digits').parent("td").parent("tr").hide();
+                $('#Min_Digits').parent("td").parent("tr").hide();
+                $('#Retry_Count').parent("td").parent("tr").hide();
+            }
+            if (val == 1) {
+                $('#OperationQueries').parent("td").parent("tr").hide();
+
+                $('#AnnouncementID').parent("td").parent("tr").show();
+                $('#Target').parent("td").parent("tr").hide();
+                $('#Max_Digits').parent("td").parent("tr").show();
+                $('#Min_Digits').parent("td").parent("tr").show();
+                $('#Retry_Count').parent("td").parent("tr").show();
+            }
+            if (val == 2) {
+                $('#OperationQueries').parent("td").parent("tr").hide();
+                $('#AnnouncementID').parent("td").parent("tr").show();
+                $('#Target').parent("td").parent("tr").show();
+                $('#Max_Digits').parent("td").parent("tr").hide();
+                $('#Min_Digits').parent("td").parent("tr").hide();
+                $('#Retry_Count').parent("td").parent("tr").hide();
+            }
+            if (val == 3) {
+                $('#OperationQueries').parent("td").parent("tr").hide();
+                $('#AnnouncementID').parent("td").parent("tr").show();
+                $('#Target').parent("td").parent("tr").hide();
+                $('#Max_Digits').parent("td").parent("tr").hide();
+                $('#Min_Digits').parent("td").parent("tr").hide();
+                $('#Retry_Count').parent("td").parent("tr").hide();
+            }
+        });
+        $("#OperationType").trigger('change');
+    </script>
+}

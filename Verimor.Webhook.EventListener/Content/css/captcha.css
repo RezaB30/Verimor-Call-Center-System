@@ -1,0 +1,40 @@
+﻿div.captcha {
+    margin: 5px;
+    padding: 5px;
+    background-color: antiquewhite;
+    border-radius: 3px;
+    border: 1px solid gray;
+    display: inline-block;
+}
+
+    div.captcha img {
+        border: 1px dashed gray;
+        margin: 4px;
+    }
+
+    div.captcha input[type=text] {
+        border-width: 1px;
+        width: 200px;
+    }
+
+div.captcha-image-wrapper {
+    position: relative;
+}
+
+    div.captcha-image-wrapper input[type=button] {
+        width: 2em;
+        height: 2em;
+        border-radius: 100%;
+        position: absolute;
+        bottom: 0.65em;
+        right: 0.35em;
+        padding: 0;
+        background-image: url('../Images/reload.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: 0.5s all ease-in-out;
+    }
+
+    div.captcha-image-wrapper input[type=button]:hover{
+        transform: rotate(180deg);
+    }

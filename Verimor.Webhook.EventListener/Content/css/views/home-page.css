@@ -1,0 +1,223 @@
+﻿a.home-page-link-box {
+    display: inline-block;
+}
+
+div.home-page-link-box {
+    margin: 0.1em;
+    position: relative;
+    display: inline-block;
+    width: 13em;
+    height: 8em;
+    border: 1px solid #b6dbe7;
+    padding: 0.2em;
+    border-radius: 0.3em;
+    overflow: hidden;
+    transition: 0.5s all ease;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d6f9fc+0,ddf1f9+48,a0d8ef+100 */
+    background: #d6f9fc; /* Old browsers */
+    background: -moz-linear-gradient(top, #d6f9fc 0%, #ddf1f9 48%, #a0d8ef 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #d6f9fc 0%,#ddf1f9 48%,#a0d8ef 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #d6f9fc 0%,#ddf1f9 48%,#a0d8ef 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6f9fc', endColorstr='#a0d8ef',GradientType=0 ); /* IE6-9 */
+}
+
+    div.home-page-link-box div.link-box-text {
+        text-align: center;
+        position: absolute;
+        width: 98%;
+        bottom: 0.5em;
+        font-family: 'Racing Sans One', cursive;
+        color: #4e4d4d;
+        transition: 0.5s all ease;
+    }
+
+    div.home-page-link-box div.link-box-image {
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center 1em;
+        background-size: 35%;
+        opacity: 0.8;
+        transition: 0.5s all ease;
+    }
+
+    div.home-page-link-box div.link-box-prestine {
+        position: absolute;
+        z-index: 10;
+        width: 5em;
+        height: 30em;
+        background-color: rgba(255,255,255,0.5);
+        transform: skew(10deg);
+        top: -2em;
+        left: -10em;
+        transition: 0.5s all ease;
+    }
+
+    div.home-page-link-box div.link-box-notification {
+        position: absolute;
+        top: 0.5em;
+        right: 0.5em;
+        background-color: rgba(150,20,10,0.8);
+        color: white;
+        padding: 0.3em;
+        border-radius: 100%;
+        text-shadow: 1px 1px 2px black;
+        box-shadow: 0 0 2px 0px black;
+        min-width: 1em;
+    }
+
+    div.home-page-link-box:hover,
+    a.home-page-link-box:focus div.home-page-link-box {
+        box-shadow: 0.1em 0.1em 0.5em -0.1em black;
+        border-color: #424d51;
+    }
+
+        div.home-page-link-box:hover div.link-box-prestine,
+        a.home-page-link-box:focus div.link-box-prestine {
+            left: 30em;
+        }
+
+        div.home-page-link-box:hover div.link-box-text,
+        a.home-page-link-box:focus div.link-box-text {
+            color: black;
+        }
+
+        div.home-page-link-box:hover div.link-box-image,
+        a.home-page-link-box:focus div.link-box-image {
+            opacity: 1;
+        }
+
+    /* background images */
+    div.home-page-link-box div.nas-background {
+        background-image: url('../../Images/Home/router.svg');
+    }
+
+    div.home-page-link-box div.service-background {
+        background-image: url('../../Images/Home/service.svg');
+    }
+
+    div.home-page-link-box div.client-background {
+        background-image: url('../../Images/Home/client.svg');
+    }
+
+    div.home-page-link-box div.dealer-background {
+        background-image: url('../../Images/Home/dealer.svg');
+    }
+
+    div.home-page-link-box div.fee-background {
+        background-image: url('../../Images/Home/fee.svg');
+    }
+
+    div.home-page-link-box div.bill-background {
+        background-image: url('../../Images/Home/bill.svg');
+    }
+
+    div.home-page-link-box div.technician-background {
+        background-image: url('../../Images/Home/technician.svg');
+    }
+
+    div.home-page-link-box div.support-background {
+        background-image: url('../../Images/Home/support.svg');
+    }
+
+    div.home-page-link-box div.sms-background {
+        background-image: url('../../Images/Home/sms.svg');
+    }
+
+    div.home-page-link-box div.work-order-background {
+        background-image: url('../../Images/Home/work-order.svg');
+    }
+
+div.quick-access-bar {
+    font-family: 'Francois One', cursive;
+    text-align: center;
+    border-bottom: 0.2em solid #032f4b;
+    border-radius: 1em;
+    position: relative;
+    height: 0;
+    margin-top: 0.8em;
+}
+
+div.quick-access-title {
+    position: relative;
+    top: -0.6em;
+    background-color: #f2f7ff;
+    display: inline-block;
+    padding: 0 0.5em;
+    border-radius: 1em;
+}
+
+/* --- slide animations ---*/
+
+@keyframes slide1 {
+    from {
+        color: black;
+    }
+
+    to {
+        color: #28ad28;
+    }
+}
+
+@keyframes slide2 {
+    from {
+        color: black;
+    }
+
+    to {
+        color: #9c3636;
+    }
+}
+
+@keyframes slide3 {
+    from {
+        color: black;
+    }
+
+    to {
+        color: #81813f;
+    }
+}
+
+@keyframes slide4 {
+    from {
+        color: black;
+    }
+
+    to {
+        color: #3d698a;
+    }
+}
+
+div.sliding-box-slide[class*="slide-"] {
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+}
+
+div.sliding-box-slide.slide-1 {
+    animation-name: slide1;
+}
+
+div.sliding-box-slide.slide-2 {
+    animation-name: slide2;
+}
+
+div.sliding-box-slide.slide-3 {
+    animation-name: slide3;
+}
+
+div.sliding-box-slide.slide-4 {
+    animation-name: slide4;
+}
+
+div.quick-data-view {
+    width: 30em;
+    max-height: 60em;
+    border: 1px solid lightblue;
+    border-radius: 0.3em;
+    overflow: auto;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0.5em;
+}

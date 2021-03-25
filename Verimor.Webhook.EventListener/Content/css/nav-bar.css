@@ -1,0 +1,90 @@
+﻿div.nav-bar {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+    transition: 0.5s all ease;
+    z-index: 1;
+}
+
+    div.nav-bar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+
+div.nav-menu-title {
+    background-color: #030f33;
+    transition: 0.5s all ease;
+    padding: 0.5em 0;
+    border-style: dashed;
+    border-width: 1px 0;
+    border-color: #032f4b;
+    background-repeat: no-repeat;
+    background-size: 1em;
+    background-position: -3em center;
+}
+
+    div.nav-menu-title:hover, div.nav-menu-title.selected {
+        background-color: #798ccc;
+        color: black;
+        background-image: url('../Images/Buttons/main-menu-bullet.svg');
+        background-position: 0.1em center;
+    }
+
+ul.nav-list-sub {
+    display: none;
+}
+
+    ul.nav-list-sub li {
+        transition: 0.5s all ease;
+    }
+
+        ul.nav-list-sub li:hover {
+            background-color: #424242;
+            color: #0b93c0;
+        }
+
+        div.nav-menu-title:hover, div.nav-menu-title.selected, ul.nav-list-sub li:hover {
+            text-indent: 1em;
+        }
+
+ul.nav-list-main a {
+    display: block;
+    padding: 0.5em 0;
+}
+
+div.nav-bar-toggle {
+    background-image: url('../Images/Shared/nav-bar-toggle.svg');
+    background-repeat: no-repeat;
+    background-position: 1em center;
+    background-size: 35%;
+    position: absolute;
+    top: 3.6em;
+    left: 12.7em;
+    width: 3em;
+    height: 1.5em;
+    cursor: pointer;
+    border-radius: 2em;
+    transition: 0.5s all ease;
+    z-index: 0;
+    background-color: #272727;
+}
+
+    div.nav-bar-toggle:not(.collapsed):hover {
+        left: 14em;
+    }
+
+    div.nav-bar-toggle.collapsed:hover {
+        left: -1.2em;
+    }
+
+    div.nav-bar-toggle.collapsed {
+        transform: rotate(180deg);
+        left: -2.5em;
+        background-color: #030f33;
+        background-position: 0.5em center;
+    }

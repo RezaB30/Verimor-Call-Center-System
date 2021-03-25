@@ -1,0 +1,38 @@
+﻿div.line-quality-button-container {
+    text-align: center;
+    padding: 0.5em;
+}
+
+div#line-quality-results-container {
+    padding: 0.4em;
+    border: 1px solid;
+    margin: 0.2em;
+    border-radius: 0.2em;
+}
+
+table.line-quality-data {
+    width: 100%;
+    border-collapse: collapse;
+    color: #807a03;
+}
+
+    table.line-quality-data tr:not(:first-child):not(:last-child) {
+        border-bottom: 1px solid #272727;
+    }
+
+    table.line-quality-data td.label {
+        font-family: 'Racing Sans One', cursive;
+        color: #034453;
+    }
+
+    table.line-quality-data table.line-quality-details {
+        width: 100%;
+    }
+
+table.line-quality-details {
+    border-collapse: collapse;
+}
+
+    table.line-quality-details td {
+        text-align: center;
+    }

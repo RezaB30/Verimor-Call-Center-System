@@ -1,0 +1,457 @@
+﻿a.link-button.selected, input.link-button.selected {
+    background-color: #8fda8b;
+    border-color: #458439 !important;
+}
+
+label {
+    color: #4d879b;
+    text-shadow: 0px 0px 5px #fff;
+}
+
+input, select, a.link-button, textarea {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #d3e3fc;
+    transition: 0.5s ease;
+    border-radius: 0.15em;
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+    input:focus, select:focus, a.link-button:focus, .select-list-wrapper:focus input[type=text], textarea:focus {
+        border-color: #b7bafc;
+        background-color: lightyellow;
+    }
+
+    input:not([type=button]):not([type=submit]), select:not([type=button]):not([type=submit]) {
+        font-size: 1em;
+        width: 12em;
+        border-radius: 0;
+    }
+
+    .select-list-wrapper.wide-input input:not([type=button]):not([type=submit]), select:not([type=button]):not([type=submit]) {
+        width: 30em;
+    }
+
+    input[type=button], input[type=submit] {
+        height: 2em;
+    }
+
+    input[type=button], input[type=submit], a.link-button {
+        font-size: 1em;
+        font-family: inherit;
+        padding: 0.1em 0.2em;
+        background-color: #d3e3fc;
+        cursor: pointer;
+        display: inline-block;
+        height: 1.3em;
+        line-height: 1.3em;
+        box-sizing: content-box;
+    }
+
+        input[type=button]:hover, input[type=submit]:hover, a.link-button:hover {
+            background-color: whitesmoke;
+            background-position: 10px center;
+            background-repeat: no-repeat;
+        }
+
+        input[type=button]:focus, input[type=submit]:focus, a.link-button:focus {
+            background-color: lightyellow;
+            border-color: #b7bafc;
+        }
+
+        input[type=button].large-button, input[type=submit].large-button, a.link-button.large-button {
+            font-size: 2em;
+        }
+
+    input.currency-editor, input.percent-editor {
+        text-align: right;
+        padding-right: 1em;
+        width: 11em !important;
+    }
+
+    input.percent-input-left {
+        padding-right: 0;
+        padding-left: 1em;
+        text-align: left;
+    }
+
+textarea {
+    resize: none;
+    min-width: 15em;
+    border-radius: 0;
+    min-height: 4em;
+}
+
+input[readonly=readonly] {
+    background-color: #dfe9f5;
+    border-color: #e0dede;
+}
+
+div.login-form input:not([type=submit]) {
+    width: 13em;
+}
+
+input.iconed-button:hover, a.iconed-button:hover {
+    padding-left: 2.5em;
+    background-position: 0.5em center;
+}
+
+input.iconed-button, a.iconed-button {
+    transition: 0.3s ease-out;
+    background-position: 2px center;
+    background-repeat: no-repeat;
+    padding-left: 2.5em;
+    background-size: 1.5em;
+}
+
+a.new-button, input.new-button {
+    background-image: url('../Images/Buttons/plus.svg');
+}
+
+a.back-button, input.back-button {
+    background-image: url('../Images/Buttons/back.svg');
+}
+
+a.delete-button, input.delete-button {
+    background-image: url('../Images/Buttons/bin.svg');
+}
+
+a.edit-button, input.edit-button {
+    background-image: url('../Images/Buttons/pencil.svg');
+}
+
+a.save-button, input.save-button {
+    background-image: url('../Images/Buttons/save.svg');
+}
+
+a.select-button, input.select-button {
+    background-image: url('../Images/Buttons/select.svg');
+}
+
+a.reset-password-button, input.reset-password-button {
+    background-image: url('../Images/Buttons/key.svg');
+}
+
+a.add-instance-button, input.add-instance-button {
+    background-image: url('../Images/Buttons/insert.svg');
+}
+
+a.calendar-button, input.calendar-button {
+    background-image: url('../Images/Buttons/calendar.svg');
+}
+
+a.accept-button, input.accept-button {
+    background-image: url('../Images/Buttons/check-mark.svg');
+}
+
+a.validate-button, input.validate-button {
+    background-image: url('../Images/Buttons/validate.svg');
+}
+
+a.cancel-button, input.cancel-button {
+    background-image: url('../Images/Buttons/cancel.svg');
+}
+
+a.view-list-button, input.view-list-button {
+    background-image: url('../Images/Buttons/view-list.svg');
+}
+
+a.print-button, input.print-button {
+    background-image: url('../Images/Buttons/printer.svg');
+}
+
+a.history-button, input.history-button {
+    background-image: url('../Images/Buttons/history.svg');
+}
+
+a.details-button, input.details-button {
+    background-image: url('../Images/Buttons/information.svg');
+}
+
+a.next-button, input.next-button {
+    background-image: url('../Images/Buttons/next.svg');
+}
+
+a.previous-button, input.previous-button {
+    background-image: url('../Images/Buttons/previous.svg');
+}
+
+a.send-button, input.send-button {
+    background-image: url('../Images/Buttons/send.svg');
+}
+
+a.money-button, input.money-button {
+    background-image: url('../Images/Buttons/TL-symbol.svg');
+}
+
+a.browse-button, input.browse-button {
+    background-image: url('../Images/Buttons/browse.svg');
+}
+
+a.logo-button, input.logo-button {
+    background-image: url('../Images/Buttons/logo.svg');
+}
+
+a.payment-button, input.payment-button {
+    background-image: url('../Images/Buttons/money.svg');
+}
+
+a.settings-button, input.settings-button {
+    background-image: url('../Images/Shared/settings.svg');
+}
+
+a.radius-settings-button, input.radius-settings-button {
+    background-image: url('../Images/Shared/radius-settings.svg');
+}
+
+a.reload-button, input.reload-button {
+    background-image: url('../Images/Buttons/reload.svg');
+}
+
+a.lock-button, input.lock-button {
+    background-image: url('../Images/Buttons/locked.svg');
+}
+
+a.unlock-button, input.unlock-button {
+    background-image: url('../Images/Buttons/unlocked.svg');
+}
+
+a.credit-button, input.credit-button {
+    background-image: url('../Images/Buttons/TL-symbol.svg');
+}
+
+a.plus-button, input.plus-button {
+    background-image: url('../Images/Buttons/plus.svg');
+}
+
+a.minus-button, input.minus-button {
+    background-image: url('../Images/Buttons/minus.svg');
+}
+
+a.download-button, input.download-button {
+    background-image: url('../Images/Buttons/download.svg');
+}
+
+a.pay-with-card-button, input.pay-with-card-button {
+    background-image: url('../Images/Buttons/credit-card.svg');
+}
+
+a.sign-in-button, input.sign-in-button {
+    background-image: url('../Images/Buttons/sign-in.svg');
+}
+
+a.nat-button, input.nat-button {
+    background-image: url('../Images/Buttons/nat.svg');
+}
+
+a.discount-button, input.discount-button {
+    background-image: url('../Images/Buttons/discount.svg');
+}
+
+a.warning-button, input.warning-button {
+    background-image: url('../Images/Shared/error-triangle.svg');
+}
+
+a.search-button, input.search-button {
+    background-image: url('../Images/Buttons/magnifier.svg');
+    /*margin-right: 5px;*/
+    float: right;
+}
+
+a.clear-search, input.clear-search {
+    background-image: url('../Images/Buttons/eraser.svg');
+    margin-right: 5px;
+    float: right;
+}
+
+a.remove-button, input.remove-button, a.close-button, input.close-button {
+    background-image: url('../Images/Buttons/remove.svg');
+    /*margin-right: 5px;*/
+    float: right;
+}
+
+a.remove-istance-button, input.remove-istance-button {
+    background-image: url('../Images/Buttons/remove.svg');
+    vertical-align: middle;
+}
+
+a.close-button, input.close-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+a.clear-button, input.clear-button {
+    background-image: url('../Images/Buttons/eraser.svg');
+}
+
+div.ebill-info-tag{
+    display: inline-block;
+    height: 1.8em;
+    width: 1.8em;
+    border-radius: 100%;
+    background-color: #55aa5f;
+    vertical-align: middle;
+    background-image: url('../Images/Buttons/e-bill-tag.svg');
+    background-position: center;
+    background-size: 1.6em;
+    background-repeat: no-repeat;
+    border: 1px solid #008d00;
+}
+
+a.list-button, input.list-button {
+    background-image: url('../Images/Buttons/list.svg');
+    vertical-align: middle;
+    padding-top: 0;
+    padding-right: 2px;
+    padding-bottom: 0;
+}
+
+.select-list-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+    .select-list-wrapper input {
+        position: relative;
+        cursor: pointer;
+    }
+
+.list-option {
+    cursor: pointer;
+    user-select: none;
+}
+
+    .list-option:hover {
+        background-color: #37adb1;
+    }
+
+.options-container {
+    position: absolute;
+    background-color: whitesmoke;
+    padding: 0px 1px;
+    background-color: rgba(226, 255, 253, 0.9);
+    min-width: 12em;
+    border-style: solid;
+    border-color: #d3e3fc;
+    border-width: 0 2px 2px 2px;
+    display: none;
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 20em;
+    z-index: 10;
+}
+
+.select-list-wrapper.wide-input .options-container {
+    min-width: 30em;
+    max-width: 38em;
+}
+
+.select-list-wrapper .selected {
+    background-color: #2a6d6f;
+    color: white;
+}
+
+.drop-down-arrow {
+    position: absolute;
+    right: 0.2em;
+    z-index: 5;
+    top: 0.27em;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: 0.3s ease-in-out all;
+    transform: rotate(-90deg);
+    height: 1em;
+}
+
+.select-list-wrapper:hover .drop-down-arrow {
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+ol.multiselect-orderedlist {
+    padding-left: 30px;
+    border-left: 3px solid #032f4b;
+}
+
+li.multiselect-input-row {
+    padding: 4px 0;
+}
+
+    li.multiselect-input-row:not(:last-child) {
+        border-bottom: 1px dashed gray;
+    }
+
+textarea.note-message {
+    width: 100%;
+}
+
+.input-row.centered, .centered {
+    text-align: center;
+}
+
+div.input-wrapper {
+    display: inline-block;
+    margin-right: 1em;
+    margin-bottom: 1em;
+    width: 20em;
+}
+
+.field-validation-error {
+    color: red;
+    font-size: 0.8em;
+}
+
+table.input-table {
+    border-collapse: separate;
+    border-spacing: 0.4em;
+    margin: auto;
+}
+
+div.transfer-rate-wrapper .select-list-wrapper input[type=text],
+div.transfer-rate-wrapper .select-list-wrapper .options-container,
+div.traffic-limit-wrapper .select-list-wrapper input[type=text],
+div.traffic-limit-wrapper .select-list-wrapper .options-container {
+    min-width: 3.5em;
+    width: 3.5em;
+}
+
+div.transfer-rate-wrapper input.transfer-rate-text {
+    border-right: none;
+}
+
+.rate-suffix {
+    color: #2bb427;
+    font-weight: bold;
+}
+
+.currency-symbol, .percent-symbol-left, .percent-symbol-right, .percent-symbol {
+    font-size: 1.2em;
+    color: #2bb427;
+}
+
+.payment-gateway-name {
+    color: #2bb427;
+}
+
+img.boolean-checkmark {
+    width: 1.4em;
+}
+
+div.currency-input-wrapper, div.percent-input-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+    div.currency-input-wrapper .currency-symbol, div.percent-input-wrapper .percent-symbol-right {
+        position: absolute;
+        right: 0.2em;
+        top: 0;
+    }
+
+    div.percent-input-wrapper .percent-symbol-left {
+        position: absolute;
+        left: 0.2em;
+        top: 0;
+    }

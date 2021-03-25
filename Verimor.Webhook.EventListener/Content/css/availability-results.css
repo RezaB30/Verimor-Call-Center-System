@@ -1,0 +1,99 @@
+﻿div.availability-results-wrapper {
+    border-radius: 0.4em;
+    border: 1px solid #e3e3e3;
+    padding: 0 1em;
+}
+
+    div.availability-results-wrapper div.availability-results-title {
+        color: brown;
+        font-family: 'Racing Sans One', cursive;
+        font-size: 2em;
+    }
+
+    div.availability-results-wrapper div.availability-results-speed {
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-image: url('../Images/Buttons/speedometer.svg');
+        padding-left: 3.4em;
+        font-size: 1.2em;
+        border-bottom: 1px dashed #636ee6;
+    }
+
+        div.availability-results-wrapper div.availability-results-speed div.speed-title {
+            font-size: 0.75em;
+        }
+
+        div.availability-results-wrapper div.availability-results-speed div.speed-value {
+            font-family: 'Racing Sans One', cursive;
+            font-weight: normal;
+            font-size: 1.5em;
+        }
+
+    div.availability-results-wrapper div.results {
+        border-bottom: 1px dashed #636ee6;
+    }
+
+        div.availability-results-wrapper div.results div.title {
+            color: brown;
+            font-family: 'Racing Sans One', cursive;
+            text-align: left;
+        }
+
+        div.availability-results-wrapper div.results div.value {
+            text-align: right;
+            color: #2b5369;
+            font-family: 'Racing Sans One', cursive;
+        }
+
+    div.availability-results-wrapper table.availability-results-general-items {
+        text-align: initial;
+        font-size: 0.9em;
+    }
+
+        div.availability-results-wrapper table.availability-results-general-items .general-item {
+        }
+
+        div.availability-results-wrapper table.availability-results-general-items .general-title {
+            background-image: url('../Images/Buttons/availability-item.svg');
+            background-position: left center;
+            background-repeat: no-repeat;
+            background-size: 1em;
+            padding-left: 1.2em;
+        }
+
+        div.availability-results-wrapper table.availability-results-general-items .general-value {
+            width: 7em;
+        }
+
+            div.availability-results-wrapper table.availability-results-general-items .general-value.error-message-value {
+                height: 1em;
+                overflow: hidden;
+                word-wrap: initial;
+                white-space: nowrap;
+                max-width: 7em;
+                color: brown;
+                cursor: pointer;
+                text-overflow: ellipsis;
+            }
+
+                div.availability-results-wrapper table.availability-results-general-items .general-value.error-message-value.open {
+                    white-space: unset;
+                }
+
+        div.availability-results-wrapper table.availability-results-general-items img.boolean-checkmark {
+            width: 1.1em;
+            vertical-align: text-top;
+        }
+
+    div.availability-results-wrapper.available {
+        background-color: #c5fcea;
+    }
+
+    div.availability-results-wrapper.unavailable {
+        background-color: #fcc0c0;
+    }
+
+    div.availability-results-wrapper.available-warning {
+        background-color: #fcfbc0;
+    }

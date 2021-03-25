@@ -1,0 +1,21 @@
+﻿table.rate-limit-text {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    table.rate-limit-text tr {
+        background: none !important;
+        color: inherit !important;
+        border: none !important;
+    }
+
+    table.rate-limit-text td {
+        text-align: inherit !important;
+        border: none !important;
+    }
+
+span.rate-limit-label {
+    color: #90850c;
+    font-size: 0.9em;
+    font-style: italic;
+}

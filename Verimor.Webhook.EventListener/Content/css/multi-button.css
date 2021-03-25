@@ -1,0 +1,65 @@
+﻿div.multi-button-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.multi-button-item, .multi-button-item-top {
+    transition: 0.5s ease;
+    font-family: inherit;
+    padding: 0.1em 0.2em;
+    background-color: #d3e3fc;
+    cursor: pointer;
+    height: 1.5em;
+    min-width: 14em;
+    line-height: 1.3em;
+}
+
+    .multi-button-item:hover, .multi-button-item-top:hover, div.multi-button-wrapper:focus .multi-button-item-top, .multi-button-item.selected {
+        background-color: whitesmoke;
+    }
+
+.multi-button-item-top {
+    border-radius: 0.3em;
+    padding-right: 2em;
+    border: 2px solid #d3e3fc;
+    background-image: url('../Images/Buttons/multi-button-drop.svg');
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 1.5em;
+}
+
+    .multi-button-item-top:hover {
+        background-position: right 10px center;
+    }
+
+    .multi-button-item-top.open {
+        border-radius: 0.3em 0.3em 0 0;
+    }
+
+    .multi-button-item-top.open, .multi-button-options.open {
+        border-color: #487795;
+    }
+
+div.multi-button-wrapper .multi-button-item {
+    border-radius: 0;
+}
+
+    div.multi-button-wrapper .multi-button-item:last-of-type {
+    }
+
+div.multi-button-options {
+    display: none;
+    position: absolute;
+    z-index: 101;
+    border: solid 2px #d3e3fc;
+    border-top: none;
+    border-radius: 0 0 0.3em 0.3em;
+    min-width: 16.2em;
+}

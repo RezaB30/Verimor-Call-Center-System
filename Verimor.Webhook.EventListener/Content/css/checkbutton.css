@@ -1,0 +1,11 @@
+﻿.checkbutton-container{
+    display: inline-block;
+}
+
+.check-button{
+    background-image: url('../Images/Buttons/unchecked.svg');
+}
+
+.check-button.selected{
+    background-image: url('../Images/Buttons/checked.svg');
+}

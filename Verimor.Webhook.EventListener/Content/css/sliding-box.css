@@ -1,0 +1,72 @@
+﻿div.sliding-box-container, div.sliding-box-slide {
+    width: 13em;
+    height: 8em;
+    display: inline-block;
+}
+
+div.sliding-box-container {
+    /*position: relative;
+    overflow: hidden;
+    text-align: center;
+    border: 1px solid #b6dbe7;
+    border-radius: 0.3em;*/
+    font-family: 'Francois One', cursive;
+    /*font-size: 1.03em;
+    margin: 1em;
+    vertical-align: top;
+    transition: 0.5s all ease;*/
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#d6f9fc+0,ddf1f9+48,a0d8ef+100 */
+    /*background: #d6f9fc;*/ /* Old browsers */
+    /*background: -moz-linear-gradient(top, #d6f9fc 0%, #ddf1f9 48%, #a0d8ef 100%);*/ /* FF3.6-15 */
+    /*background: -webkit-linear-gradient(top, #d6f9fc 0%,#ddf1f9 48%,#a0d8ef 100%);*/ /* Chrome10-25,Safari5.1-6 */
+    /*background: linear-gradient(to bottom, #d6f9fc 0%,#ddf1f9 48%,#a0d8ef 100%);*/ /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6f9fc', endColorstr='#a0d8ef',GradientType=0 );*/ /* IE6-9 */
+}
+
+div.sliding-box-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5.5em;
+    padding: 1em 0;
+    transition: 0.5s all ease;
+}
+
+    div.sliding-box-slide.left {
+        left: -15em;
+    }
+
+    div.sliding-box-slide.right {
+        left: 15em;
+    }
+
+    div.sliding-box-slide *{
+        outline: none;
+    }
+
+div.sliding-box-button-strip {
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Standard syntax */
+}
+
+div.sliding-box-button {
+    width: 0.5em;
+    height: 0.5em;
+    display: inline-block;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 100%;
+    margin: 0.2em;
+    cursor: pointer;
+    transition: 0.5s all ease;
+}
+
+div.sliding-box-button:hover, div.sliding-box-button.selected{
+    background-color: rgba(0,0,0,1);
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Verimor.Webhook.EventListener.ViewModels.VerimorDiagramVM>
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Operasyon Düzenle</h3>
+<div style="margin-bottom:1rem;"></div>
+<div class="">
+    <div class="container-fluid">
+        <div id="ErrorMessage" style="color:red;">@ViewBag.ErrorMessage</div>
+        <div class="row">
+            <div class="col-lg-1 col-md-1"></div>
+            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.AnnouncementID)</div>
+            <div class="col-lg-2 col-md-2">@Html.DisplayNameFor(m => m.Phrase)</div>
+            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Max_Digits)</div>
+            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Min_Digits)</div>
+            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Target)</div>
+            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Retry_Count)</div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                @using (Html.BeginForm("Edit", "VerimorSettings", FormMethod.Post))
+                {
+                    <div class="col-lg-1 col-md-1">@Html.ActionLink("Sil", "DeleteOperation", "VerimorSettings", new { ID = item.ID }, new { @class = "link-button" })</div>
+                    <div class="col-lg-1 col-md-1">
+                        @Html.HiddenFor(m => item.ID)
+                        @Html.HiddenFor(m => item.OperationType)
+                        @Html.EditorFor(m => item.AnnouncementID)
+                    </div>
+                    <div class="col-lg-2 col-md-2">@Html.TextAreaFor(m => item.Phrase)</div>
+                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Max_Digits)</div>
+                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Min_Digits)</div>
+                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Target)</div>
+                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Retry_Count)</div>
+                    <div class="col-lg-1 col-md-1">
+                        <input id="EditBtn" type="submit" value="Kaydet" />
+                    </div>
+                }
+            </div>
+        }
+        @Html.ActionLink("Geri Dön", "Index", "VerimorSettings", null, new { @class = "link-button" })
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#ErrorMessage").css('visibility', 'visible')
+            setTimeout(function () {
+                $("#ErrorMessage").css('visibility', 'hidden');
+            }, 5000);
+        })
+        $(window).keydown(function (event) {
+            if (event.altKey && event.which == "192") {
+                $('#EditBtn').click();
+            }
+        })
+    </script>
+}

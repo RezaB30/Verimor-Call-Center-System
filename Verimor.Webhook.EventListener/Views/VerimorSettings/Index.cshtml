@@ -1,0 +1,174 @@
+﻿@model List<Verimor.Webhook.EventListener.ViewModels.VerimorSettings>
+
+@{
+    ViewBag.Title = "Verimor Settings";
+}
+
+@*<style>
+        .updateButton {
+            border: 2px solid #386537;
+            text-align: center;
+            background-color: darkcyan;
+            color: white;
+            padding: 1px;
+        }
+    </style>*@
+
+<div class="centered">
+    @Html.ActionLink("Yeni Diyalog Ekle", "CreateDiagram", "VerimorSettings", null, new { @class = "link-button" })
+    @Html.ActionLink("Diyalogları Düzenle", "Edit", "VerimorSettings", null, new { @class = "link-button" })
+</div>
+<div style="margin-bottom:2rem;"></div>
+<h3>Operasyon Yönetimi</h3>
+<div style="margin-bottom:2rem;"></div>
+<div class="page-contents">
+    <div class="confirm-box"><span>@Html.DisplayNameFor(m => m.FirstOrDefault().Parent) : </span>@Html.DropDownListFor(m => m.FirstOrDefault().Parent, new SelectList(ViewBag.List, "Value", "Text"), "Çağrı Başlangıcı")</div>
+    <input type="button" value="Güncelle" id="EditOperations" /><span style="color:red;padding-top:1em;position:absolute;margin-left:12em;" id="EditOperationID"></span>
+    @for (int i = -1; i < 12; i++)
+    {
+        if (i == -1)
+        {
+            <div class="confirm-box" id="digit-group" style="margin-left: 9.2rem;">
+                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Digit) : </span>@*<input style="width: 5%;" class="centered" id="[@i]Digits" type="text" />*@ @Html.DropDownList("[" + i + "]Digits", new SelectList(ViewBag.DigitList, "Value", "Text"), "", new { style = "width:5%;", id = "[" + i + "]Digits", @class = "centered" })
+                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Child) : </span><span id="[@i]Childs">@Html.DropDownListFor(m => m.FirstOrDefault().Child, new SelectList(ViewBag.List, "Value", "Text"), "")</span>
+                <span><input type="button" value="Sil" onclick="Delete($('#Parent').val(), document.getElementById('[' + @i + ']Digits').value, document.getElementById('[' + @i + ']Childs').firstChild.value)" /></span>
+            </div>
+        }
+        else
+        {
+            <div class="confirm-box" id="digit-group" style="margin-left: 37.8rem;">
+                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Digit) : </span>@*<input style="width: 5%;" class="centered" id="[@i]Digits" type="text" />*@ @Html.DropDownList("[" + i + "]Digits", new SelectList(ViewBag.DigitList, "Value", "Text"), "", new { style = "width:5%;", id = "[" + i + "]Digits", @class = "centered" })
+                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Child) : </span><span id="[@i]Childs">@Html.DropDownListFor(m => m.FirstOrDefault().Child, new SelectList(ViewBag.List, "Value", "Text"), "")</span>
+                <span><input type="button" value="Sil" onclick="Delete($('#Parent').val(), document.getElementById('[' + @i + ']Digits').value, document.getElementById('[' + @i + ']Childs').firstChild.value)" /></span>
+            </div>
+        }
+
+    }
+</div>
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+            document.getElementById("Parent").selectedIndex = 0;
+            $('#Parent').trigger('change');
+            MethodTypes();
+        })
+        $('#Parent').change(function () {
+            $('#EditOperationID').html("");
+            for (var i = -1; i < 12; i++) {
+                document.getElementById("[" + i + "]Digits").value = "";
+                document.getElementById("[" + i + "]Childs").firstChild.selectedIndex = 0;
+            }
+            var ParentValue = $(this).val();
+            $.ajax({
+                method: 'POST',
+                url: '@Url.Action("UpdateOperations")',
+                data: { parentID: ParentValue },
+                complete: function (data, status) {
+                    if (status == "success") {
+                        var Result = data.responseJSON;
+                        var Digit = Result.DigitList;
+                        var Child = Result.ChildList;
+                        for (var i = 0; i < Child.length; i++) {
+                            var DigitIndex = Digit[i];
+                            var ChildIndex = Child[i];
+                            if (DigitIndex == null || DigitIndex == "*" || DigitIndex == "#") {
+                                if (DigitIndex == null) {
+                                    DigitIndex = "-1";
+                                    //$('#[' + DigitIndex + ']Digits').val("");
+                                    //$('#[' + DigitIndex + ']Childs > select > option[value=' + ChildIndex + ']').attr("selected","selected");
+                                    document.getElementById("[" + DigitIndex + "]Digits").value = "";
+                                    document.getElementById("[" + DigitIndex + "]Childs").firstChild.selectedIndex = ChildIndex;
+                                }
+                                if (DigitIndex == "*") {
+                                    DigitIndex = "10";
+                                    document.getElementById("[" + DigitIndex + "]Digits").value = "*";
+                                    document.getElementById("[" + DigitIndex + "]Childs").firstChild.selectedIndex = ChildIndex;
+                                }
+                                if (DigitIndex == "#") {
+                                    DigitIndex = "11";
+                                    document.getElementById("[" + DigitIndex + "]Digits").value = "#";
+                                    document.getElementById("[" + DigitIndex + "]Childs").firstChild.selectedIndex = ChildIndex;
+                                }
+                            }
+                            else {
+                                document.getElementById("[" + DigitIndex + "]Digits").value = DigitIndex;
+                                document.getElementById("[" + DigitIndex + "]Childs").firstChild.selectedIndex = ChildIndex;
+                            }
+                        }
+                    }
+                }
+            });
+        })
+        $('#EditOperations').click(function () {
+            var ParentID = $('#Parent').val();
+            $('#EditOperationID').text("");
+            for (var i = -1; i < 12; i++) {
+                var index = i + 2;
+                var DigitValue = document.getElementById("[" + i + "]Digits").value;
+                var ChildValue = document.getElementById("[" + i + "]Childs").firstChild.value;
+                if (ChildValue == "" && DigitValue == "") {
+
+                }
+                if (ChildValue == "" && DigitValue != "") {
+                    $('#EditOperationID').append("<div>" + index + " numaralı kaydı güncelleme işlemi başarısız. Alt menü boş olamaz</div>");
+                }
+                if (ChildValue != "") {
+                    if (ParentID == "") {
+                        ParentID = null;
+                    }
+                    $.ajax({
+                        method: 'POST',
+                        url: '@Url.Action("EditOperations","VerimorSettings")',
+                        data: { Digit: DigitValue, Parent: ParentID, Child: ChildValue },
+                        complete: function (data, status) {
+                            if (status == "success") {
+                                var Result = data.responseJSON;
+                                document.getElementById("Parent").selectedIndex = ParentID;
+                                $('#Parent').trigger('change');
+                                $('#EditOperationID').append("<div>" + Result.ErrorMessage + "</div>");
+                            }
+                            else {
+                                $('#EditOperationID').append("<div>İşlem Başarısız</div>");
+                            }
+                        }
+                    })
+                }
+            }
+        })
+        function Delete(Parent, Digit, Child) {
+            $('#EditOperationID').text("");
+            var ParentValue = Parent;
+            var DigitValue = Digit;
+            var ChildValue = Child;
+            $.ajax({
+                method: 'POST',
+                url: '@Url.Action("Delete","VerimorSettings")',
+                data: { Parent: ParentValue, Digit: DigitValue, Child: ChildValue },
+                complete: function (data, status) {
+                    if (status == "success") {
+                        var Result = data.responseJSON;
+                        document.getElementById("Parent").selectedIndex = Parent;
+                        $('#Parent').trigger('change');
+                        $('#EditOperationID').append("<div>" + Result.ErrorMessage + "</div>");
+                    }
+                    else {
+                        $('#EditOperationID').append("<div>İşlem Başarısız</div>");
+
+                    }
+                }
+            })
+        }
+        function MethodTypes() {
+            var x = document.getElementById("Parent");
+            for (var i = 0; i < x.length; i++) {
+                var MethodValue = x.options[i].text;
+                if (MethodValue.startsWith("*")) {
+                    $('#Parent > option:nth-child(' + (i + 1) + ')').css("color", "red");
+                    $('#Child > option:nth-child(' + (i + 1) + ')').css("color", "red");
+                }
+            }
+        }
+    </script>
+}

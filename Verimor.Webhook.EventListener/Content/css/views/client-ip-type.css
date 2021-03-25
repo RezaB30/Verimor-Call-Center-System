@@ -1,0 +1,28 @@
+﻿div.ip-type-head {
+    position: relative;
+    left: 0;
+    width: 100%;
+    background-color: #316989;
+    color: white;
+    text-align: center;
+    transition: 0.5s all ease;
+}
+
+div.ip-type-head.static{
+    left: 50%;
+    width: 50%;
+    background-color: #303365;
+}
+
+div.ip-type-head.shared{
+    width: 50%;
+    background-color: #0c6536;
+}
+
+td.static-ip-cell, td.shared-ip-cell{
+    transition: 0.5s all ease;
+}
+
+td.static-ip-cell.ignore, td.shared-ip-cell.ignore{
+    text-decoration: line-through;
+}

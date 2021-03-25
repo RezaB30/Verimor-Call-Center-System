@@ -1,0 +1,99 @@
+﻿.data-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.8em;
+}
+
+    .data-table tr {
+        border-bottom: 1px solid #f0ebeb;
+    }
+
+        .data-table tr:first-child,
+        tr.table-head {
+            background-color: #034453;
+            color: white;
+        }
+
+        .data-table tr.interactable-data-row {
+            cursor: pointer;
+        }
+
+    .data-table td:not(:last-child), .data-table th:not(:last-child) {
+        border-right: 1px dashed gray;
+    }
+
+    .data-table td {
+        padding: 4px;
+    }
+
+        .data-table td:last-of-type {
+            text-align: center;
+            white-space: nowrap;
+        }
+
+            .data-table td:last-of-type > *:not(:last-child) {
+                /*margin-right: 1em;*/
+            }
+
+        .data-table td[title] {
+            text-align: center;
+            transition: 0.3s all ease;
+        }
+
+            .data-table td[title]:hover {
+                cursor: default;
+                background-color: rgb(155, 222, 113);
+            }
+
+    .data-table form {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .data-table tr:nth-of-type(odd):not(:first-child) {
+        background-color: #f9fcff;
+    }
+
+    .data-table tr.interactable-data-row:hover, .data-table tr.selected {
+        background-color: #4bbf75 !important;
+    }
+
+th.partial-table-head {
+    background-color: #878505;
+    color: #ffd2d2;
+}
+
+.table-pages {
+    line-height: 20px;
+    text-align: center;
+    font-size: 0.6em;
+    font-weight: bold;
+    font-family: Arial;
+    border-bottom: 1px solid #f0ebeb;
+    background-color: #e4f0fe;
+}
+
+    .table-pages span {
+        float: left;
+    }
+
+    .table-pages div.page-numbers-container {
+        display: inline-block;
+    }
+
+.page-link {
+    min-width: 20px;
+    background-color: #b6e667;
+    display: inline-block;
+    margin: 3px;
+    box-shadow: 1px 1px 0px lightgray;
+}
+
+    .page-link:not(.disabled):hover {
+        background-color: white;
+    }
+
+    .page-link.disabled {
+        background-color: whitesmoke;
+        cursor: default;
+    }

@@ -1,0 +1,15 @@
+﻿tr.custom-fee-top-row td {
+    border-top: 1px dashed gray;
+}
+
+tr.custom-fee-bottom-row td {
+    border-bottom: 1px dashed gray;
+}
+
+tr.custom-fee-sample-row {
+    display: none;
+}
+
+tr.custom-fee-row td{
+    padding: 0.2em 0;
+}

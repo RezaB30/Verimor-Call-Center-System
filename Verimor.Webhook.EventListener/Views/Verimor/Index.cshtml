@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h1>VERIMOR SCENARIO TESTER</h1>
+
+<div class="centered">
+    <div class="input-row">
+        <input id="cli" type="text" placeholder="Telefon Numarası" />
+    </div>
+    <span id="uuid" hidden>123123</span>
+    <span id="cld" hidden>1000</span>
+    <span id="step" hidden>1</span>
+    <span id="phrase"></span>
+    <div class="input-row">
+        <input id="digits" type="text" placeholder="Tuş gir" />
+    </div>
+    <button id="call">Ara</button>
+    <div style="margin-bottom:1rem;"></div>
+    <div>@Html.ActionLink("Sıfırla", "Index")</div>
+</div>
+<hr />
+<div class="centered">
+    <h3 id="message">-</h3>
+</div>
+<hr />
+<div id="services" class="centered">
+    -
+</div>
+@section scripts{
+    <script>
+
+        var Prompt = {
+            "announcement_id": null,
+            "min_digits": null,
+            "max_digits": null,
+            "retry_count": null,
+            "service_url": "http://185.188.129.89:44324/Verimor/Process?",
+            "param_name": null,
+            "phrase": null
+        };
+        var Transfer = {
+            "target": null,
+            "greet_name": null,
+            "greet_phrase": null
+        };
+        var uuID = Math.floor(Math.random() * 1000000000);
+        var URL = Prompt.service_url.replace("http://185.188.129.89:44324", "");
+        URL = URL.replace("?", "");
+        $('#call').click(function () {
+            $.ajax({
+                method: 'GET',
+                url: URL,
+                data: { uuid: uuID, cld: $('#cld').val(), cli: $('#cli').val(), step: $('#step').val(), error: "", digits: $('#digits').val() },
+                complete: function (data, status) {
+                    if (status == "success") {
+                        var Result = data.responseJSON;
+                        if (Result.prompt == null) {
+                            Transfer = Result.transfer;
+                            $('#message').text(Transfer.greet_phrase);
+                            $('#digits').val("");
+                            $('#services').append("<p>" + Transfer.target + "</p>");
+                        }
+                        else {
+                            Prompt = Result.prompt;
+                            $('#message').text(Prompt.phrase);
+                            $('#digits').val("");
+                            $('#services').append("<p>" + Prompt.service_url + "</p>");
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

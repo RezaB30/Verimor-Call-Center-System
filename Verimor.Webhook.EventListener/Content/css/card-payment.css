@@ -1,0 +1,66 @@
+﻿div.card-payment-wrapper {
+    display: inline-block;
+    background-image: url('../Images/Shared/debit-card.svg');
+    background-position: top left;
+    background-size: contain;
+    width: 20em;
+    height: 23em;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+    div.card-payment-wrapper input[type=text] {
+        border-style: solid;
+        border-color: black;
+        border-width: 0 0 1px 0;
+        background-color: transparent;
+    }
+
+        div.card-payment-wrapper input[type=text]:nth-child(1) {
+            position: absolute;
+            top: 4em;
+            left: 1.8em;
+            font-size: 1.6em;
+            width: 8.7em;
+        }
+
+        div.card-payment-wrapper input[type=text]:nth-child(2) {
+            width: 2.3em;
+            font-size: 1em;
+        }
+
+        div.card-payment-wrapper input[type=text]:nth-child(3) {
+            width: 2.3em;
+            font-size: 1em;
+        }
+
+        div.card-payment-wrapper input[type=text]:nth-child(4) {
+            top: 15em;
+            position: absolute;
+            left: 14.4em;
+            width: 1.8em;
+            font-size: 1em;
+        }
+
+    div.card-payment-wrapper div.options-container {
+        min-width: 2.3em;
+    }
+
+    div.card-payment-wrapper div.select-list-wrapper:nth-of-type(1) {
+        position: absolute;
+        top: 9em;
+        left: 9em;
+    }
+
+    div.card-payment-wrapper div.select-list-wrapper:nth-of-type(2) {
+        position: absolute;
+        left: 13em;
+        top: 9em;
+    }
+
+    div.card-payment-wrapper div.validations-container {
+        position: absolute;
+        left: 1em;
+        top: 16.5em;
+        width: 18em;
+    }

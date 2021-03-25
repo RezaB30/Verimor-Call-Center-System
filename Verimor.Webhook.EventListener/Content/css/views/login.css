@@ -1,0 +1,50 @@
+﻿@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-2em);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+div.login-form {
+    font-size: 1.4em;
+    margin: auto;
+    display: inline-block;
+    overflow: auto;
+    text-align: left;
+    margin-top: 5em;
+    border-bottom: 1px solid #3a5a7a;
+    padding-bottom: 1.5em;
+}
+
+div.login-form-info {
+    display: inline-block;
+    margin-top: 1em;
+    font-size: 1.6em;
+    font-family: 'Racing Sans One', cursive;
+    color: #3a5a7a;
+}
+
+div[class^="login-info-row"] {
+    animation-name: slide-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+div.login-info-row-1 {
+    animation-delay: 0s;
+}
+
+div.login-info-row-2 {
+    animation-delay: 0.2s;
+}
+
+div.login-info-row-3 {
+    animation-delay: 0.4s;
+}

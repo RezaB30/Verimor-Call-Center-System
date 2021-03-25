@@ -1,0 +1,15 @@
+﻿.file-upload-wrapper{
+    display: inline-block;
+}
+
+input.hidden-file-upload{
+    display: none;
+}
+
+input.file-upload-text{
+
+}
+
+input.upload-file-browse{
+
+}

@@ -1,0 +1,31 @@
+﻿tr.ip-map-list-row{
+    
+}
+
+tr.ip-map-list-row td{
+    padding: 0.2em 0;
+}
+
+tr.ip-map-list-top-row{
+
+}
+
+tr.ip-map-list-top-row td{
+    border-top: 1px dashed gray;
+}
+
+tr.ip-map-list-bottom-row{
+
+}
+
+tr.ip-map-list-bottom-row td{
+    border-bottom: 1px dashed gray;
+}
+
+tr.ip-map-list-sample-row{
+    display: none;
+}
+
+td.ip-map-list-validation{
+
+}

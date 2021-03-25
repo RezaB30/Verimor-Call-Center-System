@@ -1,0 +1,153 @@
+﻿div.bill-receipt {
+    display: inline;
+}
+
+div.bill-receipt-footer {
+    height: 0.3em;
+    background-color: #272727;
+}
+
+table.bill-receipt {
+    border-collapse: collapse;
+    border: none;
+    margin: auto;
+    text-align: initial;
+}
+
+    table.bill-receipt tr:nth-child(odd) {
+        background-color: #e4f0ff;
+    }
+
+    table.bill-receipt tr:first-child, table.bill-receipt tr:nth-child(2) {
+        background-color: #3183ff;
+        color: white;
+    }
+
+    table.bill-receipt td {
+        padding: 0 0.3em;
+    }
+
+        table.bill-receipt td:last-child {
+            text-align: center;
+        }
+
+    table.bill-receipt th {
+        border-bottom: 1px solid black;
+        font-weight: normal;
+        padding: 0 0.3em;
+    }
+
+        table.bill-receipt td:last-child:not([colspan]), table.bill-receipt th:last-child:not([colspan]) {
+            border-left: 1px solid black;
+            width: 8em;
+        }
+
+    table.bill-receipt tr.total-row {
+        background-color: #beedff;
+    }
+
+    table.bill-receipt tr:last-child td {
+        border-top: 1px solid black;
+    }
+
+    table.bill-receipt td:first-child {
+        min-width: 28em;
+        padding-left: 0.3em;
+    }
+
+    table.bill-receipt table.ebill-table {
+        font-size: 0.9em;
+        width: 100%;
+    }
+
+     table.bill-receipt tr.ebill-row{
+         background-color: #cfd7ff;
+     }
+
+        table.bill-receipt table.ebill-table td, table.bill-receipt table.ebill-table td:last-child, table.bill-receipt table.ebill-table td:first-child {
+            width: unset;
+            border: unset !important;
+            color: #5b6f77;
+            min-width: unset;
+            width: unset;
+            border: unset !important;
+            color: #5b6f77;
+            min-width: unset;
+            text-align: left;
+            padding: 0 0.5em 0 0;
+        }
+
+            table.bill-receipt table.ebill-table td.value-cell {
+                color: #3183ff;
+            }
+
+            table.bill-receipt table.ebill-table tr{
+                background-color: transparent;
+            }
+
+table.bill-receipt-container {
+    border-collapse: collapse;
+    border: none;
+    margin: auto;
+}
+
+    table.bill-receipt-container td {
+        padding: 0;
+    }
+
+    table.bill-receipt-container tr.last-row {
+        background-color: #272727;
+        color: white;
+        /*font-weight: bold;*/
+    }
+
+        table.bill-receipt-container tr.last-row td {
+            padding: 0 0.3em 0.3em;
+        }
+
+div.bill-receipt-container {
+    display: inline-block;
+    margin: 1em;
+    border: 2px solid #3133ff;
+    overflow: hidden;
+    /*border-radius: 0.5em;*/
+    box-shadow: 2px 2px 4px 0 rgba(0,0,0,0.5);
+    cursor: pointer;
+    transition: 0.5s all ease;
+    position: relative;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+    div.bill-receipt-container:hover, div.bill-receipt-container:focus {
+        box-shadow: none;
+        border-color: #89cdf3;
+    }
+
+    div.bill-receipt-container.selected {
+        border-color: green;
+    }
+
+    div.bill-receipt-container:not(.selected) div.bill-receipt-check {
+        display: none;
+    }
+
+table.bill-receipt-container table.bill-receipt {
+    width: 100%;
+}
+
+div.bill-receipt-check {
+    width: 1.5em;
+    height: 1.5em;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url('../Images/Check/check-valid.svg');
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+}

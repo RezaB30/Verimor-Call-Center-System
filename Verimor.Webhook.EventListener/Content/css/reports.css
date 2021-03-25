@@ -1,0 +1,36 @@
+﻿div.client-count-item {
+    display: inline-block;
+    border: 1px solid #032f4b;
+    padding: 0.5em;
+    background-color: white;
+    border-radius: 0.3em;
+    box-shadow: 0.1em 0.1em 0.1em rgba(0,0,0,0.5);
+    font-family: 'Racing Sans One', cursive;
+    font-size: 1.4em;
+    width: 10em;
+    margin: 0.5em;
+}
+
+    div.client-count-item div.client-count-item-value {
+        line-height: 2em;
+    }
+
+    div.client-count-item.total {
+        color: #00680c;
+    }
+
+    div.client-count-item.cancelled{
+        color: #592828;
+    }
+
+    div.client-count-item.active{
+        color: #2c2d5a;
+    }
+
+    div.client-count-item.passive{
+        color: #565601;
+    }
+
+    div.client-count-item.freezed{
+        color: #4f0257;
+    }

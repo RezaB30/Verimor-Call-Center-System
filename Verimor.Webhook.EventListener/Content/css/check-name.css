@@ -1,0 +1,21 @@
+﻿div.check-name-valid, div.check-name-invalid, div.check-name-duplicate {
+    width: 1.5em;
+    height: 1.5em;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.check-name-valid {
+    background-image: url('../Images/Check/check-valid.svg');
+}
+
+div.check-name-invalid {
+    background-image: url('../Images/Check/check-invalid.svg');
+}
+
+div.check-name-duplicate {
+    background-image: url('../Images/Check/check-duplicate.svg');
+}

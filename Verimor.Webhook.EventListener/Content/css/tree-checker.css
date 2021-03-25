@@ -1,0 +1,43 @@
+﻿ul.tree-checker-list {
+    background-image: url('../Images/Tree/tree-linked-unselected.svg');
+    background-repeat: no-repeat;
+    background-size: 1.3em;
+    background-position: left top;
+    list-style: none;
+    padding: 0;
+}
+
+    ul.tree-checker-list.selected {
+        background-image: url('../Images/Tree/tree-linked-selected.svg');
+    }
+
+    ul.tree-checker-list:last-child {
+        background-image: url('../Images/Tree/tree-last-unselected.svg');
+    }
+
+        ul.tree-checker-list:last-child.selected {
+            background-image: url('../Images/Tree/tree-last-selected.svg');
+        }
+
+    ul.tree-checker-list > li {
+        padding-left: 1.3em;
+    }
+
+ul.tree-checker-list:not(:last-child) > li {
+    background-image: url('../Images/Tree/tree-filler.svg');
+    background-repeat: repeat-y;
+    background-size: 1.3em;
+    background-position: left top;
+}
+
+div.tree-checker-title {
+    cursor: pointer;
+    display: inline-block;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                          supported by Chrome and Opera */
+}

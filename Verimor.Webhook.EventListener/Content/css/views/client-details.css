@@ -1,0 +1,153 @@
+﻿@keyframes packet-change-loading {
+    from {
+        color: black;
+    }
+
+    to {
+        color: seagreen;
+    }
+}
+
+table.client-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    table.client-details-table td.details-table-cell {
+        vertical-align: top;
+    }
+
+        table.client-details-table td.details-table-cell:last-of-type {
+            border-left: 1px dashed gray;
+            width: 50%;
+        }
+
+td.graph-container {
+    border-top: 1px dashed gray;
+    padding-top: 1em;
+}
+
+td.client-additional-fees {
+    vertical-align: top;
+}
+
+td.piechart-container {
+    padding: 2em;
+    text-align: center;
+}
+
+div.accardeon-title-layer {
+    background-color: #d1e2ec;
+    padding: 0.5em;
+    border-radius: 0.5em 0.5em 0 0;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+div.accardeon-title-button {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    background-color: #798ccc;
+    color: #e6e6e6;
+    border-radius: 0.3em;
+    box-shadow: 1px 1px 2px 0 black;
+    transition: 0.5s all ease;
+    position: relative;
+    bottom: 0;
+}
+
+    div.accardeon-title-button:not(.selected):hover {
+        box-shadow: none;
+        transform: scale(0.9);
+        background-color: #272727;
+    }
+
+    div.accardeon-title-button.selected {
+        box-shadow: none;
+        border-radius: 0.5em 0.5em 0 0;
+        bottom: -0.5em;
+        background-color: #272727;
+    }
+
+div.accardeon-page {
+}
+
+div.accardeon-page-title {
+    background-color: #272727;
+    color: white;
+    text-align: center;
+    min-height: 0.8em;
+}
+
+div.graph-item-container {
+    display: inline-block;
+}
+
+div.client-details-box-container {
+    text-align: center;
+}
+
+div.client-details-box {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: 0.3em;
+    width: 7em;
+    padding: 0.2em;
+    background-color: #d1ecd2;
+    border-radius: 0.2em;
+    border: 2px solid #034453;
+}
+
+    div.client-details-box div.detail-box-title {
+        margin-bottom: 1em;
+    }
+
+    div.client-details-box div.detail-box-text {
+        min-height: 2em;
+    }
+
+#client-connection-status {
+    height: 2em;
+}
+
+div.client-cancellation-container {
+    text-align: center;
+    background-color: #ffe4e4;
+    margin: 0.2em 0.5em;
+    padding: 0.2em;
+    border-radius: 0.2em;
+    border: 1px solid #ae9393;
+}
+
+    div.client-cancellation-container .title {
+        font-family: 'Racing Sans One', cursive;
+        font-size: 1.2em;
+        color: #aa4848;
+    }
+
+    div.client-cancellation-container .reason-title {
+        font-weight: bold;
+    }
+
+    div.client-cancellation-container .reason-description {
+        color: #6c6b6a;
+    }
+
+.tt-packet-selection-loading {
+    animation-name: packet-change-loading;
+    animation-duration: 2s;
+    animation-direction: alternate;
+    animation-fill-mode: backwards;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.general-fault-container {
+    margin-top: 1em;
+}

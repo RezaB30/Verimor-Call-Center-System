@@ -1,0 +1,100 @@
+﻿@keyframes loading-animation {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+div.address-details-container {
+    position: relative;
+    border-style: solid;
+    border-width: 1px 0;
+    border-color: #6f0e0e;
+    padding-right: 2em;
+}
+
+    div.address-details-container div.address-details-toggle {
+        position: absolute;
+        width: 1.5em;
+        height: 1.5em;
+        background-color: #d5dfb5;
+        border-radius: 100%;
+        right: 0.2em;
+        top: 0.1em;
+        transition: 0.5s all ease;
+        background-image: url('../Images/Buttons/previous.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 1.2em;
+        cursor: pointer;
+        border: 1px solid #798ccc;
+    }
+
+        div.address-details-container div.address-details-toggle:hover {
+            background-color: #f7e2c6;
+            transform: scale(1.2,1.2);
+        }
+
+    div.address-details-container.closed {
+    }
+
+        div.address-details-container.closed tr:not(.all-time-visible) {
+            display: none;
+        }
+
+        div.address-details-container.closed div.address-details-toggle {
+            transform: rotateZ(180deg);
+        }
+
+            div.address-details-container.closed div.address-details-toggle:hover {
+                transform: rotateZ(180deg) scale(1.2,1.2);
+            }
+
+    div.address-details-container table {
+        border-collapse: collapse;
+    }
+
+        div.address-details-container table td {
+            padding: 0.3em;
+        }
+
+            div.address-details-container table td:first-child {
+                width: initial;
+            }
+
+div.address-editor-container {
+}
+
+    div.address-editor-container div.address-checkmark {
+        display: inline-block;
+        width: 1.5em;
+        height: 1.5em;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 1.5em;
+        vertical-align: middle;
+        margin-left: 0.5em;
+    }
+
+        div.address-editor-container div.address-checkmark.valid {
+            background-image: url('../Images/Check/check-valid.svg');
+        }
+
+        div.address-editor-container div.address-checkmark.invalid {
+            background-image: url('../Images/Check/check-invalid.svg');
+        }
+
+        div.address-editor-container div.address-checkmark.error {
+            background-image: url('../Images/Check/check-duplicate.svg');
+        }
+
+        div.address-editor-container div.address-checkmark.loading {
+            background-image: url('../Images/Shared/loading-symbol.svg');
+            animation-name: loading-animation;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }

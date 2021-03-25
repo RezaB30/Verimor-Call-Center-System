@@ -1,0 +1,51 @@
+﻿@keyframes heart-beat{
+    0%{transform: none;}
+    100%{transform: scale(0.8,0.8);}
+}
+
+@keyframes waving{
+    0%{transform: rotate(-15deg);}
+    100%{transform: rotate(15deg);}
+}
+
+.registration-trace-container {
+    position: relative;
+    min-height: 1.5em;
+    min-width: 1.5em;
+}
+
+div.registration-trace-view {
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+}
+
+    div.registration-trace-view.loading {
+        background-image: url('../Images/Shared/loading-symbol.svg');
+        animation: loading-rotation infinite 0.8s linear;
+    }
+
+    div.registration-trace-view.in-progress{
+        background-image: url('../Images/Shared/progress-gear.svg');
+        animation: loading-rotation infinite 2s linear;
+    }
+
+    div.registration-trace-view.done{
+        background-image: url('../Images/Shared/light-bulb.svg');
+        animation: heart-beat infinite 1s linear alternate;
+    }
+
+    div.registration-trace-view.cancelled{
+        background-image: url('../Images/Shared/halt.svg');
+        animation: waving infinite 0.7s linear alternate;
+        transform-origin: bottom center;
+    }
+
+    div.registration-trace-view.unknown-error{
+        background-image: url('../Images/Shared/exclamation-mark.svg');
+    }

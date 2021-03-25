@@ -1,0 +1,56 @@
+﻿div.pdf-template-background-container {
+    position: relative;
+    margin: 1em 0;
+    box-shadow: 0 0 1em grey;
+}
+
+    div.pdf-template-background-container span.pdf-template-item-view {
+        position: absolute;
+        border: 1px solid transparent;
+        cursor: pointer;
+        padding: 0.1em;
+        border-radius: 0.3em;
+        transition: 0.2s all ease;
+    }
+
+        div.pdf-template-background-container span.pdf-template-item-view:hover {
+            border-color: rgba(255, 5, 5, 0.54);
+            background-color: rgba(255, 5, 5, 0.24);
+        }
+
+div.pdf-context-menu-container {
+    position: absolute;
+    opacity: 0;
+    top: -0.5em;
+    left: 100%;
+    display: none;
+    background-color: whitesmoke;
+    padding: 0.5em 0;
+    box-shadow: 0.2em 0.2em 0.1em rgba(0,0,0,0.5);
+    border: 1px solid black;
+    min-width: 8em;
+    cursor: default;
+    user-select: none;
+    transition: 0.2s opacity ease;
+    z-index: -1;
+}
+
+    div.pdf-context-menu-container.open {
+        opacity: 100;
+        z-index: 1000;
+        display: inline-block;
+    }
+
+div.pdf-context-menu-item {
+    padding: 0.1em 0.5em;
+    position: relative;
+}
+
+    div.pdf-context-menu-item:hover {
+        background-color: #d7d5d5;
+    }
+
+        div.pdf-context-menu-item:hover > div.pdf-context-menu-container {
+            opacity: 100;
+            display: inline-block;
+        }

@@ -1,0 +1,37 @@
+﻿div.settings-category-wrapper {
+    display: inline-block;
+    text-align: left;
+    min-width: 30em;
+}
+
+div.category-list-head {
+    text-align: center;
+    background-color: #272727;
+    color: white;
+    transition: 0.5s all ease;
+    cursor: pointer;
+    line-height: 2em;
+    padding: 0 1em;
+}
+
+    div.category-list-head:hover, div.category-list-head:focus {
+        background-color: gray;
+        text-decoration-style: dashed;
+        text-decoration-line: underline;
+        text-decoration-color: #3a3a3b;
+    }
+
+div.category-list-contents {
+    border-style: solid;
+    border-color: #272727;
+    border-width: 2px;
+    display: none;
+}
+
+div.settings-category-wrapper td:not([colspan]):last-child {
+    text-align: right;
+}
+
+div.settings-category-wrapper div.select-list-wrapper {
+    text-align: left;
+}

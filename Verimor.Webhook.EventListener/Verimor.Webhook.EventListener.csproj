@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4C8ED163-137E-4D55-BE07-B2AE0D93EB30}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Verimor.Webhook.EventListener</RootNamespace>
+    <AssemblyName>Verimor.Webhook.EventListener</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44329</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.6\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.API.MobilExpress.DBAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.API.MobilExpress.DBAdapter.1.0.0\lib\net452\RadiusR.API.MobilExpress.DBAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.DB, Version=1.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.DB.1.2.4\lib\net472\RadiusR.DB.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.DB.Utilities, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.DB.Utilities.1.0.1\lib\net452\RadiusR.DB.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.Localization, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.Localization.1.0.5\lib\net452\RadiusR.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.Localization.Lists, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.Localization.Lists.1.0.10\lib\net452\RadiusR.Localization.Lists.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.Scheduler.SMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.Scheduler.SMS.1.0.0\lib\net452\RadiusR.Scheduler.SMS.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.SMS, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.SMS.1.0.1\lib\net472\RadiusR.SMS.dll</HintPath>
+    </Reference>
+    <Reference Include="RadiusR.SystemLogs, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.SystemLogs.1.0.5\lib\net472\RadiusR.SystemLogs.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.API.MobilExpress, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.API.MobilExpress.1.0.0\lib\net452\RezaB.API.MobilExpress.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.DBUtilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.DBUtilities.1.0.0\lib\net452\RezaB.DBUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.TurkTelekom.WebServices, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.TurkTelekom.WebServices.1.2.0\lib\net452\RezaB.TurkTelekom.WebServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\VerimorController.cs" />
+    <Compile Include="Controllers\VerimorSettingsController.cs" />
+    <Compile Include="DBUtilities.cs" />
+    <Compile Include="Enums\VerimorDirectionTypes.cs" />
+    <Compile Include="Enums\VerimorEventTypes.cs" />
+    <Compile Include="Enums\VerimorHangupTypes.cs" />
+    <Compile Include="Enums\VerimorOperationQueryTypes.cs" />
+    <Compile Include="Enums\VerimorOperationTypes.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppliedRecurringDiscount.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppSetting.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppUser.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bill.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BillFee.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BTKIPBlock.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BTKSchedulerSetting.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cashier.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CashierBalance.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChangeServiceTypeTask.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChangeStateTask.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CorporateCustomerInfo.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerAdditionalPhoneNo.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerBlackList.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerIDCard.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerSetupStatusUpdate.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerSetupTask.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerSetupUser.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Discount.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domain.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EBill.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EBillRegisteredCompany.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExternalPayment.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Fee.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FeeTypeCost.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FeeTypeVariant.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MobilExpressAutoPayment.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NA.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NASExpiredPool.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NASNetmap.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NASVerticalIPMap.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OfflinePaymentGateway.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Partner.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerAvailableTariff.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerBillPayment.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerCredit.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerGroup.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerPermission.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerRegisteredSubscription.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerSubUser.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PDFFormItemPlacement.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Permission.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\QuotaPackage.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusAccounting.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusAccountingIPInfo.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusDailyAccounting.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusDefault.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusRBillingService.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusR_Netspeed.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadiusR_Netspeed.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusR_Netspeed.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusR_Netspeed.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RadiusSM.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecurringDiscount.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecurringPaymentSubscription.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScheduledSM.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SchedulerTask.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Service.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ServiceBillingPeriod.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ServiceRateTimeTable.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SMSArchive.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SMSSetting.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SMSText.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SpecialOffer.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Subscription.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionCancellation.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionCommitment.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionCredit.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionGPSCoord.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionNote.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionQuota.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionStateHistory.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionSupportRequest.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionTariffChange.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubscriptionTelekomInfo.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SystemLog.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SystemSetting.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaxRate.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TelekomAccessCredential.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TelekomTariff.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TelekomWorkOrder.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TelekomWorkOrderParameter.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VerimorCallRecord.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VerimorOperation.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VerimorOperationResponse.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VerimorOperationResult.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VerimorSMSReport.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VPOSList.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkArea.cs">
+      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringFormats.cs" />
+    <Compile Include="ViewModels\VerimorDiagramVM.cs" />
+    <Compile Include="ViewModels\VerimorSettings.cs" />
+    <Compile Include="WebHookOperations.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css-m\_media-related.css" />
+    <Content Include="Content\css\additional-fee.css" />
+    <Content Include="Content\css\address-check-bookmark.css" />
+    <Content Include="Content\css\address-details.css" />
+    <Content Include="Content\css\availability-results.css" />
+    <Content Include="Content\css\bill-receipt.css" />
+    <Content Include="Content\css\captcha.css" />
+    <Content Include="Content\css\card-payment.css" />
+    <Content Include="Content\css\check-name.css" />
+    <Content Include="Content\css\checkbutton.css" />
+    <Content Include="Content\css\client-state-selector.css" />
+    <Content Include="Content\css\confirm-box.css" />
+    <Content Include="Content\css\custom-fee-list.css" />
+    <Content Include="Content\css\customer-state.css" />
+    <Content Include="Content\css\datatable.css" />
+    <Content Include="Content\css\datepicker.css" />
+    <Content Include="Content\css\details-table.css" />
+    <Content Include="Content\css\diagrams.css" />
+    <Content Include="Content\css\fee-type-variant-list.css" />
+    <Content Include="Content\css\file-upload.css" />
+    <Content Include="Content\css\file-view.css" />
+    <Content Include="Content\css\inputs.css" />
+    <Content Include="Content\css\ip-map-list.css" />
+    <Content Include="Content\css\multi-button.css" />
+    <Content Include="Content\css\nav-bar.css" />
+    <Content Include="Content\css\payment-button.css" />
+    <Content Include="Content\css\pdf-templates.css" />
+    <Content Include="Content\css\rate-limit-text.css" />
+    <Content Include="Content\css\registration-trace-view.css" />
+    <Content Include="Content\css\reports.css" />
+    <Content Include="Content\css\search-slider.css" />
+    <Content Include="Content\css\Site.css" />
+    <Content Include="Content\css\sliding-box.css" />
+    <Content Include="Content\css\tree-checker.css" />
+    <Content Include="Content\css\views\background-services.css" />
+    <Content Include="Content\css\views\bill-calculate-total.css" />
+    <Content Include="Content\css\views\client-details.css" />
+    <Content Include="Content\css\views\client-ip-type.css" />
+    <Content Include="Content\css\views\client-online-status.css" />
+    <Content Include="Content\css\views\error-page.css" />
+    <Content Include="Content\css\views\home-page.css" />
+    <Content Include="Content\css\views\infrastructure-check.css" />
+    <Content Include="Content\css\views\line-quality.css" />
+    <Content Include="Content\css\views\login.css" />
+    <Content Include="Content\css\views\manage-cities.css" />
+    <Content Include="Content\css\views\manage-credit.css" />
+    <Content Include="Content\css\views\receipt.css" />
+    <Content Include="Content\css\views\settings-page.css" />
+    <Content Include="Content\css\views\task-feed.css" />
+    <Content Include="Content\css\views\work-order-details.css" />
+    <Content Include="Content\css\waiting-progress.css" />
+    <Content Include="Content\Images\Buttons\availability-item.svg" />
+    <Content Include="Content\Images\Buttons\back.svg" />
+    <Content Include="Content\Images\Buttons\bin.svg" />
+    <Content Include="Content\Images\Buttons\browse.svg" />
+    <Content Include="Content\Images\Buttons\calendar.svg" />
+    <Content Include="Content\Images\Buttons\cancel.svg" />
+    <Content Include="Content\Images\Buttons\check-mark.svg" />
+    <Content Include="Content\Images\Buttons\checked.svg" />
+    <Content Include="Content\Images\Buttons\credit-card.svg" />
+    <Content Include="Content\Images\Buttons\discount.svg" />
+    <Content Include="Content\Images\Buttons\download.svg" />
+    <Content Include="Content\Images\Buttons\drop-down-arrow.svg" />
+    <Content Include="Content\Images\Buttons\e-bill-tag.svg" />
+    <Content Include="Content\Images\Buttons\eraser.svg" />
+    <Content Include="Content\Images\Buttons\history.svg" />
+    <Content Include="Content\Images\Buttons\information.svg" />
+    <Content Include="Content\Images\Buttons\insert.svg" />
+    <Content Include="Content\Images\Buttons\key.svg" />
+    <Content Include="Content\Images\Buttons\list.svg" />
+    <Content Include="Content\Images\Buttons\location-on-map.svg" />
+    <Content Include="Content\Images\Buttons\locked.svg" />
+    <Content Include="Content\Images\Buttons\logo.svg" />
+    <Content Include="Content\Images\Buttons\magnifier.svg" />
+    <Content Include="Content\Images\Buttons\main-menu-bullet.svg" />
+    <Content Include="Content\Images\Buttons\minus.svg" />
+    <Content Include="Content\Images\Buttons\money.svg" />
+    <Content Include="Content\Images\Buttons\multi-button-drop.svg" />
+    <Content Include="Content\Images\Buttons\nat.svg" />
+    <Content Include="Content\Images\Buttons\next.svg" />
+    <Content Include="Content\Images\Buttons\pencil.svg" />
+    <Content Include="Content\Images\Buttons\plus.svg" />
+    <Content Include="Content\Images\Buttons\previous.svg" />
+    <Content Include="Content\Images\Buttons\printer.svg" />
+    <Content Include="Content\Images\Buttons\reload.svg" />
+    <Content Include="Content\Images\Buttons\remove.svg" />
+    <Content Include="Content\Images\Buttons\save.svg" />
+    <Content Include="Content\Images\Buttons\select.svg" />
+    <Content Include="Content\Images\Buttons\send.svg" />
+    <Content Include="Content\Images\Buttons\sign-in.svg" />
+    <Content Include="Content\Images\Buttons\speedometer.svg" />
+    <Content Include="Content\Images\Buttons\TL-symbol.svg" />
+    <Content Include="Content\Images\Buttons\unchecked.svg" />
+    <Content Include="Content\Images\Buttons\unlocked.svg" />
+    <Content Include="Content\Images\Buttons\validate.svg" />
+    <Content Include="Content\Images\Buttons\view-list.svg" />
+    <Content Include="Content\Images\Check\check-duplicate.svg" />
+    <Content Include="Content\Images\Check\check-invalid.svg" />
+    <Content Include="Content\Images\Check\check-valid.svg" />
+    <Content Include="Content\Images\Home\bill.svg" />
+    <Content Include="Content\Images\Home\client.svg" />
+    <Content Include="Content\Images\Home\dealer.svg" />
+    <Content Include="Content\Images\Home\fee.svg" />
+    <Content Include="Content\Images\Home\router.svg" />
+    <Content Include="Content\Images\Home\service.svg" />
+    <Content Include="Content\Images\Home\sms.svg" />
+    <Content Include="Content\Images\Home\support.svg" />
+    <Content Include="Content\Images\Home\technician.svg" />
+    <Content Include="Content\Images\Home\work-order.svg" />
+    <Content Include="Content\Images\Logo\logo.svg" />
+    <Content Include="Content\Images\Shared\blank-file.svg" />
+    <Content Include="Content\Images\Shared\city-list-accept.svg" />
+    <Content Include="Content\Images\Shared\city-list-cancel.svg" />
+    <Content Include="Content\Images\Shared\debit-card.svg" />
+    <Content Include="Content\Images\Shared\error-triangle.svg" />
+    <Content Include="Content\Images\Shared\exclamation-mark.svg" />
+    <Content Include="Content\Images\Shared\FTTX.svg" />
+    <Content Include="Content\Images\Shared\halt.svg" />
+    <Content Include="Content\Images\Shared\language.svg" />
+    <Content Include="Content\Images\Shared\light-bulb.svg" />
+    <Content Include="Content\Images\Shared\loading-symbol.svg" />
+    <Content Include="Content\Images\Shared\logout-button.svg" />
+    <Content Include="Content\Images\Shared\m-menu.svg" />
+    <Content Include="Content\Images\Shared\main-logo.svg" />
+    <Content Include="Content\Images\Shared\map.svg" />
+    <Content Include="Content\Images\Shared\nav-bar-toggle.svg" />
+    <Content Include="Content\Images\Shared\offline.svg" />
+    <Content Include="Content\Images\Shared\online.svg" />
+    <Content Include="Content\Images\Shared\progress-gear.svg" />
+    <Content Include="Content\Images\Shared\radius-settings.svg" />
+    <Content Include="Content\Images\Shared\search-slider-lip-m.svg" />
+    <Content Include="Content\Images\Shared\settings.svg" />
+    <Content Include="Content\Images\Shared\slider-lip.svg" />
+    <Content Include="Content\Images\Shared\telephone.svg" />
+    <Content Include="Content\Images\Shared\tree-minus.svg" />
+    <Content Include="Content\Images\Shared\tree-plus.svg" />
+    <Content Include="Content\Images\Shared\warning.svg" />
+    <Content Include="Content\Images\Shared\wifi.svg" />
+    <Content Include="Content\Images\Tree\tree-filler.svg" />
+    <Content Include="Content\Images\Tree\tree-last-selected.svg" />
+    <Content Include="Content\Images\Tree\tree-last-unselected.svg" />
+    <Content Include="Content\Images\Tree\tree-linked-selected.svg" />
+    <Content Include="Content\Images\Tree\tree-linked-unselected.svg" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Models\RadiusR_Netspeed.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RadiusR_Netspeed.Context.cs</LastGenOutput>
+      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\RadiusR_Netspeed.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
+      <LastGenOutput>RadiusR_Netspeed.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\RadiusR_Netspeed.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RadiusR_Netspeed.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\RadiusR_Netspeed.edmx.diagram">
+      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
+    </Content>
+    <Content Include="NLog.config" />
+    <Content Include="Connection.config" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Verimor\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\VerimorSettings\CreateDiagram.cshtml" />
+    <Content Include="Views\VerimorSettings\Edit.cshtml" />
+    <Content Include="Views\VerimorSettings\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RadiusR.Verimor.CallCenter\RadiusR.Verimor.CallCenter.csproj">
+      <Project>{17a07bfc-eefa-483a-bbe6-ac820bf405bb}</Project>
+      <Name>RadiusR.Verimor.CallCenter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61786</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44329/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

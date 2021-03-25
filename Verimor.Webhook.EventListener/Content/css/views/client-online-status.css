@@ -1,0 +1,41 @@
+﻿@keyframes loading-rotation{
+    0%{transform: none;}
+    100%{transform: rotate(360deg);}
+}
+
+.online-status-container{
+    position: relative;
+    min-width: 1em;
+    min-height: 1em;
+}
+
+div[class^="online-status-"]{
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+}
+
+div.online-status-loading{
+    background-image: url('../../Images/Shared/loading-symbol.svg');
+    animation: loading-rotation infinite 0.8s linear;
+}
+
+div.online-status-online{
+    background-image: url('../../Images/Shared/online.svg');
+
+}
+
+div.online-status-offline{
+    background-image: url('../../Images/Shared/offline.svg');
+
+}
+
+div.online-status-error{
+    background-image: url('../../Images/Shared/error-triangle.svg');
+
+}

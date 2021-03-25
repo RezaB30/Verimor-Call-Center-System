@@ -1,0 +1,35 @@
+﻿div.waiting-progress {
+    background-color: #e0e3d3;
+    border: 1px solid #7b8650;
+    padding: 0.5em;
+    display: none;
+    text-align: center;
+}
+
+    div.waiting-progress div.waiting-progress-message {
+    }
+
+    div.waiting-progress div.waiting-progress-image-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    div.waiting-progress div.waiting-progress-image{
+        width: 3em;
+        height: 3em;
+        background-image: url('/Content/Images/Shared/loading-symbol.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 3em;
+        position: absolute;
+        animation: wait-rotation cubic-bezier(.79,.14,.15,.86) 1s infinite;
+    }
+
+    div.waiting-progress div.waiting-progress-timer{
+        height: 3em;
+        line-height: 3em;
+        min-width: 3em;
+    }
+
+
+

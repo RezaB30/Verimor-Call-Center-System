@@ -1,0 +1,106 @@
+﻿.diagram-tag {
+    stroke: none;
+    fill: #666;
+}
+
+.diagram-bar {
+    stroke: black;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.diagram-pin {
+    transition: 0.2s all ease-in-out;
+}
+
+    .diagram-pin:hover {
+        box-shadow: 2px 2px 2px 2px darkgray;
+        stroke-width: 5;
+    }
+
+.diagram-path {
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.diagram-back {
+    fill: none;
+    stroke-width: 1;
+    stroke: lightgray;
+    stroke-dasharray: 3, 1;
+}
+
+svg.svg-diagram {
+}
+
+div.diagram-container {
+    display: inline-block;
+    position: relative;
+    background-color: white;
+    box-shadow: 0 0 3px 2px rgba(0,0,0,0.6);
+    padding: 5px;
+    vertical-align: top;
+}
+
+div.diagram-legends {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    padding: 0 5px;
+}
+
+div.diagram-legend-icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 1em;
+    width: 2em;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+div.diagram-tooltip {
+    background-color: wheat;
+    color: black;
+    font-size: 0.8em;
+    display: inline-block;
+    position: absolute;
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.66);
+    padding: 0 2px;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+div.chart-slice {
+}
+
+div.chart-title-wrapper {
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.chart-title, div.chart-footer{
+    background-color: wheat;
+    border-style: solid;
+    border-color: #847e08;
+}
+
+div.chart-title {
+    border-width: 1px 1px 0 1px;
+    border-radius: 4px 4px 0 0;
+    padding-bottom: 3px;
+}
+
+div.chart-footer{
+    border-width: 0 1px 1px 1px;
+    border-radius: 0 0 4px 4px;
+}
+
+div.chart-footer dl{
+    margin: 0;
+    text-align: left;
+    display: inline-block;
+}
