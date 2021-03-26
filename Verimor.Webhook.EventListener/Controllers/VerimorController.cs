@@ -49,6 +49,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                     {
                         var OpPhrase = StringFormats.GetFormats(Operation.phrase, webHookGetEvents);
                         CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialing, OpPhrase);
+                        // wrong dialing max_digits , wrong dialing min_digits , wrong dialing retry_count
                         var prompt = new WebHookRequest.Prompt //request
                         {
                             phrase = OpPhrase,
@@ -77,7 +78,6 @@ namespace Verimor.Webhook.EventListener.Controllers
                     CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.ParentID, OperationResp.ToString());
                     webHookGetEvents.digits = webHookOperations.WebHookOperationResult().ToString();
 
-
                     //if (Operation.operationType == (int)VerimorOperationQueryTypes.GetSubscriptionInfoWithPhoneNumber)
                     //{
                     //    CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.ParentID, OperationResp.ToString());
@@ -94,6 +94,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                     greet_phrase = "İşlem sırasında bir hata oluştu. Sizi müşteri temsilcisine aktarıyorum. Lütfen Bekleyiniz.",
                     target = "queue/201"
                 };
+                // error phrase and error target in settings
                 return Json(WebHookRequestFactory.Transfer(transfer), JsonRequestBehavior.AllowGet);
             }
         }
