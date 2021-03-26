@@ -23,13 +23,13 @@
 <div style="margin-bottom:2rem;"></div>
 <div class="page-contents">
     <div class="confirm-box"><span>@Html.DisplayNameFor(m => m.FirstOrDefault().Parent) : </span>@Html.DropDownListFor(m => m.FirstOrDefault().Parent, new SelectList(ViewBag.List, "Value", "Text"), "Çağrı Başlangıcı")</div>
-    <input type="button" value="Güncelle" id="EditOperations" /><span style="color:red;padding-top:1em;position:absolute;margin-left:12em;" id="EditOperationID"></span>
+    <input type="button" value="Güncelle" id="EditOperations" /><span style="color:red;padding-top:1em;position:absolute;margin-left:1em;" id="EditOperationID"></span>
     @for (int i = -1; i < 12; i++)
     {
         if (i == -1)
         {
             <div class="confirm-box" id="digit-group" style="margin-left: 9.2rem;">
-                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Digit) : </span>@*<input style="width: 5%;" class="centered" id="[@i]Digits" type="text" />*@ @Html.DropDownList("[" + i + "]Digits", new SelectList(ViewBag.DigitList, "Value", "Text"), "", new { style = "width:5%;", id = "[" + i + "]Digits", @class = "centered" })
+                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Digit) : </span>@*<input style="width: 5%;" class="centered" id="[@i]Digits" type="text" />*@ @Html.DropDownList("[" + i + "]Digits", new SelectList(ViewBag.DigitList, "Value", "Text"), "", new { style = "width:3em;", id = "[" + i + "]Digits", @class = "centered" })
                 <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Child) : </span><span id="[@i]Childs">@Html.DropDownListFor(m => m.FirstOrDefault().Child, new SelectList(ViewBag.List, "Value", "Text"), "")</span>
                 <span><input type="button" value="Sil" onclick="Delete($('#Parent').val(), document.getElementById('[' + @i + ']Digits').value, document.getElementById('[' + @i + ']Childs').firstChild.value)" /></span>
             </div>
@@ -37,7 +37,7 @@
         else
         {
             <div class="confirm-box" id="digit-group" style="margin-left: 37.8rem;">
-                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Digit) : </span>@*<input style="width: 5%;" class="centered" id="[@i]Digits" type="text" />*@ @Html.DropDownList("[" + i + "]Digits", new SelectList(ViewBag.DigitList, "Value", "Text"), "", new { style = "width:5%;", id = "[" + i + "]Digits", @class = "centered" })
+                <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Digit) : </span>@*<input style="width: 5%;" class="centered" id="[@i]Digits" type="text" />*@ @Html.DropDownList("[" + i + "]Digits", new SelectList(ViewBag.DigitList, "Value", "Text"), "", new { style = "width:3em;", id = "[" + i + "]Digits", @class = "centered" })
                 <span>@Html.DisplayNameFor(m => m.FirstOrDefault().Child) : </span><span id="[@i]Childs">@Html.DropDownListFor(m => m.FirstOrDefault().Child, new SelectList(ViewBag.List, "Value", "Text"), "")</span>
                 <span><input type="button" value="Sil" onclick="Delete($('#Parent').val(), document.getElementById('[' + @i + ']Digits').value, document.getElementById('[' + @i + ']Childs').firstChild.value)" /></span>
             </div>

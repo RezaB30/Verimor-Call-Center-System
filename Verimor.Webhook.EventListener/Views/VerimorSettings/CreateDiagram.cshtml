@@ -19,12 +19,12 @@
                 <table class="input-table">
                     <tbody>
                         <tr>
-                            <td>@Html.LabelFor(m => m.OperationType)</td>
-                            <td>@Html.DropDownListFor(m => m.OperationType, (SelectList)ViewBag.OperationTypes, new { @style = "width:14em;" })</td>
+                            <td>@Html.LabelFor(m => m.WebHookType)</td>
+                            <td>@Html.DropDownListFor(m => m.WebHookType, (SelectList)ViewBag.WebHookTypes, new { @style = "width:14em;" })</td>
                         </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.OperationQueries)</td>
-                            <td>@Html.DropDownListFor(m => m.OperationQueries, (SelectList)ViewBag.OperationQueries, new { @style = "width:14em;" })</td>
+                            <td>@Html.LabelFor(m => m.OperationType)</td>
+                            <td>@Html.DropDownListFor(m => m.OperationType, (SelectList)ViewBag.OperationTypes, new { @style = "width:14em;" })</td>
                         </tr>
                         <tr>
                             <td>
@@ -112,10 +112,10 @@
             var value = $(this).attr("data-value");
             $('#Phrase').val($('#Phrase').val() + " " + value);
         });
-        $("#OperationType").change(function () {
+        $("#WebHookType").change(function () {
             var val = $(this).val();
             if (val == 0) {
-                $('#OperationQueries').parent("td").parent("tr").show();
+                $('#OperationType').parent("td").parent("tr").show();
 
                 $('#AnnouncementID').parent("td").parent("tr").hide();
                 $('#Target').parent("td").parent("tr").hide();
@@ -124,7 +124,7 @@
                 $('#Retry_Count').parent("td").parent("tr").hide();
             }
             if (val == 1) {
-                $('#OperationQueries').parent("td").parent("tr").hide();
+                $('#OperationType').parent("td").parent("tr").hide();
 
                 $('#AnnouncementID').parent("td").parent("tr").show();
                 $('#Target').parent("td").parent("tr").hide();
@@ -133,7 +133,7 @@
                 $('#Retry_Count').parent("td").parent("tr").show();
             }
             if (val == 2) {
-                $('#OperationQueries').parent("td").parent("tr").hide();
+                $('#OperationType').parent("td").parent("tr").hide();
                 $('#AnnouncementID').parent("td").parent("tr").show();
                 $('#Target').parent("td").parent("tr").show();
                 $('#Max_Digits').parent("td").parent("tr").hide();
@@ -141,7 +141,7 @@
                 $('#Retry_Count').parent("td").parent("tr").hide();
             }
             if (val == 3) {
-                $('#OperationQueries').parent("td").parent("tr").hide();
+                $('#OperationType').parent("td").parent("tr").hide();
                 $('#AnnouncementID').parent("td").parent("tr").show();
                 $('#Target').parent("td").parent("tr").hide();
                 $('#Max_Digits').parent("td").parent("tr").hide();
@@ -149,6 +149,6 @@
                 $('#Retry_Count').parent("td").parent("tr").hide();
             }
         });
-        $("#OperationType").trigger('change');
+        $("#WebHookType").trigger('change');
     </script>
 }

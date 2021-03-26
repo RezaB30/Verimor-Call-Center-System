@@ -3,16 +3,35 @@
 @{
     ViewBag.Title = "Edit";
 }
+<style>
+    input[type=text], textarea {
+        width: 8em !important;
+        margin: 0.3em !important;
+    }
 
+    #ErrorMessage {
+        color: red;
+        position: absolute;
+        border: 0.1em solid black;
+        padding: 2em 7em;
+        z-index: 1;
+        background-color: whitesmoke;
+        border-radius: 0.3em;
+        transform: translate(50%,50%);
+        top: 10%;
+        left: 38%;
+        display: none;
+    }
+</style>
 <h3>Operasyon Düzenle</h3>
 <div style="margin-bottom:1rem;"></div>
 <div class="">
     <div class="container-fluid">
-        <div id="ErrorMessage" style="color:red;">@ViewBag.ErrorMessage</div>
-        <div class="row">
+        <div id="ErrorMessage"><span>@ViewBag.ErrorMessage</span><input onclick="$('#ErrorMessage').remove();" style="color:black; display:block; margin:1em auto;" class="cancel-button" type="button" value="Kapat" /></div>
+        <div class="row text-center">
             <div class="col-lg-1 col-md-1"></div>
             <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.AnnouncementID)</div>
-            <div class="col-lg-2 col-md-2">@Html.DisplayNameFor(m => m.Phrase)</div>
+            <div class="col-lg-3 col-md-3">@Html.DisplayNameFor(m => m.Phrase)</div>
             <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Max_Digits)</div>
             <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Min_Digits)</div>
             <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Target)</div>
@@ -20,7 +39,7 @@
         </div>
         @foreach (var item in Model)
         {
-            <div class="row">
+            <div class="row text-center">
                 @using (Html.BeginForm("Edit", "VerimorSettings", FormMethod.Post))
                 {
                     <div class="col-lg-1 col-md-1">@Html.ActionLink("Sil", "DeleteOperation", "VerimorSettings", new { ID = item.ID }, new { @class = "link-button" })</div>
@@ -29,12 +48,12 @@
                         @Html.HiddenFor(m => item.OperationType)
                         @Html.EditorFor(m => item.AnnouncementID)
                     </div>
-                    <div class="col-lg-2 col-md-2">@Html.TextAreaFor(m => item.Phrase)</div>
+                    <div class="col-lg-3 col-md-3">@Html.TextAreaFor(m => item.Phrase)</div>
                     <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Max_Digits)</div>
                     <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Min_Digits)</div>
                     <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Target)</div>
                     <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Retry_Count)</div>
-                    <div class="col-lg-1 col-md-1">
+                    <div class="col-lg-2 col-md-2">
                         <input id="EditBtn" type="submit" value="Kaydet" />
                     </div>
                 }
@@ -45,12 +64,15 @@
 </div>
 @section scripts{
     <script>
-        $(document).ready(function () {
-            $("#ErrorMessage").css('visibility', 'visible')
-            setTimeout(function () {
-                $("#ErrorMessage").css('visibility', 'hidden');
-            }, 5000);
-        })
+        //$(document).ready(function () {
+        //    $("#ErrorMessage").css('visibility', 'visible')
+        //    setTimeout(function () {
+        //        $("#ErrorMessage").css('visibility', 'hidden');
+        //    }, 5000);
+        //})
+        if ($('#ErrorMessage > span').text()) {
+            $('#ErrorMessage').css("display", "block");
+        }
         $(window).keydown(function (event) {
             if (event.altKey && event.which == "192") {
                 $('#EditBtn').click();

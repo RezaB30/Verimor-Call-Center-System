@@ -20,10 +20,10 @@ namespace Verimor.Webhook.EventListener
 {
     public class WebHookOperations
     {
-        private VerimorOperationQueryTypes OperationQueryType { get; set; }
+        private VerimorOperationTypes OperationQueryType { get; set; }
         private WebHookResponse WebHookResponse { get; set; }
         private RadiusR.DB.RadiusREntities db { get; set; }
-        public WebHookOperations(VerimorOperationQueryTypes operationType, WebHookResponse webHookResponse, RadiusR.DB.RadiusREntities db)
+        public WebHookOperations(VerimorOperationTypes operationType, WebHookResponse webHookResponse, RadiusR.DB.RadiusREntities db)
         {
             OperationQueryType = operationType;
             WebHookResponse = webHookResponse;
@@ -33,26 +33,26 @@ namespace Verimor.Webhook.EventListener
         {
             switch (OperationQueryType)
             {
-                case VerimorOperationQueryTypes.Basic:
+                case VerimorOperationTypes.Basic:
                     {
                         return null;
                     }
-                case VerimorOperationQueryTypes.GetCreditCardNo:
+                case VerimorOperationTypes.GetCreditCardNo:
                     {
                         CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.PaymentCardNo, WebHookResponse.digits);
                         return 1;
                     }
-                case VerimorOperationQueryTypes.GetCreditCardDate:
+                case VerimorOperationTypes.GetCreditCardDate:
                     {
                         CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.PaymentCardExpDate, WebHookResponse.digits);
                         return 1;
                     }
-                case VerimorOperationQueryTypes.GetCreditCardCVV:
+                case VerimorOperationTypes.GetCreditCardCVV:
                     {
                         CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.PaymentCardCVV, WebHookResponse.digits);
                         return 1;
                     }
-                case VerimorOperationQueryTypes.GetSubscriptionInfoWithPhoneNumber: // first calling
+                case VerimorOperationTypes.GetSubscriptionInfoWithPhoneNumber: // first calling
                     {
                         var PhoneNumber = WebHookResponse.cli.StartsWith("0") ? WebHookResponse.cli.Substring(1, WebHookResponse.cli.Length - 1) : WebHookResponse.cli;
                         var subscription = db.Customers
@@ -87,7 +87,7 @@ namespace Verimor.Webhook.EventListener
                             return 1;
                         }
                     }
-                case VerimorOperationQueryTypes.GetSubscriptionTCKorSubscriptionNo: // customer want subscription operation
+                case VerimorOperationTypes.GetSubscriptionTCKorSubscriptionNo: // customer want subscription operation
                     {
                         var hasCustomer = db.Customers
                             .Where(c => c.CustomerIDCard.TCKNo == WebHookResponse.digits || c.Subscriptions.Where(s => s.SubscriberNo == WebHookResponse.digits).Any())
@@ -119,8 +119,8 @@ namespace Verimor.Webhook.EventListener
                         CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriberName, $"{hasCustomer.FirstOrDefault().Customer.FirstName} {hasCustomer.FirstOrDefault().Customer.LastName}");
                         return 1;
                     }
-                case VerimorOperationQueryTypes.GetUnpaidBillsInPaymentMenu:
-                case VerimorOperationQueryTypes.GetUnpaidBills:
+                case VerimorOperationTypes.GetUnpaidBillsInPaymentMenu:
+                case VerimorOperationTypes.GetUnpaidBills:
                     {
                         var subscriptions = CacheManager.Get(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriptionList).Split(',');
                         var unpaidBills = db.Bills.Where(b => b.PayDate == null && b.BillStatusID == (short)RadiusR.DB.Enums.BillState.Unpaid && subscriptions.Contains(b.Subscription.SubscriberNo)).ToList();
@@ -148,7 +148,7 @@ namespace Verimor.Webhook.EventListener
                         }
                         return 1; // have subscriptions one unpaid bills 
                     }
-                case VerimorOperationQueryTypes.SendCustomerModemInfo:
+                case VerimorOperationTypes.SendCustomerModemInfo:
                     {
                         var subscriberNo = CacheManager.Get(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriberNo);
                         if (subscriberNo == null)
@@ -164,7 +164,7 @@ namespace Verimor.Webhook.EventListener
                         service.SendGenericSMS(subscription.Customer.ContactPhoneNo, subscription.Customer.Culture, rawText: string.Format("Sayın Müşterimiz modem kullanıcı adınız : {0} , şifreniz : {1} . İyi günler dileriz.", subscription.Username, subscription.RadiusPassword));
                         return 1;
                     }
-                case VerimorOperationQueryTypes.GetSubscriptionInfoWithSubscriberNo:
+                case VerimorOperationTypes.GetSubscriptionInfoWithSubscriberNo:
                     {
                         var subscriberNo = WebHookResponse.digits;
                         var subscription = db.Subscriptions.Where(s => s.SubscriberNo == subscriberNo).FirstOrDefault();
@@ -175,7 +175,7 @@ namespace Verimor.Webhook.EventListener
                         CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriberNo, subscription.SubscriberNo);
                         return 1;
                     }
-                case VerimorOperationQueryTypes.GetSubscriptionCount:
+                case VerimorOperationTypes.GetSubscriptionCount:
                     {
                         var subscriptionCount = CacheManager.Get(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriptionList).Split(',');
                         if (subscriptionCount.Length > 1)
@@ -189,7 +189,7 @@ namespace Verimor.Webhook.EventListener
                         }
                         return 0; // get subscriber no from 
                     }
-                case VerimorOperationQueryTypes.TTGeneralFaultQuery:
+                case VerimorOperationTypes.TTGeneralFaultQuery:
                     {
                         // need domain cache module
                         var TTCredentials = db.TelekomAccessCredentials.Find(1);
@@ -210,7 +210,7 @@ namespace Verimor.Webhook.EventListener
                         CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.GeneralFault, message);
                         return 1;
                     }
-                case VerimorOperationQueryTypes.CancelledSubscriptionHasUnpaidBills:
+                case VerimorOperationTypes.CancelledSubscriptionHasUnpaidBills:
                     {
                         var subscriptions = CacheManager.Get(WebHookResponse.uuid, CacheManager.CacheItemType.CancelledSubscriptions).Split(',');
                         if (subscriptions == null || subscriptions.Length == 0)
@@ -224,7 +224,7 @@ namespace Verimor.Webhook.EventListener
                         CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriptionList, string.Join(",", subscriptions));
                         return 1;
                     }
-                case VerimorOperationQueryTypes.AddCreditCard:
+                case VerimorOperationTypes.AddCreditCard:
                     {
                         if (!MobilExpressSettings.MobilExpressIsActive)
                         {
@@ -271,7 +271,7 @@ namespace Verimor.Webhook.EventListener
                         //
                         return 0; // error
                     }
-                case VerimorOperationQueryTypes.GetPaymentType:
+                case VerimorOperationTypes.GetPaymentType:
                     {
                         var digit = Convert.ToInt32(WebHookResponse.digits);
                         if (digit == 1)
@@ -286,7 +286,7 @@ namespace Verimor.Webhook.EventListener
                         }
                         return 1;
                     }
-                case VerimorOperationQueryTypes.AutomaticPayment:
+                case VerimorOperationTypes.AutomaticPayment:
                     {
                         if (!MobilExpressSettings.MobilExpressIsActive)
                         {

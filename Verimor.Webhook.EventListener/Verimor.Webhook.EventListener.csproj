@@ -172,14 +172,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\VerimorController.cs" />
     <Compile Include="Controllers\VerimorSettingsController.cs" />
     <Compile Include="DBUtilities.cs" />
     <Compile Include="Enums\VerimorDirectionTypes.cs" />
     <Compile Include="Enums\VerimorEventTypes.cs" />
     <Compile Include="Enums\VerimorHangupTypes.cs" />
-    <Compile Include="Enums\VerimorOperationQueryTypes.cs" />
     <Compile Include="Enums\VerimorOperationTypes.cs" />
+    <Compile Include="Enums\VerimorWebHookTypes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -672,6 +673,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -690,6 +692,10 @@
     <ProjectReference Include="..\RadiusR.Verimor.CallCenter\RadiusR.Verimor.CallCenter.csproj">
       <Project>{17a07bfc-eefa-483a-bbe6-ac820bf405bb}</Project>
       <Name>RadiusR.Verimor.CallCenter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RadiusR.VPOS.Custom\RadiusR.VPOS.Custom.csproj">
+      <Project>{ddb1f087-311a-4ae4-b72a-aea4bd0123ae}</Project>
+      <Name>RadiusR.VPOS.Custom</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

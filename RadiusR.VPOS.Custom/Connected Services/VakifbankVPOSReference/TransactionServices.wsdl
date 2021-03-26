@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="PayFlexVPosWebService" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="PayFlexVPosWebService" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="PayFlexVPosWebService">
+      <s:element name="ExecuteVposRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="vposRequest" type="tns:VposRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="VposRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MerchantId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TerminalNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApiTransactionType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceTransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumberOfInstallments" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SurchargeAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyCode" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointCode" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pan" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardNoFirst" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardNoLast" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstallmentCount" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InquiryValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cvv" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecurityCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Expiry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Extract" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeviceType" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHoldersName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientIp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MerchantIp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CardHoldersEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TriggerDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IsRecurring" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecurringFrequencyType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecurringFrequency" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecurringInstallmentCount" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MpiTransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ExpSign" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CAVV" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ECI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomItems" type="tns:CustomItems" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomInstallments" type="tns:CustomInstallments" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrandName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PanMasked" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CvvMasked" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionDeviceSource" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecurityCodeMasked" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PanCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HostSubMerchantId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MerchantType" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionSource" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="IncludeHostResultCode" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CampaignResult" type="tns:CampaignResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="StoreNo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransactionChannel" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomItems">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Item" type="tns:Item" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Item">
+        <s:attribute name="name" type="s:string" />
+        <s:attribute name="value" type="s:string" />
+        <s:attribute name="customType" type="s:string" />
+      </s:complexType>
+      <s:complexType name="CustomInstallments">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustomInstallment" type="tns:CustomInstallment" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaturityPeriod" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Frequency" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomInstallment">
+        <s:attribute name="date" type="s:string" />
+        <s:attribute name="amount" type="s:decimal" use="required" />
+      </s:complexType>
+      <s:complexType name="CampaignResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CampaignItem" type="tns:CampaignInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CampaignInfo">
+        <s:attribute name="action" type="s:string" />
+        <s:attribute name="code" type="s:string" />
+        <s:attribute name="description" type="s:string" />
+      </s:complexType>
+      <s:element name="ExecuteVposRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExecuteVposRequestResult" type="tns:VposResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="VposResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MerchantId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReferenceTransactionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResultCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ResultDetail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomItems" type="tns:CustomItems" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstallmentTable" type="tns:ArrayOfInstallmentItem" />
+          <s:element minOccurs="0" maxOccurs="1" name="CampaignResult" type="tns:CampaignResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="MerchantCampaignResult" type="tns:MerchantCampaignResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HostDate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rrn" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointLosts" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="TerminalNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="PointCode" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="GainedPoint" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="TotalPoint" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CurrencyCode" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="VftAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="SurchargeAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumberOfInstallments" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="InstallmentCount" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecurringInstallmentCount" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="OrderId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ECI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ThreeDSecureType" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="TransactionDeviceSource" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeviceType" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BatchNo" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PanCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TLAmount" nillable="true" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="LimitSearchResults" type="tns:ArrayOfLimitSearchResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlanSearchResults" type="tns:ArrayOfPlanSearchResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="HostSubMerchantId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MerchantType" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="HostResultCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInstallmentItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="InstallmentItem" nillable="true" type="tns:InstallmentItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="InstallmentItem">
+        <s:attribute name="date" type="s:string" />
+        <s:attribute name="amount" type="s:decimal" use="required" />
+      </s:complexType>
+      <s:complexType name="MerchantCampaignResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="HostResponseCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="HostResponseMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CampaignInfos" type="tns:ArrayOfCampaignInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfCampaignInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CampaignInfo" nillable="true" type="tns:CampaignInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLimitSearchResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="LimitSearchResult" nillable="true" type="tns:LimitSearchResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LimitSearchResult">
+        <s:attribute name="type" type="s:string" />
+        <s:attribute name="limit" type="s:decimal" use="required" />
+      </s:complexType>
+      <s:complexType name="ArrayOfPlanSearchResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PlanSearchResult" nillable="true" type="tns:PlanSearchResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PlanSearchResult">
+        <s:attribute name="maturityPeriod" type="s:int" use="required" />
+        <s:attribute name="frequency" type="s:int" use="required" />
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ExecuteVposRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:ExecuteVposRequest" />
+  </wsdl:message>
+  <wsdl:message name="ExecuteVposRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:ExecuteVposRequestResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TransactionWebServicesSoap">
+    <wsdl:operation name="ExecuteVposRequest">
+      <wsdl:input message="tns:ExecuteVposRequestSoapIn" />
+      <wsdl:output message="tns:ExecuteVposRequestSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TransactionWebServicesSoap" type="tns:TransactionWebServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecuteVposRequest">
+      <soap:operation soapAction="PayFlexVPosWebService/ExecuteVposRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TransactionWebServicesSoap12" type="tns:TransactionWebServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExecuteVposRequest">
+      <soap12:operation soapAction="PayFlexVPosWebService/ExecuteVposRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TransactionWebServices">
+    <wsdl:port name="TransactionWebServicesSoap" binding="tns:TransactionWebServicesSoap">
+      <soap:address location="https://onlineodeme.vakifbank.com.tr:4443/VposService/TransactionServices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TransactionWebServicesSoap12" binding="tns:TransactionWebServicesSoap12">
+      <soap12:address location="https://onlineodeme.vakifbank.com.tr:4443/VposService/TransactionServices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

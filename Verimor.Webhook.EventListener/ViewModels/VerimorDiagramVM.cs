@@ -9,7 +9,7 @@ namespace Verimor.Webhook.EventListener.ViewModels
     public class VerimorDiagramVM
     {
         [DisplayName("İşlem Tipi")]
-        public int OperationQueries { get; set; }
+        public int WebHookType { get; set; }
         [DisplayName("ID")]
         public int ID { get; set; }
         [DisplayName("Operasyon Tipi")]

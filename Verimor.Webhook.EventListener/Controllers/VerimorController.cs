@@ -45,7 +45,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                         };
                         return Json(WebHookRequestFactory.Prompt(prompt), JsonRequestBehavior.AllowGet);
                     }
-                    if (Operation.operationType == (int)VerimorOperationQueryTypes.Basic)
+                    if (Operation.operationType == (int)VerimorOperationTypes.Basic)
                     {
                         var OpPhrase = StringFormats.GetFormats(Operation.phrase, webHookGetEvents);
                         CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialing, OpPhrase);
@@ -73,7 +73,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                             return Json(WebHookRequestFactory.Transfer(transfer), JsonRequestBehavior.AllowGet);
                         }
                     }
-                    WebHookOperations webHookOperations = new WebHookOperations((VerimorOperationQueryTypes)Operation.operationType, webHookGetEvents, RadiusREntities);
+                    WebHookOperations webHookOperations = new WebHookOperations((VerimorOperationTypes)Operation.operationType, webHookGetEvents, RadiusREntities);
                     CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.ParentID, OperationResp.ToString());
                     webHookGetEvents.digits = webHookOperations.WebHookOperationResult().ToString();
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="https://onlineodeme.vakifbank.com.tr:4443/VposService/TransactionServices.asmx?wsdl" docRef="https://onlineodeme.vakifbank.com.tr:4443/VposService/TransactionServices.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://onlineodeme.vakifbank.com.tr:4443/VposService/TransactionServices.asmx" xmlns:q1="PayFlexVPosWebService" binding="q1:TransactionWebServicesSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://onlineodeme.vakifbank.com.tr:4443/VposService/TransactionServices.asmx" xmlns:q2="PayFlexVPosWebService" binding="q2:TransactionWebServicesSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
