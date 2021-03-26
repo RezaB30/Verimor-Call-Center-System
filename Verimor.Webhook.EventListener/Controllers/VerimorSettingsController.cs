@@ -330,6 +330,7 @@ namespace Verimor.Webhook.EventListener.Controllers
             }
             catch (Exception ex)
             {
+
                 return RedirectToAction("Edit", "VerimorSettings", new { ErrorMsg = ex.Message });
             }
         }
