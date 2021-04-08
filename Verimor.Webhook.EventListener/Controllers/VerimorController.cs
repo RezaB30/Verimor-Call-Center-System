@@ -38,10 +38,10 @@ namespace Verimor.Webhook.EventListener.Controllers
                     {
                         var prompt = new WebHookRequest.Prompt //request
                         {
-                            phrase = "Yanlış tuşlama yaptınız. " + CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialing),
-                            max_digits = "12",
-                            min_digits = "1",
-                            retry_count = "2"
+                            phrase = string.Format(Common.WrongDialingPhrase, CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialing)),
+                            max_digits = CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialingMaxDigits),
+                            min_digits = CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialingMinDigits),
+                            retry_count = Properties.Settings.Default.RetryCount
                         };
                         return Json(WebHookRequestFactory.Prompt(prompt), JsonRequestBehavior.AllowGet);
                     }
@@ -49,21 +49,21 @@ namespace Verimor.Webhook.EventListener.Controllers
                     {
                         var OpPhrase = StringFormats.GetFormats(Operation.phrase, webHookGetEvents);
                         CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialing, OpPhrase);
-                        // wrong dialing max_digits , wrong dialing min_digits , wrong dialing retry_count
+                        CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialingMaxDigits, Operation.max_digits);
+                        CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.WrongDialingMinDigits, Operation.min_digits);
                         var prompt = new WebHookRequest.Prompt //request
                         {
                             phrase = OpPhrase,
-                            announcement_id = Operation.announcementID == null ? null : Operation.announcementID.ToString(),
                             max_digits = Operation.max_digits,
                             min_digits = Operation.min_digits,
-                            retry_count = Operation.retry_count
+                            retry_count = Properties.Settings.Default.RetryCount
                         };
                         var transfer = new WebHookRequest.Transfer
                         {
                             greet_phrase = Operation.phrase,
                             target = Operation.target
                         };
-                        if (prompt.retry_count != null)
+                        if (transfer.target == null)
                         {
                             CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.ParentID, OperationResp.ToString());
                             return Json(WebHookRequestFactory.Prompt(prompt), JsonRequestBehavior.AllowGet);
@@ -74,25 +74,18 @@ namespace Verimor.Webhook.EventListener.Controllers
                             return Json(WebHookRequestFactory.Transfer(transfer), JsonRequestBehavior.AllowGet);
                         }
                     }
-                    WebHookOperations webHookOperations = new WebHookOperations((VerimorOperationTypes)Operation.operationType, webHookGetEvents, RadiusREntities);
+                    // condition
+                    WebHookOperations webHookOperations = new WebHookOperations((VerimorOperationTypes)Operation.operationType, webHookGetEvents, RadiusREntities, Operation.Condition, db);
                     CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.ParentID, OperationResp.ToString());
-                    webHookGetEvents.digits = webHookOperations.WebHookOperationResult().ToString();
-
-                    //if (Operation.operationType == (int)VerimorOperationQueryTypes.GetSubscriptionInfoWithPhoneNumber)
-                    //{
-                    //    CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.ParentID, OperationResp.ToString());
-                    //    var Result = webHookOperations.GetSubscriptionInfoWithPhoneNumber(webHookGetEvents, db);
-                    //    webHookGetEvents.digits = Result.ToString();
-                    //}
+                    webHookGetEvents.digits = StringFormats.BooleanToInteger(webHookOperations.WebHookOperationResult()).ToString();
                 }
             }
             catch (Exception ex)
             {
-                //CacheManager.Add(webHookGetEvents.uuid, CacheManager.CacheItemType.ParentID, null);
                 var transfer = new WebHookRequest.Transfer
                 {
-                    greet_phrase = "İşlem sırasında bir hata oluştu. Sizi müşteri temsilcisine aktarıyorum. Lütfen Bekleyiniz.",
-                    target = "queue/201"
+                    greet_phrase = Common.ExceptionPhrase,
+                    target = Verimor.Webhook.EventListener.Properties.Settings.Default.ExceptionTarget
                 };
                 // error phrase and error target in settings
                 return Json(WebHookRequestFactory.Transfer(transfer), JsonRequestBehavior.AllowGet);

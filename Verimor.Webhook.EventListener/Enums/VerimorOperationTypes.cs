@@ -26,6 +26,11 @@ namespace Verimor.Webhook.EventListener.Enums
         CancelledSubscriptionHasUnpaidBills = 13,
         AddCreditCard = 14,
         AutomaticPayment = 15,
-        GetPaymentType = 16,
-    }    
+        IsPassiveInternet = 17, // unpaid partials
+        HaveUnpaidBillForMoreSubscriptions = 18,
+        PayBills = 19,
+        SendValidationSMS = 20,
+        ValidationSMS = 21,
+        CompanyGeneralFault = 22
+    }
 }

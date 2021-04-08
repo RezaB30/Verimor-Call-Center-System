@@ -10,7 +10,11 @@ namespace RadiusR.VPOS.Custom
     {
         public string MerchantId { get; set; }
         public string TerminalNo { get; set; }
-        public string Password { get; set; }
+        public string StoreKey { get; set; }
+        public string CreditCardNo { get; set; }
+        public string ExpiryMonth { get; set; } //MM
+        public string ExpiryYear { get; set; } //YY
+        public string CVV { get; set; }
         public decimal CurrencyAmount { get; set; }
         public int CurrencyCode { get; set; }
         public string BillingCustomerName { get; set; }

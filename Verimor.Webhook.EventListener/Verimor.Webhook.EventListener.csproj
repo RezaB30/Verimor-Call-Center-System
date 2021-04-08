@@ -4,6 +4,7 @@
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>latest</LangVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>
@@ -82,6 +83,9 @@
     </Reference>
     <Reference Include="RezaB.API.MobilExpress, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.API.MobilExpress.1.0.0\lib\net452\RezaB.API.MobilExpress.dll</HintPath>
+    </Reference>
+    <Reference Include="RezaB.API.WebService.NLogExtentions, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RezaB.API.WebService.NLogExtentions.1.0.1\lib\net472\RezaB.API.WebService.NLogExtentions.dll</HintPath>
     </Reference>
     <Reference Include="RezaB.Data, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RezaB.Data.1.0.1\lib\net452\RezaB.Data.dll</HintPath>
@@ -176,6 +180,8 @@
     <Compile Include="Controllers\VerimorController.cs" />
     <Compile Include="Controllers\VerimorSettingsController.cs" />
     <Compile Include="DBUtilities.cs" />
+    <Compile Include="Enums\ConditionTypes.cs" />
+    <Compile Include="Enums\OutputTypes.cs" />
     <Compile Include="Enums\VerimorDirectionTypes.cs" />
     <Compile Include="Enums\VerimorEventTypes.cs" />
     <Compile Include="Enums\VerimorHangupTypes.cs" />
@@ -184,157 +190,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Address.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AppliedRecurringDiscount.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AppSetting.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AppUser.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Bill.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BillFee.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BTKIPBlock.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BTKSchedulerSetting.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Cashier.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CashierBalance.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ChangeServiceTypeTask.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ChangeStateTask.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CorporateCustomerInfo.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Customer.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerAdditionalPhoneNo.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerBlackList.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerIDCard.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerSetupStatusUpdate.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerSetupTask.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerSetupUser.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Discount.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Domain.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EBill.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EBillRegisteredCompany.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ExternalPayment.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Fee.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FeeTypeCost.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FeeTypeVariant.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Group.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MobilExpressAutoPayment.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NA.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NASExpiredPool.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NASNetmap.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NASVerticalIPMap.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OfflinePaymentGateway.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Partner.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PartnerAvailableTariff.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PartnerBillPayment.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PartnerCredit.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PartnerGroup.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PartnerPermission.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PartnerRegisteredSubscription.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PartnerSubUser.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PDFFormItemPlacement.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Permission.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\QuotaPackage.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusAccounting.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusAccountingIPInfo.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusDailyAccounting.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusDefault.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusRBillingService.cs">
+    <Compile Include="Models\GeneralFault.cs">
       <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RadiusR_Netspeed.Context.cs">
@@ -352,124 +208,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\RadiusSM.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RecurringDiscount.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RecurringPaymentSubscription.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ScheduledSM.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SchedulerTask.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Service.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ServiceBillingPeriod.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ServiceRateTimeTable.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SMSArchive.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SMSSetting.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SMSText.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SpecialOffer.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Subscription.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionCancellation.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionCommitment.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionCredit.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionGPSCoord.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionNote.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionQuota.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionStateHistory.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionSupportRequest.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionTariffChange.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SubscriptionTelekomInfo.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SystemLog.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SystemSetting.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TaxRate.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TelekomAccessCredential.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TelekomTariff.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TelekomWorkOrder.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TelekomWorkOrderParameter.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VerimorCallRecord.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VerimorOperation.cs">
       <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VerimorOperationResponse.cs">
       <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VerimorOperationResult.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VerimorSMSReport.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VPOSList.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\WorkArea.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="StringFormats.cs" />
     <Compile Include="ViewModels\VerimorDiagramVM.cs" />
+    <Compile Include="ViewModels\VerimorFlowChartViewModel.cs" />
+    <Compile Include="ViewModels\VerimorOperationsViewModel.cs" />
     <Compile Include="ViewModels\VerimorSettings.cs" />
+    <Compile Include="WebHookBaseOperations.cs" />
     <Compile Include="WebHookOperations.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -645,6 +401,10 @@
     </Content>
     <Content Include="NLog.config" />
     <Content Include="Connection.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -670,6 +430,8 @@
     <Content Include="Views\VerimorSettings\CreateDiagram.cshtml" />
     <Content Include="Views\VerimorSettings\Edit.cshtml" />
     <Content Include="Views\VerimorSettings\Index.cshtml" />
+    <Content Include="Views\VerimorSettings\FlowChart.cshtml" />
+    <Content Include="Views\VerimorSettings\OperationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Verimor.Webhook.EventListener.ViewModels.VerimorOperationsViewModel>
+
+@{
+    ViewBag.Title = "OperationList";
+}
+<style>
+    .message-box {
+        text-align: center;
+        border: 1px solid antiquewhite;
+        position: absolute;
+        padding: 2em 4em;
+        background-color: antiquewhite;
+        border-radius: 0.5em;
+        top: 15%;
+        left: 50%;
+        z-index:1;
+    }
+</style>
+<div class="container">
+    <div class="message-box" style="display:none;">
+        <span>@TempData["ErrorMessage"]</span>
+        <div>
+            <input type="button" class="link-button close-message-box" value="Kapat" />
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(m => m.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(m => m.OperationType)
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.OperationType)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Düzenle", "Edit", "VerimorSettings", new { ID = item.ID }, new { @class = "link-button" })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sil", "DeleteOperation", new { ID = item.ID }, new { @class = "link-button" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script>
+        if ($('.message-box > span').text()) {
+            $('.message-box').show("slow");
+        }
+        $('.close-message-box').click(function () {
+            $('div.message-box').hide("slow");
+            /*$('div.message-box').remove();*/
+        });
+    </script>
+    }

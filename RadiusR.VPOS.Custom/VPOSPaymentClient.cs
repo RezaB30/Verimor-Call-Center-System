@@ -12,14 +12,18 @@ namespace RadiusR.VPOS.Custom
         private string _StoreKey { get; set; }
         private string _MerchantSalt { get; set; }
         private int _VPOSTypeId { get; set; }
-        public VPOSPaymentClient(int VPOSTypeId, string merchantId, string storeKey, string merchantSalt)
+        private string _UserID { get; set; }
+        private string _UserPass { get; set; }
+        public VPOSPaymentClient(int VPOSTypeId, string merchantId, string storeKey, string merchantSalt, string UserID, string UserPass)
         {
             _MerchantId = merchantId;
             _StoreKey = storeKey;
             _MerchantSalt = merchantSalt;
             _VPOSTypeId = VPOSTypeId;
+            _UserID = UserID;
+            _UserPass = UserPass;
         }
-        public ServiceResponse Payment(decimal currencyAmount, string customerName, string description, string clientIp, string creditCardNo, string cvv, string expiryMonth, string expiryYear)
+        public ServiceResponse Payment(VPOSPaymentRequest request)
         {
             var VPOSType = (RadiusR.DB.Enums.VPOSTypes)_VPOSTypeId;
             switch (VPOSType)
@@ -28,18 +32,87 @@ namespace RadiusR.VPOS.Custom
                     {
                         var model = new Vakifbank.VakifbankVPOSModel()
                         {
-                            ClientIP = clientIp,
-                            CurrencyAmount = currencyAmount,
-                            CurrencyCode = 949,
-                            Expiry = expiryYear + expiryMonth,
+                            ClientIP = request.ClientIP,
+                            CurrencyAmount = request.CurrencyAmount,
+                            ExpiryYear = request.ExpiryYear,
+                            ExpiryMonth = request.ExpiryMonth,
                             MerchantId = _MerchantId,
-                            BillingCustomerName = customerName,
-                            PAN = creditCardNo,
-                            Password = _StoreKey,
+                            BillingCustomerName = request.CustomerName,
+                            CreditCardNo = request.CreditCardNo,
+                            StoreKey = _StoreKey,
                             TerminalNo = _MerchantSalt,
-                            CVV = cvv,
+                            CVV = request.CVV,
                         };
                         return _VakifBankVPOS(model);
+                    }
+                case RadiusR.DB.Enums.VPOSTypes.Halk:
+                    {
+                        var model = new Halkbank.HalkbankVPOSModel()
+                        {
+                            BillingCustomerName = request.CustomerName,
+                            CreditCardNo = request.CreditCardNo,
+                            CurrencyAmount = request.CurrencyAmount,
+                            CVV = request.CVV,
+                            ExpiryMonth = request.ExpiryMonth,
+                            ExpiryYear = request.ExpiryYear,
+                            TerminalNo = _MerchantSalt,
+                            StoreKey = _StoreKey,
+                            Password = _UserPass,
+                            MerchantId = _MerchantId,
+                            Username = _UserID
+                        };
+                        return _HalkBankVPOS(model);
+                    }
+                case DB.Enums.VPOSTypes.QNBFinans:
+                    {
+                        var model = new Finansbank.FinansbankVPOSModel()
+                        {
+                            BillingCustomerName = request.CustomerName,
+                            CreditCardNo = request.CreditCardNo,
+                            CurrencyAmount = request.CurrencyAmount,
+                            CVV = request.CVV,
+                            ExpiryMonth = request.ExpiryMonth,
+                            ExpiryYear = request.ExpiryYear,
+                            TerminalNo = _MerchantSalt,
+                            StoreKey = _StoreKey,
+                            Password = _UserPass,
+                            MerchantId = _MerchantId,
+                            Username = _UserID,
+                            MbrId = 0 // will be test
+                        };
+                        return _FinansVPOS(model);
+                    }
+                case DB.Enums.VPOSTypes.Ziraat:
+                    {
+                        var model = new Ziraatbank.ZiraatVPOSModel()
+                        {
+                            CurrencyAmount = request.CurrencyAmount,
+                            ExpiryYear = request.ExpiryYear,
+                            ExpiryMonth = request.ExpiryMonth,
+                            MerchantId = _MerchantId,
+                            BillingCustomerName = request.CustomerName,
+                            CreditCardNo = request.CreditCardNo,
+                            StoreKey = _StoreKey,
+                            TerminalNo = _MerchantSalt,
+                            CVV = request.CVV,
+                        };
+                        return _ZiraatVPOS(model);
+                    }
+                case DB.Enums.VPOSTypes.PayTR:
+                    {
+                        var model = new PayTR.PayTRVPOSModel()
+                        {
+                            CurrencyAmount = request.CurrencyAmount,
+                            ExpiryYear = request.ExpiryYear,
+                            ExpiryMonth = request.ExpiryMonth,
+                            MerchantId = _MerchantId,
+                            BillingCustomerName = request.CustomerName,
+                            CreditCardNo = request.CreditCardNo,
+                            StoreKey = _StoreKey,
+                            TerminalNo = _MerchantSalt,
+                            CVV = request.CVV,
+                        };
+                        return _PayTRVPOS(model);
                     }
                 default:
                     {
@@ -61,7 +134,7 @@ namespace RadiusR.VPOS.Custom
                 TransactionType = model.TransactionType,
                 ClientIp = model.ClientIP,
                 TerminalNo = model.TerminalNo,
-                Password = model.Password,
+                Password = model.StoreKey,
                 OrderDescription = model.BillingCustomerName,
                 CurrencyAmount = model.CurrencyAmount,
                 CurrencyCode = model.CurrencyCode,
@@ -69,7 +142,8 @@ namespace RadiusR.VPOS.Custom
                 CustomerName = model.BillingCustomerName,
                 Expiry = model.Expiry,
                 Cvv = model.CVV,
-                MerchantId = model.MerchantId
+                MerchantId = model.MerchantId,
+                Pan = model.CreditCardNo
             });
             return new ServiceResponse()
             {
@@ -78,6 +152,52 @@ namespace RadiusR.VPOS.Custom
                 IsSuccess = response.ResultCode == "0000" ? true : false
             };
         }
-
+        private ServiceResponse _HalkBankVPOS(Halkbank.HalkbankVPOSModel model)
+        {
+            var client = new ePayment.cc5payment()
+            {
+                host = model.Host,
+                name = model.Username,
+                password = model.Password,
+                bname = model.BillingCustomerName,
+                clientid = model.MerchantId,
+                subtotal = model.CurrencyAmount.ToString(),
+                currency = model.CurrencyCode.ToString(),
+                cardnumber = model.CreditCardNo,
+                cv2 = model.CVV,
+                expmonth = model.ExpiryMonth,
+                expyear = model.ExpiryYear,
+                chargetype = model.ChargeType
+            };
+            var pay = client.processorder();
+            return new ServiceResponse()
+            {
+                Code = client.Extra("ERRORCODE"),
+                Message = client.errmsg,
+                IsSuccess = client.appr == "Approved"
+            };
+        }
+        private ServiceResponse _FinansVPOS(Finansbank.FinansbankVPOSModel model)
+        {
+            return Finansbank.FinansbankVPOSModel.FinansPostForm(model);
+        }
+        private ServiceResponse _ZiraatVPOS(Ziraatbank.ZiraatVPOSModel model)
+        {
+            return new ServiceResponse()
+            {
+                Code = "999",
+                IsSuccess = false,
+                Message = "System Error"
+            };
+        }
+        private ServiceResponse _PayTRVPOS(PayTR.PayTRVPOSModel model)
+        {
+            return new ServiceResponse()
+            {
+                Code = "999",
+                IsSuccess = false,
+                Message = "System Error"
+            };
+        }
     }
 }

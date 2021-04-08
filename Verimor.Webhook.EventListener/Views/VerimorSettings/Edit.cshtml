@@ -1,12 +1,11 @@
-﻿@model IEnumerable<Verimor.Webhook.EventListener.ViewModels.VerimorDiagramVM>
+﻿@model Verimor.Webhook.EventListener.ViewModels.VerimorDiagramVM
 
 @{
     ViewBag.Title = "Edit";
 }
 <style>
     input[type=text], textarea {
-        width: 8em !important;
-        margin: 0.3em !important;
+        min-width:15em !important;
     }
 
     #ErrorMessage {
@@ -25,58 +24,50 @@
 </style>
 <h3>Operasyon Düzenle</h3>
 <div style="margin-bottom:1rem;"></div>
-<div class="">
-    <div class="container-fluid">
-        <div id="ErrorMessage"><span>@ViewBag.ErrorMessage</span><input onclick="$('#ErrorMessage').remove();" style="color:black; display:block; margin:1em auto;" class="cancel-button" type="button" value="Kapat" /></div>
-        <div class="row text-center">
-            <div class="col-lg-1 col-md-1"></div>
-            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.AnnouncementID)</div>
-            <div class="col-lg-3 col-md-3">@Html.DisplayNameFor(m => m.Phrase)</div>
-            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Max_Digits)</div>
-            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Min_Digits)</div>
-            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Target)</div>
-            <div class="col-lg-1 col-md-1">@Html.DisplayNameFor(m => m.Retry_Count)</div>
-        </div>
-        @foreach (var item in Model)
-        {
-            <div class="row text-center">
-                @using (Html.BeginForm("Edit", "VerimorSettings", FormMethod.Post))
-                {
-                    <div class="col-lg-1 col-md-1">@Html.ActionLink("Sil", "DeleteOperation", "VerimorSettings", new { ID = item.ID }, new { @class = "link-button" })</div>
-                    <div class="col-lg-1 col-md-1">
-                        @Html.HiddenFor(m => item.ID)
-                        @Html.HiddenFor(m => item.OperationType)
-                        @Html.EditorFor(m => item.AnnouncementID)
-                    </div>
-                    <div class="col-lg-3 col-md-3">@Html.TextAreaFor(m => item.Phrase)</div>
-                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Max_Digits)</div>
-                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Min_Digits)</div>
-                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Target)</div>
-                    <div class="col-lg-1 col-md-1">@Html.EditorFor(m => item.Retry_Count)</div>
-                    <div class="col-lg-2 col-md-2">
-                        <input id="EditBtn" type="submit" value="Kaydet" />
-                    </div>
-                }
-            </div>
-        }
-        @Html.ActionLink("Geri Dön", "Index", "VerimorSettings", null, new { @class = "link-button" })
-    </div>
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m=>m.ID)
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th class="text-right">@Html.DisplayNameFor(m => m.Title)</th>
+                    <td class="text-center">@Html.TextAreaFor(m => m.Title)</td>
+                </tr>
+                <tr>
+                    <th class="text-right">@Html.DisplayNameFor(m => m.Phrase)</th>
+                    <td class="text-center">@Html.TextAreaFor(m => m.Phrase)</td>
+                </tr>
+                <tr>
+                    <th class="text-right">@Html.DisplayNameFor(m => m.ConditionType)</th>
+                    <td class="text-center">@Html.DropDownListFor(m=>m.ConditionType,(SelectList)ViewBag.ConditionTypes, new { @style = "width:15em;" })</td>
+                </tr>
+                <tr>
+                    <th class="text-right">@Html.DisplayNameFor(m => m.ConditionParameters)</th>
+                    <td class="text-center">@Html.EditorFor(m => m.ConditionParameters)</td>
+                </tr>
+                <tr>
+                    <th class="text-right">@Html.DisplayNameFor(m => m.Target)</th>
+                    <td class="text-center">@Html.EditorFor(m => m.Target)</td>
+                </tr>
+                <tr>
+                    <th class="text-right">@Html.DisplayNameFor(m => m.Max_Digits)</th>
+                    <td class="text-center">@Html.EditorFor(m => m.Max_Digits)</td>
+                </tr>
+                <tr>
+                    <th class="text-right">@Html.DisplayNameFor(m => m.Min_Digits)</th>
+                    <td class="text-center">@Html.EditorFor(m => m.Min_Digits)</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <input type="submit" value="Kaydet" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
 </div>
 @section scripts{
-    <script>
-        //$(document).ready(function () {
-        //    $("#ErrorMessage").css('visibility', 'visible')
-        //    setTimeout(function () {
-        //        $("#ErrorMessage").css('visibility', 'hidden');
-        //    }, 5000);
-        //})
-        if ($('#ErrorMessage > span').text()) {
-            $('#ErrorMessage').css("display", "block");
-        }
-        $(window).keydown(function (event) {
-            if (event.altKey && event.which == "192") {
-                $('#EditBtn').click();
-            }
-        })
-    </script>
+
 }

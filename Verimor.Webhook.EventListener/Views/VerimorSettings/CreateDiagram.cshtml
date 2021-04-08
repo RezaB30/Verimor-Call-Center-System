@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "CreateDiagram";
-
     var ParameterList = ViewBag.Parameters != null ? (SelectList)ViewBag.Parameters : Enumerable.Empty<SelectListItem>();
 }
 <style>
@@ -27,19 +26,23 @@
                             <td>@Html.DropDownListFor(m => m.OperationType, (SelectList)ViewBag.OperationTypes, new { @style = "width:14em;" })</td>
                         </tr>
                         <tr>
+                            <td>@Html.LabelFor(m => m.ConditionType)</td>
+                            <td>@Html.DropDownListFor(m => m.ConditionType, (SelectList)ViewBag.ConditionTypes,"Karşılaştırma Tipi", new { @style = "width:14em;" })</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(m => m.ConditionParameters)</td>
+                            <td>@Html.EditorFor(m => m.ConditionParameters, new { htmlAttributes = new { autocomplete = "off" } })</td>
+                        </tr>
+                        <tr>
+                            <td>@Html.LabelFor(m => m.Title)</td>
+                            <td>@Html.EditorFor(m => m.Title, new { htmlAttributes = new { autocomplete = "off" } })</td>
+                        </tr>
+                        <tr>
                             <td>
                                 @Html.LabelFor(m => m.Phrase)
                             </td>
                             <td>
                                 @Html.TextAreaFor(m => m.Phrase, new { autocomplete = "off", style = "min-width:14em; min-height:10em;" })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @Html.LabelFor(m => m.AnnouncementID)
-                            </td>
-                            <td>
-                                @Html.EditorFor(m => m.AnnouncementID, new { htmlAttributes = new { autocomplete = "off" } })
                             </td>
                         </tr>
                         <tr>
@@ -64,14 +67,6 @@
                             </td>
                             <td>
                                 @Html.EditorFor(m => m.Min_Digits, new { htmlAttributes = new { autocomplete = "off" } })
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @Html.LabelFor(m => m.Retry_Count)
-                            </td>
-                            <td>
-                                @Html.EditorFor(m => m.Retry_Count, new { htmlAttributes = new { autocomplete = "off" } })
                             </td>
                         </tr>
                         <tr>
@@ -111,11 +106,14 @@
         $('.select-parameter').click(function () {
             var value = $(this).attr("data-value");
             $('#Phrase').val($('#Phrase').val() + " " + value);
+            $('#Phrase').focus();
         });
         $("#WebHookType").change(function () {
             var val = $(this).val();
             if (val == 0) {
                 $('#OperationType').parent("td").parent("tr").show();
+                $('#ConditionType').parent("td").parent("tr").show();
+                $('#ConditionParameters').parent("td").parent("tr").show();
 
                 $('#AnnouncementID').parent("td").parent("tr").hide();
                 $('#Target').parent("td").parent("tr").hide();
@@ -125,6 +123,8 @@
             }
             if (val == 1) {
                 $('#OperationType').parent("td").parent("tr").hide();
+                $('#ConditionType').parent("td").parent("tr").hide();
+                $('#ConditionParameters').parent("td").parent("tr").hide();
 
                 $('#AnnouncementID').parent("td").parent("tr").show();
                 $('#Target').parent("td").parent("tr").hide();
@@ -134,6 +134,9 @@
             }
             if (val == 2) {
                 $('#OperationType').parent("td").parent("tr").hide();
+                $('#ConditionType').parent("td").parent("tr").hide();
+                $('#ConditionParameters').parent("td").parent("tr").hide();
+
                 $('#AnnouncementID').parent("td").parent("tr").show();
                 $('#Target').parent("td").parent("tr").show();
                 $('#Max_Digits').parent("td").parent("tr").hide();
@@ -142,6 +145,9 @@
             }
             if (val == 3) {
                 $('#OperationType').parent("td").parent("tr").hide();
+                $('#ConditionType').parent("td").parent("tr").hide();
+                $('#ConditionParameters').parent("td").parent("tr").hide();
+
                 $('#AnnouncementID').parent("td").parent("tr").show();
                 $('#Target').parent("td").parent("tr").hide();
                 $('#Max_Digits').parent("td").parent("tr").hide();

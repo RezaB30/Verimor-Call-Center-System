@@ -45,7 +45,11 @@ namespace RadiusR.Verimor.CallCenter.Caching
             UnpaidBillSubscriptionCount,
             CancelledSubscriptions,
             PaymentCardToken,
-            PaymentType
+            WrongDialingMaxDigits,
+            WrongDialingMinDigits,
+            UnpaidBillList,
+            ValidationSMS,
+            CompanyGeneralFault
         }
     }
 }

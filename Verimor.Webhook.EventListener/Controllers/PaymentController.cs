@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RadiusR.DB;
+using RadiusR.VPOS.Custom;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,9 +15,19 @@ namespace Verimor.Webhook.EventListener.Controllers
         {
             var db = new RadiusR.DB.RadiusREntities();
 
-            RadiusR.VPOS.Custom.VPOSPaymentClient payment = new RadiusR.VPOS.Custom.VPOSPaymentClient(RadiusR.DB.VPOSSettings.CurrentVPOSID, RadiusR.DB.VPOSSettings.MerchantID, RadiusR.DB.VPOSSettings.StoreKey, RadiusR.DB.VPOSSettings.MerchantSalt);
-            var response = payment.Payment(00.20m, "", "", "185.188.129.2", "5487930090053959", "108", "08","2029");
-            return View();
+            RadiusR.VPOS.Custom.VPOSPaymentClient payment = new VPOSPaymentClient(VPOSSettings.CurrentVPOSID, VPOSSettings.MerchantID, VPOSSettings.StoreKey, VPOSSettings.MerchantSalt, VPOSSettings.UserID, VPOSSettings.UserPassword);
+            var response = payment.Payment(new VPOSPaymentRequest()
+            {
+                ExpiryYear = "29",
+                ExpiryMonth = "08",
+                CVV = "108",
+                CurrencyAmount = 0.1m,
+                ClientIP = "185.188.129.2",
+                CreditCardNo = "5487930090053959",
+                CustomerName = "",
+                Description = ""
+            });
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

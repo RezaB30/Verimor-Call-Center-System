@@ -1,0 +1,243 @@
+﻿@model Verimor.Webhook.EventListener.ViewModels.VerimorSettings
+
+@{
+    ViewBag.Title = "FlowChart";
+}
+
+<style>
+    .content-box {
+        text-align: center;
+        margin: 1em 0em;
+        border: 1px solid;
+        border-radius: 1em;
+    }
+
+    .row-flex {
+        justify-content: center;
+        display: flex;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    li {
+        margin-top: 1em;
+        border: 2px solid #032f4b;
+        padding: 1em;
+        border-radius: 1em;
+    }
+
+    select {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    /*
+    .sub-nodes > li:last-child {
+        float: right;
+        clear: right;
+    }
+
+    .sub-nodes > li:first-child {
+        float: left;
+        clear: left;
+    }
+
+    select {
+        width: 10em !important;
+    }*/
+</style>
+<div class="container-fluid">
+    <div class="row row-flex">
+        <div class="col-lg-1 col-md-1">
+            <div class="content-box">
+                Başlangıç
+            </div>
+        </div>
+    </div>
+    <ul class="current-diagram">
+        <li>
+            @Html.DropDownList("OperationId", (SelectList)ViewBag.Operations, "İşlem Seçiniz", new { @onchange = "GetPhrase(this);", @datavalue = "begin-operation" })
+            <input class="add-node" type="button" onclick="CreateSubNodes(this);" value="Ekle" />
+        </li>
+    </ul>
+    <div class="text-center">
+        <input type="button" value="Kaydet" onclick="SaveDiagram();" />
+    </div>
+    <div style="margin-top:15em;" class="selected-operation-description">
+        @foreach (var item in (SelectList)ViewBag.OperationDescriptions)
+        {
+            <div hidden id="@item.Value">
+                @item.Text
+            </div>
+        }
+    </div>
+</div>
+<div class="operation-list" style="display:none;">
+    <input type="text" name="digit" class="select-digit" onchange="SelectDigitChange(this);" placeholder="Tuş giriniz." style="width:6em; line-height:1em;" />
+    @Html.DropDownList("OperationId", (SelectList)ViewBag.Operations, "İşlem Seçiniz", new { @onchange = "GetPhrase(this);" })
+    <input type="button" class="add-extra-node" onclick="CreateSubNodes(this);" value="Ekle" />
+    <input type="button" onclick="RemoveNodes(this);" value="Kaldır" />
+</div>
+@section scripts{
+    <script>
+        //DrawDiagram();
+        var _isLast = $('.container').find('ul');
+        if (_isLast.length == 1) {
+            _isLast.find('input.remove-node').remove();
+        }
+        function SelectDigitChange(selector) {
+            if ($(selector).is('input')) {
+                $(selector).attr("value", $(selector).val());
+                $(selector).parent('li').attr("digit", $(selector).attr("value"));
+            } else {
+                $(selector).find('option').each(function () {
+                    if ($(selector).val() == $(this).val()) {
+                        $(selector).parent('li').attr("digit", $(this).val());
+                        $(this).attr("selected", "selected");
+                    } else {
+                        $(this).removeAttr("selected");
+                    }
+                });
+            }
+        }
+        function GetPhrase(selector) {
+            $(selector).parent('li').find('ul').each(function () {
+                $(this).remove();
+            });
+            $(selector).find('option').each(function () {
+                if ($(selector).val() == $(this).val()) {
+                    $(this).attr("selected", "selected");
+                } else {
+                    $(this).removeAttr("selected");
+                }
+            });
+            $(selector).attr("title", $('.selected-operation-description').find('div#' + $(selector).val()).text());
+            $('.selected-operation-description > div').each(function () {
+                $(this).hide();
+            });
+            $('.selected-operation-description').find('div#' + $(selector).val()).show();
+        }
+        function CreateSubNodes(selector) {
+            var _hasul = $(selector).parent().find('ul');
+            if (_hasul.length != 0) {
+                _hasul.append('<li parent="' + $(selector).prev('select').val() + '" style="margin-top:1em;">' + $('.operation-list').html() + '</li>');
+            } else {
+                $(selector).parent().append('<ul class="sub-nodes">' + '<li parent="' + $(selector).prev('select').val() + '" style="margin-top:1em;">' + $('.operation-list').html() + '</li>' + '</ul>');
+            }
+            var operationId = $(selector).prev('select').val();
+            if (operationId) {
+                $.ajax({
+                    url: '@Url.Action("GetOperation","VerimorSettings")',
+                    data: { operationId: operationId },
+                    method: 'POST',
+                    complete: function (data, status) {
+                        if (status == "success") {
+                            var response = data.responseJSON;
+                            if (response.operationType != 1 && $(selector).attr("datavalue") != "begin-operation") {
+                                if (_hasul.length != 0) {
+                                    _hasul.find('input.select-digit').each(function () {
+                                        $(this).parent().prepend('<select onchange="SelectDigitChange(this);" style="width:6em; line-height:1em;" class="select-digit"><option value="">Seçiniz</option><option value="0">Başarısız</option><option value="1">Başarılı</option></select>');
+                                        $(this).remove();
+                                    });
+                                } else {
+                                    $(selector).parent().find('ul.sub-nodes').find('input.select-digit').each(function () {
+                                        $(this).parent().prepend('<select onchange="SelectDigitChange(this);" style="width:6em; line-height:1em;" class="select-digit"><option value="">Seçiniz</option><option value="0">Başarısız</option><option value="1">Başarılı</option></select>');
+                                        $(this).remove();
+                                    });
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        function RemoveNodes(selector) {
+            var _ul = $(selector).parent('li');
+            _ul.remove();
+        }
+        function SaveDiagram() {
+            RemoveDiagram();
+            var startedOperationId = $('ul.current-diagram').find('select').first().val(); //$('.container-fluid').find('ul').first().find('li').first().find('select').first().val();
+            $.ajax({
+                url: '@Url.Action("SaveDiagram","VerimorSettings")',
+                method: 'POST',
+                data: { startedOperationId: startedOperationId },
+                complete: function (data, status) {
+                    if (status == "success") {
+                        console.log("success start operation");
+                        $('.select-digit').each(function () {
+                            var parentId = $(this).parent('li').parent('ul').parent('li').find('select[name="OperationId"]').first().val();
+                            var digit = $(this).val();
+                            var operationId = $(this).next('select').val();
+                            $.ajax({
+                                url: '@Url.Action("SaveDiagram","VerimorSettings")',
+                                method: 'POST',
+                                data: { operationId: operationId, digit: digit, parentId: parentId },
+                                complete: function (data, status) {
+                                    if (status == "success") {
+                                        console.log("success operation");
+                                    } else {
+                                        console.log("fail");
+                                    }
+                                }
+                            });
+                        });
+
+                        alert("İşlem tamamlandı");
+                    } else {
+                        console.log("fail");
+                    }
+                }
+            });
+        }
+        function RemoveDiagram() {
+            var response = $.ajax({
+                url: '@Url.Action("ClearDiagram", "VerimorSettings")',
+                method: 'GET',
+                complete: function (data, status) {
+                    console.log(status + " remove diagram");
+                }
+            });
+            console.log(response.responseJSON);
+        }
+        var genericSelector = 'input.add-node';
+        function DrawDiagram() {
+            $.ajax({
+                url: '@Url.Action("DrawDiagram","VerimorSettings")',
+                method: 'POST',
+                complete: function (data, status) {
+                    if (status == "success") {
+                        var operationList = [];
+
+                        operationList = data.responseJSON.OperationResponseList;
+                        var i = 0;
+                        var tempParentId = null; // for compare with db parentId
+                        while (operationList.length > i) {
+                            var parentId = operationList[i].parentId;
+                            var operationId = operationList[i].operationId;
+                            var digit = operationList[i].digit;
+                            var operationType = operationList[i].operationType;
+
+                            if (parentId == tempParentId) {
+                                i = 0;
+                                if (!tempParentId) {
+                                    $(genericSelector).prev('select').val(operationId);
+                                } else {
+                                    CreateSubNodes(genericSelector);
+                                }
+                                tempParentId = operationId;
+                                $('li').each(function () {
+                                    if ($(this).attr("parent") == tempParentId) {
+                                        genericSelector = $(this).find('input.add-extra-node');
+                                    }
+                                })
+                            }
+                            i++;
+                        }
+                    }
+                }
+            })
+        }
+    </script>
+}

@@ -15,6 +15,72 @@ namespace Verimor.Webhook.EventListener.Controllers
     {
         // GET: VerimorSettings
         RadiusR_NetSpeed_5Entities db = new RadiusR_NetSpeed_5Entities();
+        public ActionResult FlowChart()
+        {
+            var Operations = db.VerimorOperations.ToList();
+            ViewBag.Operations = new SelectList(Operations.OrderBy(opr => opr.Title).Select(opr => new { Value = opr.ID, Text = opr.Title }).ToArray(), "Value", "Text");
+            ViewBag.OperationDescriptions = new SelectList(Operations.Select(opr => new { Value = opr.ID, Text = opr.phrase }).ToArray(), "Value", "Text");
+            var OperationResponse = db.VerimorOperationResponses.ToArray();
+            List<ViewModels.VerimorFlowChartViewModel> flowChartList = new List<ViewModels.VerimorFlowChartViewModel>();
+            foreach (var item in OperationResponse)
+            {
+                if (!flowChartList.Where(fc => fc.ParentId == item.ParentID).Any())
+                {
+                    flowChartList.Add(new ViewModels.VerimorFlowChartViewModel()
+                    {
+                        ParentId = item.ParentID,
+                        FlowChartItemList = OperationResponse.Where(or => or.ParentID == item.ParentID).Select(or => new ViewModels.VerimorFlowChartViewModel.FlowChartItems()
+                        {
+                            Digit = or.digit,
+                            OperationId = or.OperationID
+                        }),
+                    });
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DrawDiagram()
+        {
+            return Json(new { OperationResponseList = db.VerimorOperationResponses.Select(v => new { operationType = v.VerimorOperation.operationType, parentId = v.ParentID, operationId = v.OperationID, digit = v.digit }).ToArray() }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveDiagram(int? startedOperationId, int? parentId, string digit, int? operationId, string content)
+        {
+
+            if (startedOperationId != null)
+            {
+                db.VerimorOperationResponses.Add(new VerimorOperationResponse()
+                {
+                    digit = null,
+                    OperationID = startedOperationId.Value,
+                    ParentID = null,
+                });
+                db.SaveChanges();
+            }
+            else
+            {
+                db.VerimorOperationResponses.Add(new VerimorOperationResponse()
+                {
+                    digit = string.IsNullOrEmpty(digit) ? null : digit,
+                    OperationID = operationId.Value,
+                    ParentID = parentId.Value
+                });
+                db.SaveChanges();
+            }
+            return Json(new { code = 0 }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult GetOperation(int operationId)
+        {
+            var operation = db.VerimorOperations.Find(operationId);
+            return Json(new { operationType = operation.operationType }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ClearDiagram()
+        {
+            db.VerimorOperationResponses.RemoveRange(db.VerimorOperationResponses.ToArray());
+            db.SaveChanges();
+            return Json(new { code = 0 }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index()
         {
 
@@ -60,6 +126,16 @@ namespace Verimor.Webhook.EventListener.Controllers
             ViewBag.DigitList = DigitList;
             return View(settings);
         }
+        public ActionResult OperationList()
+        {
+            var operations = db.VerimorOperations.Select(v => new ViewModels.VerimorOperationsViewModel()
+            {
+                Title = v.Title,
+                OperationType = v.operationType,
+                ID = v.ID
+            });
+            return View(operations.ToList());
+        }
         public ActionResult CreateDiagram()
         {
             var WebHookType = new SelectList(EnumHelper.GetSelectList(typeof(Enums.VerimorWebHookTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
@@ -68,6 +144,8 @@ namespace Verimor.Webhook.EventListener.Controllers
             ViewBag.OperationTypes = OperationTypes;
             var Parameters = new LocalizedList<PhraseTypes, RadiusR.Verimor.CallCenter.Common>().GenericList;
             ViewBag.Parameters = new SelectList(Parameters.Select(p => new { Value = (PhraseTypes)p.ID, Text = p.Name }).ToArray(), "Value", "Text");
+            var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+            ViewBag.ConditionTypes = ConditionTypes;
             return View();
         }
         [HttpPost]
@@ -82,7 +160,8 @@ namespace Verimor.Webhook.EventListener.Controllers
                 ViewBag.OperationTypes = OperationTypes;
                 var Parameters = new LocalizedList<PhraseTypes, RadiusR.Verimor.CallCenter.Common>().GenericList;
                 ViewBag.Parameters = new SelectList(Parameters.Select(p => new { Value = (PhraseTypes)p.ID, Text = p.Name }).ToArray(), "Value", "Text");
-
+                var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+                ViewBag.ConditionTypes = ConditionTypes;
                 int? ID = null;
                 var Count = db.VerimorOperations.Count();
                 for (int i = 1; i < Count + 1; i++)
@@ -99,6 +178,11 @@ namespace Verimor.Webhook.EventListener.Controllers
                     }
                 }
                 VerimorOperation verimorOperation = new VerimorOperation();
+                if (string.IsNullOrEmpty(verimorDiagramVM.Title))
+                {
+                    verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
+                    return View(verimorDiagramVM);
+                }
                 switch ((Enums.VerimorWebHookTypes)verimorDiagramVM.WebHookType)
                 {
                     case Enums.VerimorWebHookTypes.Function:
@@ -108,38 +192,39 @@ namespace Verimor.Webhook.EventListener.Controllers
                                 verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                                 return View(verimorDiagramVM);
                             }
+                            if (verimorDiagramVM.ConditionType != null && string.IsNullOrEmpty(verimorDiagramVM.ConditionParameters))
+                            {
+                                verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
+                                return View(verimorDiagramVM);
+                            }
                             verimorOperation = new VerimorOperation()
                             {
+                                Title = verimorDiagramVM.Title,
                                 phrase = verimorDiagramVM.Phrase,
                                 operationType = verimorDiagramVM.OperationType,
-                                ID = ID.Value
+                                ID = ID.Value,
+                                Condition = verimorDiagramVM.ConditionType == null ? null : $"{verimorDiagramVM.ConditionType},{verimorDiagramVM.ConditionParameters}"
                             };
                         }
                         break;
                     case Enums.VerimorWebHookTypes.Prompt:
                         {
-                            if ( string.IsNullOrEmpty(verimorDiagramVM.Min_Digits) || string.IsNullOrEmpty(verimorDiagramVM.Max_Digits) || string.IsNullOrEmpty(verimorDiagramVM.Retry_Count))
+                            if (string.IsNullOrEmpty(verimorDiagramVM.Min_Digits) || string.IsNullOrEmpty(verimorDiagramVM.Max_Digits))
                             {
                                 verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                                 return View(verimorDiagramVM);
                             }
-                            if (!string.IsNullOrEmpty(verimorDiagramVM.Phrase) && !string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
-                            {
-                                verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
-                                return View(verimorDiagramVM);
-                            }
-                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase) && string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
+                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase))
                             {
                                 verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                                 return View(verimorDiagramVM);
                             }
                             verimorOperation = new VerimorOperation()
                             {
+                                Title = verimorDiagramVM.Title,
                                 phrase = verimorDiagramVM.Phrase,
-                                announcementID = verimorDiagramVM.AnnouncementID,
                                 max_digits = verimorDiagramVM.Max_Digits,
                                 min_digits = verimorDiagramVM.Min_Digits,
-                                retry_count = verimorDiagramVM.Retry_Count,
                                 operationType = (int)Enums.VerimorOperationTypes.Basic,
                                 ID = ID.Value
                             };
@@ -152,48 +237,33 @@ namespace Verimor.Webhook.EventListener.Controllers
                                 verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                                 return View(verimorDiagramVM);
                             }
-                            if (!string.IsNullOrEmpty(verimorDiagramVM.Phrase) && !string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
-                            {
-                                verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
-                                return View(verimorDiagramVM);
-                            }
-                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase) && string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
+                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase))
                             {
                                 verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                                 return View(verimorDiagramVM);
                             }
                             verimorOperation = new VerimorOperation()
                             {
+                                Title = verimorDiagramVM.Title,
                                 ID = ID.Value,
                                 target = verimorDiagramVM.Target,
                                 phrase = verimorDiagramVM.Phrase,
-                                announcementID = verimorDiagramVM.AnnouncementID,
                                 operationType = (int)Enums.VerimorOperationTypes.Basic
                             };
                         }
                         break;
                     case Enums.VerimorWebHookTypes.Record:
                         {
-                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase) && string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
-                            {
-                                verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
-                                return View(verimorDiagramVM);
-                            }
-                            if (!string.IsNullOrEmpty(verimorDiagramVM.Phrase) && !string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
-                            {
-                                verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
-                                return View(verimorDiagramVM);
-                            }
-                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase) && string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
+                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase))
                             {
                                 verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                                 return View(verimorDiagramVM);
                             }
                             verimorOperation = new VerimorOperation()
                             {
+                                Title = verimorDiagramVM.Title,
                                 ID = ID.Value,
                                 phrase = verimorDiagramVM.Phrase,
-                                announcementID = verimorDiagramVM.AnnouncementID,
                                 operationType = (int)Enums.VerimorOperationTypes.Basic
                             };
                         }
@@ -235,48 +305,47 @@ namespace Verimor.Webhook.EventListener.Controllers
                 return Json(new { ErrorMessage = "Operasyonu silerken bir hata oluştu : " + ex.Message });
             }
         }
-        public ActionResult Edit(string ErrorMsg = null)
+        public ActionResult Edit(long ID)
         {
-            if (TempData["ErrorMessage"] != null)
+            var operation = db.VerimorOperations.Find(ID);
+            if (operation == null)
             {
-                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+                return View(new ViewModels.VerimorDiagramVM());
             }
-            List<ViewModels.VerimorDiagramVM> verimorDiagramVMs = new List<ViewModels.VerimorDiagramVM>();
-            var Operations = db.VerimorOperations.ToList();
-            foreach (var item in Operations)
+            var conditionValue = string.IsNullOrEmpty(operation.Condition) ? null : operation.Condition.Split(',')[0];
+            short? currentConditionType = null;
+            if (short.TryParse(conditionValue, out short conditionType))
             {
-                ViewModels.VerimorDiagramVM verimorDiagramVM = new ViewModels.VerimorDiagramVM
-                {
-                    ID = item.ID,
-                    AnnouncementID = item.announcementID,
-                    Max_Digits = item.max_digits,
-                    Min_Digits = item.min_digits,
-                    Phrase = item.phrase,
-                    Retry_Count = item.retry_count,
-                    Target = item.target,
-                    ErrorMessage = ErrorMsg,
-                    OperationType = (int)item.operationType,
-                };
-                verimorDiagramVMs.Add(verimorDiagramVM);
+                currentConditionType = conditionType;
             }
-            return View(verimorDiagramVMs.ToArray());
+            var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text", currentConditionType);
+            ViewBag.ConditionTypes = ConditionTypes;
+            return View(new ViewModels.VerimorDiagramVM()
+            {
+                ID = operation.ID,
+                Max_Digits = operation.max_digits,
+                Min_Digits = operation.min_digits,
+                Phrase = operation.phrase,
+                OperationType = operation.operationType,
+                Title = operation.Title,
+                Target = operation.target,
+                ConditionType = currentConditionType,
+                ConditionParameters = string.IsNullOrEmpty(operation.Condition) == false ? operation.Condition.Split(',')[1] : null
+            });
         }
         [HttpPost]
-        public ActionResult Edit([Bind(Prefix ="item")]ViewModels.VerimorDiagramVM verimorDiagramVM)
+        public ActionResult Edit(ViewModels.VerimorDiagramVM verimorDiagramVM)
         {
             try
             {
+                var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+                ViewBag.ConditionTypes = ConditionTypes;
                 if (verimorDiagramVM.OperationType == (int)Enums.VerimorOperationTypes.Basic)
                 {
                     var Operation = db.VerimorOperations.Find(verimorDiagramVM.ID);
                     if (Operation != null)
                     {
-                        if (!string.IsNullOrEmpty(verimorDiagramVM.Phrase) && !string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
-                        {
-                            ViewBag.ErrorMessage = "Geçersiz işlem";
-                            return View(verimorDiagramVM);
-                        }
-                        if (string.IsNullOrEmpty(verimorDiagramVM.Phrase) && string.IsNullOrEmpty(verimorDiagramVM.AnnouncementID))
+                        if (string.IsNullOrEmpty(verimorDiagramVM.Phrase))
                         {
                             ViewBag.ErrorMessage = "Geçersiz işlem";
                             return View(verimorDiagramVM);
@@ -286,37 +355,37 @@ namespace Verimor.Webhook.EventListener.Controllers
                             ViewBag.ErrorMessage = "Geçersiz işlem";
                             return View(verimorDiagramVM);
                         }
-                        if (!string.IsNullOrEmpty(Operation.retry_count) && (string.IsNullOrEmpty(verimorDiagramVM.Retry_Count) || string.IsNullOrEmpty(verimorDiagramVM.Max_Digits) || string.IsNullOrEmpty(verimorDiagramVM.Min_Digits)))
+                        if (string.IsNullOrEmpty(Operation.target) && (string.IsNullOrEmpty(verimorDiagramVM.Max_Digits) || string.IsNullOrEmpty(verimorDiagramVM.Min_Digits)))
                         {
                             ViewBag.ErrorMessage = "Geçersiz işlem";
                             return View(verimorDiagramVM);
                         }
-                        Operation.announcementID = verimorDiagramVM.AnnouncementID;
+                        Operation.Title = verimorDiagramVM.Title;
                         Operation.phrase = verimorDiagramVM.Phrase;
-                        Operation.retry_count = verimorDiagramVM.Retry_Count;
                         Operation.max_digits = verimorDiagramVM.Max_Digits;
                         Operation.min_digits = verimorDiagramVM.Min_Digits;
                         Operation.target = verimorDiagramVM.Target;
                         db.SaveChanges();
-                    }                    
+                    }
                 }
                 else
                 {
                     var Operation = db.VerimorOperations.Find(verimorDiagramVM.ID);
                     if (Operation != null)
                     {
+                        Operation.Title = verimorDiagramVM.Title;
                         Operation.phrase = verimorDiagramVM.Phrase;
-                        Operation.announcementID = verimorDiagramVM.AnnouncementID;
+                        Operation.Condition = $"{verimorDiagramVM.ConditionType},{verimorDiagramVM.ConditionParameters}";
                         db.SaveChanges();
                     }
                 }
                 TempData["ErrorMessage"] = "Güncellendi";
-                return RedirectToAction("Edit", "VerimorSettings");
+                return RedirectToAction("OperationList", "VerimorSettings");
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = ex.Message;
-                return RedirectToAction("Edit", "VerimorSettings");
+                return RedirectToAction("OperationList", "VerimorSettings");
             }
         }
         public ActionResult DeleteOperation(int? ID)
@@ -326,12 +395,13 @@ namespace Verimor.Webhook.EventListener.Controllers
                 var DeleteOperation = db.VerimorOperations.Find(ID);
                 db.VerimorOperations.Remove(DeleteOperation);
                 db.SaveChanges();
-                return RedirectToAction("Edit", "VerimorSettings", new { ErrorMsg = "Operasyon Silindi" });
+                TempData["ErrorMessage"] = "Operasyon Silindi";
+                return RedirectToAction("OperationList", "VerimorSettings");
             }
             catch (Exception ex)
             {
-
-                return RedirectToAction("Edit", "VerimorSettings", new { ErrorMsg = ex.Message });
+                TempData["ErrorMessage"] = ex.Message;
+                return RedirectToAction("OperationList", "VerimorSettings");
             }
         }
         public ActionResult UpdateOperations(int? parentID) // yeni menü tipi

@@ -18,11 +18,23 @@ namespace Verimor.Webhook.EventListener
                 Result = Result.Replace("{UnpaidBillCount}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.UnpaidBillCount));
                 Result = Result.Replace("{CreditCardNo}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.PaymentCardNo));
                 Result = Result.Replace("{GeneralFault}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.GeneralFault));
+                Result = Result.Replace("{CompanyGeneralFault}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.CompanyGeneralFault));
                 return Result;
             }
             else
             {
                 return "";
+            }
+        }
+        public static int BooleanToInteger(bool? operationResult)
+        {
+            if (operationResult == true)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
             }
         }
     }
@@ -32,6 +44,7 @@ namespace Verimor.Webhook.EventListener
         DebtAmount,
         UnpaidBillCount,
         CreditCardNo,
-        GeneralFault
+        GeneralFault,
+        CompanyGeneralFault
     }
 }

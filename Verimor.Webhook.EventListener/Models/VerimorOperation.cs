@@ -23,13 +23,11 @@ namespace Verimor.Webhook.EventListener.Models
         public int ID { get; set; }
         public Nullable<int> operationType { get; set; }
         public string phrase { get; set; }
-        public string announcementID { get; set; }
         public string target { get; set; }
         public string min_digits { get; set; }
         public string max_digits { get; set; }
-        public string retry_count { get; set; }
-        public string param_name { get; set; }
-        public string service_url { get; set; }
+        public string Title { get; set; }
+        public string Condition { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VerimorOperationResponse> VerimorOperationResponses { get; set; }

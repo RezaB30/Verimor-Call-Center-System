@@ -117,19 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CompanyGeneralFault" xml:space="preserve">
+    <value>Firma Genel Arıza</value>
+  </data>
   <data name="CreditCardNo" xml:space="preserve">
     <value>Kredi Kart Numarası</value>
   </data>
   <data name="DebtAmount" xml:space="preserve">
     <value>Toplam Tutar</value>
   </data>
+  <data name="ExceptionPhrase" xml:space="preserve">
+    <value>İşleminizi şuan gerçekleştiremiyoruz. Sizi müşteri temsilcisine aktarıyorum. Lütfen bekleyiniz.</value>
+  </data>
   <data name="GeneralFault" xml:space="preserve">
-    <value>Genel Arıza</value>
+    <value>TT Genel Arıza</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Müşteri Adı Soyadı</value>
   </data>
   <data name="UnpaidBillCount" xml:space="preserve">
     <value>Ödenmemiş fatura sayısı</value>
+  </data>
+  <data name="UserCredentialsText" xml:space="preserve">
+    <value>Kullanıcı adınız: ([username])
+Şifreniz: ([password])
+Abone numaranız: ([subscriberNo])'dir.</value>
+  </data>
+  <data name="WrongDialingPhrase" xml:space="preserve">
+    <value>Yanlış tuşlama yaptınız. {0}</value>
   </data>
 </root>

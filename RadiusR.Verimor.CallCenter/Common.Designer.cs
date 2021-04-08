@@ -61,6 +61,15 @@ namespace RadiusR.Verimor.CallCenter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Firma Genel Arıza.
+        /// </summary>
+        public static string CompanyGeneralFault {
+            get {
+                return ResourceManager.GetString("CompanyGeneralFault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kredi Kart Numarası.
         /// </summary>
         public static string CreditCardNo {
@@ -79,7 +88,16 @@ namespace RadiusR.Verimor.CallCenter {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genel Arıza.
+        ///   Looks up a localized string similar to İşleminizi şuan gerçekleştiremiyoruz. Sizi müşteri temsilcisine aktarıyorum. Lütfen bekleyiniz..
+        /// </summary>
+        public static string ExceptionPhrase {
+            get {
+                return ResourceManager.GetString("ExceptionPhrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TT Genel Arıza.
         /// </summary>
         public static string GeneralFault {
             get {
@@ -102,6 +120,26 @@ namespace RadiusR.Verimor.CallCenter {
         public static string UnpaidBillCount {
             get {
                 return ResourceManager.GetString("UnpaidBillCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kullanıcı adınız: ([username])
+        ///Şifreniz: ([password])
+        ///Abone numaranız: ([subscriberNo])&apos;dir..
+        /// </summary>
+        public static string UserCredentialsText {
+            get {
+                return ResourceManager.GetString("UserCredentialsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yanlış tuşlama yaptınız. {0}.
+        /// </summary>
+        public static string WrongDialingPhrase {
+            get {
+                return ResourceManager.GetString("WrongDialingPhrase", resourceCulture);
             }
         }
     }
