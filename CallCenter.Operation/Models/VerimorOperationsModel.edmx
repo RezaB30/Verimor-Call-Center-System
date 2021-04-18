@@ -65,15 +65,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RadiusR_NetSpeed_5Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="RadiusR_NetSpeed_5Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="VerimorOperationResponses" EntityType="RadiusR_NetSpeed_5Model.VerimorOperationResponse" />
-          <EntitySet Name="VerimorOperations" EntityType="RadiusR_NetSpeed_5Model.VerimorOperation" />
-          <AssociationSet Name="FK_OperationResponse_VerimorOperations" Association="RadiusR_NetSpeed_5Model.FK_OperationResponse_VerimorOperations">
-            <End Role="VerimorOperation" EntitySet="VerimorOperations" />
-            <End Role="VerimorOperationResponse" EntitySet="VerimorOperationResponses" />
-          </AssociationSet>
-          <EntitySet Name="GeneralFaults" EntityType="RadiusR_NetSpeed_5Model.GeneralFault" />
-        </EntityContainer>
         <EntityType Name="VerimorOperationResponse">
           <Key>
             <PropertyRef Name="ID" />
@@ -82,7 +73,7 @@
           <Property Name="OperationID" Type="Int32" Nullable="false" />
           <Property Name="digit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ParentID" Type="Int32" />
-          <NavigationProperty Name="VerimorOperation" Relationship="RadiusR_NetSpeed_5Model.FK_OperationResponse_VerimorOperations" FromRole="VerimorOperationResponse" ToRole="VerimorOperation" />
+          <NavigationProperty Name="VerimorOperation" Relationship="Self.FK_OperationResponse_VerimorOperations" FromRole="VerimorOperationResponse" ToRole="VerimorOperations" />
         </EntityType>
         <EntityType Name="VerimorOperation">
           <Key>
@@ -96,15 +87,15 @@
           <Property Name="max_digits" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Condition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="VerimorOperationResponses" Relationship="RadiusR_NetSpeed_5Model.FK_OperationResponse_VerimorOperations" FromRole="VerimorOperation" ToRole="VerimorOperationResponse" />
+          <NavigationProperty Name="VerimorOperationResponses" Relationship="Self.FK_OperationResponse_VerimorOperations" FromRole="VerimorOperations" ToRole="VerimorOperationResponse" />
         </EntityType>
         <Association Name="FK_OperationResponse_VerimorOperations">
-          <End Type="RadiusR_NetSpeed_5Model.VerimorOperation" Role="VerimorOperation" Multiplicity="1">
+          <End Role="VerimorOperations" Type="Self.VerimorOperation" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="RadiusR_NetSpeed_5Model.VerimorOperationResponse" Role="VerimorOperationResponse" Multiplicity="*" />
+          <End Role="VerimorOperationResponse" Type="Self.VerimorOperationResponse" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="VerimorOperation">
+            <Principal Role="VerimorOperations">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="VerimorOperationResponse">
@@ -112,6 +103,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="RadiusR_NetSpeed_5Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="VerimorOperationResponses" EntityType="Self.VerimorOperationResponse" />
+          <EntitySet Name="VerimorOperations" EntityType="Self.VerimorOperation" />
+          <AssociationSet Name="FK_OperationResponse_VerimorOperations" Association="Self.FK_OperationResponse_VerimorOperations">
+            <End Role="VerimorOperations" EntitySet="VerimorOperations" />
+            <End Role="VerimorOperationResponse" EntitySet="VerimorOperationResponses" />
+          </AssociationSet>
+          <EntitySet Name="GeneralFaults" EntityType="RadiusR_NetSpeed_5Model.GeneralFault" />
+        </EntityContainer>
         <EntityType Name="GeneralFault">
           <Key>
             <PropertyRef Name="ID" />
@@ -132,24 +132,24 @@
           <EntitySetMapping Name="VerimorOperationResponses">
             <EntityTypeMapping TypeName="RadiusR_NetSpeed_5Model.VerimorOperationResponse">
               <MappingFragment StoreEntitySet="VerimorOperationResponse">
-                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
-                <ScalarProperty Name="digit" ColumnName="digit" />
-                <ScalarProperty Name="OperationID" ColumnName="OperationID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OperationID" ColumnName="OperationID" />
+                <ScalarProperty Name="digit" ColumnName="digit" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VerimorOperations">
             <EntityTypeMapping TypeName="RadiusR_NetSpeed_5Model.VerimorOperation">
               <MappingFragment StoreEntitySet="VerimorOperations">
-                <ScalarProperty Name="Condition" ColumnName="Condition" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="max_digits" ColumnName="max_digits" />
-                <ScalarProperty Name="min_digits" ColumnName="min_digits" />
-                <ScalarProperty Name="target" ColumnName="target" />
-                <ScalarProperty Name="phrase" ColumnName="phrase" />
-                <ScalarProperty Name="operationType" ColumnName="operationType" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="operationType" ColumnName="operationType" />
+                <ScalarProperty Name="phrase" ColumnName="phrase" />
+                <ScalarProperty Name="target" ColumnName="target" />
+                <ScalarProperty Name="min_digits" ColumnName="min_digits" />
+                <ScalarProperty Name="max_digits" ColumnName="max_digits" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

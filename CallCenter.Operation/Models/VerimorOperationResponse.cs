@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Verimor.Webhook.EventListener.Models
+namespace CallCenter.Operation.Models
 {
     using System;
     using System.Collections.Generic;

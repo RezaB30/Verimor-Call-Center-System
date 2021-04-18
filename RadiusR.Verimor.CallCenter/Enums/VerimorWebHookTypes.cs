@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Verimor.Webhook.EventListener.Enums
+namespace RadiusR.Verimor.CallCenter.Enums
 {
     public enum VerimorWebHookTypes
     {

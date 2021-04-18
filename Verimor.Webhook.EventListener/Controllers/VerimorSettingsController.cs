@@ -1,4 +1,6 @@
-﻿using RadiusR.Verimor.CallCenter.Caching;
+﻿using CallCenter.Operation;
+using CallCenter.Operation.Models;
+using RadiusR.Verimor.CallCenter.Caching;
 using RezaB.Data.Localization;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using Verimor.Webhook.EventListener.Models;
 
 namespace Verimor.Webhook.EventListener.Controllers
 {
@@ -138,13 +139,13 @@ namespace Verimor.Webhook.EventListener.Controllers
         }
         public ActionResult CreateDiagram()
         {
-            var WebHookType = new SelectList(EnumHelper.GetSelectList(typeof(Enums.VerimorWebHookTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+            var WebHookType = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.VerimorWebHookTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
             ViewBag.WebHookTypes = WebHookType;
-            var OperationTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.VerimorOperationTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+            var OperationTypes = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.VerimorOperationTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
             ViewBag.OperationTypes = OperationTypes;
             var Parameters = new LocalizedList<PhraseTypes, RadiusR.Verimor.CallCenter.Common>().GenericList;
             ViewBag.Parameters = new SelectList(Parameters.Select(p => new { Value = (PhraseTypes)p.ID, Text = p.Name }).ToArray(), "Value", "Text");
-            var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+            var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
             ViewBag.ConditionTypes = ConditionTypes;
             return View();
         }
@@ -154,13 +155,13 @@ namespace Verimor.Webhook.EventListener.Controllers
         {
             try
             {
-                var WebHookType = new SelectList(EnumHelper.GetSelectList(typeof(Enums.VerimorWebHookTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+                var WebHookType = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.VerimorWebHookTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
                 ViewBag.WebHookTypes = WebHookType;
-                var OperationTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.VerimorOperationTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+                var OperationTypes = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.VerimorOperationTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
                 ViewBag.OperationTypes = OperationTypes;
                 var Parameters = new LocalizedList<PhraseTypes, RadiusR.Verimor.CallCenter.Common>().GenericList;
                 ViewBag.Parameters = new SelectList(Parameters.Select(p => new { Value = (PhraseTypes)p.ID, Text = p.Name }).ToArray(), "Value", "Text");
-                var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+                var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
                 ViewBag.ConditionTypes = ConditionTypes;
                 int? ID = null;
                 var Count = db.VerimorOperations.Count();
@@ -183,11 +184,11 @@ namespace Verimor.Webhook.EventListener.Controllers
                     verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                     return View(verimorDiagramVM);
                 }
-                switch ((Enums.VerimorWebHookTypes)verimorDiagramVM.WebHookType)
+                switch ((RadiusR.Verimor.CallCenter.Enums.VerimorWebHookTypes)verimorDiagramVM.WebHookType)
                 {
-                    case Enums.VerimorWebHookTypes.Function:
+                    case RadiusR.Verimor.CallCenter.Enums.VerimorWebHookTypes.Function:
                         {
-                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase) || verimorDiagramVM.OperationType == (int)Enums.VerimorOperationTypes.Basic)
+                            if (string.IsNullOrEmpty(verimorDiagramVM.Phrase) || verimorDiagramVM.OperationType == (int)RadiusR.Verimor.CallCenter.Enums.VerimorOperationTypes.Basic)
                             {
                                 verimorDiagramVM.ErrorMessage = "Geçersiz işlem";
                                 return View(verimorDiagramVM);
@@ -207,7 +208,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                             };
                         }
                         break;
-                    case Enums.VerimorWebHookTypes.Prompt:
+                    case RadiusR.Verimor.CallCenter.Enums.VerimorWebHookTypes.Prompt:
                         {
                             if (string.IsNullOrEmpty(verimorDiagramVM.Min_Digits) || string.IsNullOrEmpty(verimorDiagramVM.Max_Digits))
                             {
@@ -225,12 +226,12 @@ namespace Verimor.Webhook.EventListener.Controllers
                                 phrase = verimorDiagramVM.Phrase,
                                 max_digits = verimorDiagramVM.Max_Digits,
                                 min_digits = verimorDiagramVM.Min_Digits,
-                                operationType = (int)Enums.VerimorOperationTypes.Basic,
+                                operationType = (int)RadiusR.Verimor.CallCenter.Enums.VerimorOperationTypes.Basic,
                                 ID = ID.Value
                             };
                         }
                         break;
-                    case Enums.VerimorWebHookTypes.Transfer:
+                    case RadiusR.Verimor.CallCenter.Enums.VerimorWebHookTypes.Transfer:
                         {
                             if (string.IsNullOrEmpty(verimorDiagramVM.Target))
                             {
@@ -248,11 +249,11 @@ namespace Verimor.Webhook.EventListener.Controllers
                                 ID = ID.Value,
                                 target = verimorDiagramVM.Target,
                                 phrase = verimorDiagramVM.Phrase,
-                                operationType = (int)Enums.VerimorOperationTypes.Basic
+                                operationType = (int)RadiusR.Verimor.CallCenter.Enums.VerimorOperationTypes.Basic
                             };
                         }
                         break;
-                    case Enums.VerimorWebHookTypes.Record:
+                    case RadiusR.Verimor.CallCenter.Enums.VerimorWebHookTypes.Record:
                         {
                             if (string.IsNullOrEmpty(verimorDiagramVM.Phrase))
                             {
@@ -264,7 +265,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                                 Title = verimorDiagramVM.Title,
                                 ID = ID.Value,
                                 phrase = verimorDiagramVM.Phrase,
-                                operationType = (int)Enums.VerimorOperationTypes.Basic
+                                operationType = (int)RadiusR.Verimor.CallCenter.Enums.VerimorOperationTypes.Basic
                             };
                         }
                         break;
@@ -318,7 +319,7 @@ namespace Verimor.Webhook.EventListener.Controllers
             {
                 currentConditionType = conditionType;
             }
-            var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text", currentConditionType);
+            var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text", currentConditionType);
             ViewBag.ConditionTypes = ConditionTypes;
             return View(new ViewModels.VerimorDiagramVM()
             {
@@ -338,9 +339,9 @@ namespace Verimor.Webhook.EventListener.Controllers
         {
             try
             {
-                var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
+                var ConditionTypes = new SelectList(EnumHelper.GetSelectList(typeof(RadiusR.Verimor.CallCenter.Enums.ConditionTypes)).Select(op => new { op.Value, op.Text }), "Value", "Text");
                 ViewBag.ConditionTypes = ConditionTypes;
-                if (verimorDiagramVM.OperationType == (int)Enums.VerimorOperationTypes.Basic)
+                if (verimorDiagramVM.OperationType == (int)RadiusR.Verimor.CallCenter.Enums.VerimorOperationTypes.Basic)
                 {
                     var Operation = db.VerimorOperations.Find(verimorDiagramVM.ID);
                     if (Operation != null)
@@ -454,6 +455,13 @@ namespace Verimor.Webhook.EventListener.Controllers
                 return Json(new { ErrorMessage = ex.Message });
             }
 
+        }
+        public ActionResult GeneralFaults()
+        {
+            var credentials = RadiusR.DB.DomainsCache.DomainsCache.GetDomainByID(RadiusR.DB.CustomerWebsiteSettings.WebsiteServicesInfrastructureDomainID);
+            RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient client = new(credentials.TelekomCredential.XDSLWebServiceUsernameInt, credentials.TelekomCredential.XDSLWebServicePassword, credentials.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+            var generalFaults = db.GeneralFaults.ToArray();
+            return View();
         }
     }
 }

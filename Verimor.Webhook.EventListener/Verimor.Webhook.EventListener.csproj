@@ -63,6 +63,9 @@
     <Reference Include="RadiusR.DB, Version=1.2.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RadiusR.DB.1.2.4\lib\net472\RadiusR.DB.dll</HintPath>
     </Reference>
+    <Reference Include="RadiusR.DB.DomainsCache, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RadiusR.DB.DomainsCache.1.1.1\lib\net472\RadiusR.DB.DomainsCache.dll</HintPath>
+    </Reference>
     <Reference Include="RadiusR.DB.Utilities, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RadiusR.DB.Utilities.1.0.1\lib\net452\RadiusR.DB.Utilities.dll</HintPath>
     </Reference>
@@ -179,40 +182,8 @@
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\VerimorController.cs" />
     <Compile Include="Controllers\VerimorSettingsController.cs" />
-    <Compile Include="DBUtilities.cs" />
-    <Compile Include="Enums\ConditionTypes.cs" />
-    <Compile Include="Enums\OutputTypes.cs" />
-    <Compile Include="Enums\VerimorDirectionTypes.cs" />
-    <Compile Include="Enums\VerimorEventTypes.cs" />
-    <Compile Include="Enums\VerimorHangupTypes.cs" />
-    <Compile Include="Enums\VerimorOperationTypes.cs" />
-    <Compile Include="Enums\VerimorWebHookTypes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GeneralFault.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusR_Netspeed.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RadiusR_Netspeed.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusR_Netspeed.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RadiusR_Netspeed.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VerimorOperation.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VerimorOperationResponse.cs">
-      <DependentUpon>RadiusR_Netspeed.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -220,13 +191,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="StringFormats.cs" />
+    <Compile Include="ViewModels\GeneralFaultViewModel.cs" />
     <Compile Include="ViewModels\VerimorDiagramVM.cs" />
     <Compile Include="ViewModels\VerimorFlowChartViewModel.cs" />
     <Compile Include="ViewModels\VerimorOperationsViewModel.cs" />
     <Compile Include="ViewModels\VerimorSettings.cs" />
-    <Compile Include="WebHookBaseOperations.cs" />
-    <Compile Include="WebHookOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -380,25 +349,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\RadiusR_Netspeed.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RadiusR_Netspeed.Context.cs</LastGenOutput>
-      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\RadiusR_Netspeed.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
-      <LastGenOutput>RadiusR_Netspeed.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\RadiusR_Netspeed.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RadiusR_Netspeed.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\RadiusR_Netspeed.edmx.diagram">
-      <DependentUpon>RadiusR_Netspeed.edmx</DependentUpon>
-    </Content>
     <Content Include="NLog.config" />
     <Content Include="Connection.config" />
     <None Include="Properties\Settings.settings">
@@ -435,6 +387,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
     <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
@@ -451,6 +404,10 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CallCenter.Operation\CallCenter.Operation.csproj">
+      <Project>{5a73f5df-f85c-4fdb-93c7-c3cc13eb2c14}</Project>
+      <Name>CallCenter.Operation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RadiusR.Verimor.CallCenter\RadiusR.Verimor.CallCenter.csproj">
       <Project>{17a07bfc-eefa-483a-bbe6-ac820bf405bb}</Project>
       <Name>RadiusR.Verimor.CallCenter</Name>

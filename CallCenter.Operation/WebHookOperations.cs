@@ -6,28 +6,27 @@ using RadiusR.SMS;
 using RadiusR.SystemLogs;
 using RadiusR.Verimor.CallCenter;
 using RadiusR.Verimor.CallCenter.Caching;
+using RadiusR.Verimor.CallCenter.Enums;
 using RezaB.TurkTelekom.WebServices.OLO;
-using RezaB.TurkTelekom.WebServices.TTApplication;
-using RezaB.TurkTelekom.WebServices.TTOYS;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
-using Verimor.Webhook.EventListener.Enums;
-using Verimor.Webhook.EventListener.Models;
 
-namespace Verimor.Webhook.EventListener
+namespace CallCenter.Operation
 {
     public class WebHookOperations
     {
+        private Models.RadiusR_NetSpeed_5Entities VerimorDb = new Models.RadiusR_NetSpeed_5Entities();
         private VerimorOperationTypes OperationQueryType { get; set; }
         private WebHookResponse WebHookResponse { get; set; }
         private RadiusR.DB.RadiusREntities db { get; set; }
-        public Models.RadiusR_NetSpeed_5Entities VerimorDb { get; set; }
         private ConditionTypes? ConditionTypes { get; set; }
         public long? ConditionParameters { get; set; }
-        public WebHookOperations(VerimorOperationTypes operationType, WebHookResponse webHookResponse, RadiusR.DB.RadiusREntities db, string condition, Models.RadiusR_NetSpeed_5Entities verimorDb)
+        public WebHookOperations(VerimorOperationTypes operationType, WebHookResponse webHookResponse, RadiusR.DB.RadiusREntities db, string condition)
         {
             OperationQueryType = operationType;
             WebHookResponse = webHookResponse;
@@ -42,14 +41,7 @@ namespace Verimor.Webhook.EventListener
                 ConditionParameters = condition.Split(',')[1] == null ? null : long.Parse(condition.Split(',')[1]);
             }
             this.db = db;
-            VerimorDb = verimorDb;
         }
-        //public T GetCreditCardNo<T>() where T : new()
-        //{
-        //    CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.PaymentCardNo, WebHookResponse.digits);
-        //    var variable = new T();
-        //    return variable;
-        //}
         public bool? GetCreditCardNo()
         {
             CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.PaymentCardNo, WebHookResponse.digits);
@@ -152,18 +144,18 @@ namespace Verimor.Webhook.EventListener
             CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.UnpaidBillSubscriptionCount, unpaidBills.GroupBy(bill => bill.SubscriptionID).Count().ToString());
             return true; // have subscriptions unpaid bills 
         }
-        public bool? IsPassiveInternet()
+        public bool? IsPassiveInternet() // need condition
         {
             var subscriptions = CacheManager.Get(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriptionList).Split(',');
             var unpaidBills = db.Bills.Where(b => b.PayDate == null && b.BillStatusID == (short)RadiusR.DB.Enums.BillState.Unpaid && subscriptions.Contains(b.Subscription.SubscriberNo)).ToList();
-            if (unpaidBills == null)
-            {
-                return false;
-            }
+            //if (unpaidBills == null)
+            //{
+            //    return false;
+            //}
             var subscriptionUnpaidBills = unpaidBills?.GroupBy(bill => bill.SubscriptionID).Select(bill => bill.Count());
             foreach (var item in subscriptionUnpaidBills)
             {
-                var response = ConditionFormat(item, 1, Enums.ConditionTypes.Bigger);
+                var response = ConditionFormat(item, 1, RadiusR.Verimor.CallCenter.Enums.ConditionTypes.Bigger);
                 if (!response)
                 {
                     return false;
@@ -175,17 +167,17 @@ namespace Verimor.Webhook.EventListener
         {
             var subscriptions = CacheManager.Get(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriptionList).Split(',');
             var unpaidBills = db.Bills.Where(b => b.PayDate == null && b.BillStatusID == (short)RadiusR.DB.Enums.BillState.Unpaid && subscriptions.Contains(b.Subscription.SubscriberNo)).ToList();
-            var response = ConditionFormat(unpaidBills.GroupBy(bill => bill.SubscriptionID).Count(), 1, Enums.ConditionTypes.Bigger);
-            return response;
-            //if (unpaidBills == null)
-            //{
-            //    return false;
-            //}
-            //if (unpaidBills.GroupBy(bill => bill.SubscriptionID).Count() > 1)
-            //{
-            //    return true; // has more subscriptions with unpaid bills
-            //}
-            //return false;
+            //var response = ConditionFormat(unpaidBills.GroupBy(bill => bill.SubscriptionID).Count(), 1, Enums.ConditionTypes.Bigger);
+            //return response;
+            if (unpaidBills == null)
+            {
+                return false;
+            }
+            if (unpaidBills.GroupBy(bill => bill.SubscriptionID).Count() > 1)
+            {
+                return true; // has more subscriptions with unpaid bills
+            }
+            return false;
         }
         public bool? SendCustomerModemInfo()
         {
@@ -230,14 +222,14 @@ namespace Verimor.Webhook.EventListener
             CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriberNo, subscription.SubscriberNo);
             return true;
         }
-        public bool? GetSubscriptionCount()
+        public bool? GetSubscriptionCount() // abone sayısı kontrolü
         {
             var subscriptionCount = CacheManager.Get(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriptionList).Split(',');
             if (subscriptionCount.Length == 1)
             {
                 CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.SubscriberNo, subscriptionCount.FirstOrDefault());
             }
-            var response = ConditionFormat(subscriptionCount.Length, 1, Enums.ConditionTypes.Bigger);
+            var response = ConditionFormat(subscriptionCount.Length, 1, RadiusR.Verimor.CallCenter.Enums.ConditionTypes.Bigger);
             return response;
         }
         public bool? TTGeneralFaultQuery()
@@ -440,6 +432,9 @@ namespace Verimor.Webhook.EventListener
             {
                 return false;
             }
+            /*
+             *  general fault description need string format
+             */
             CacheManager.Add(WebHookResponse.uuid, CacheManager.CacheItemType.CompanyGeneralFault, generalFaults.FirstOrDefault().Description);
             return true;
         }
@@ -554,7 +549,7 @@ namespace Verimor.Webhook.EventListener
         {
             switch (ConditionTypes)
             {
-                case Enums.ConditionTypes.Bigger:
+                case RadiusR.Verimor.CallCenter.Enums.ConditionTypes.Bigger:
                     {
                         if (value > ConditionParameters)
                         {
@@ -565,7 +560,7 @@ namespace Verimor.Webhook.EventListener
                             return false;
                         }
                     }
-                case Enums.ConditionTypes.Equal:
+                case RadiusR.Verimor.CallCenter.Enums.ConditionTypes.Equal:
                     {
                         if (value == ConditionParameters)
                         {
@@ -576,7 +571,7 @@ namespace Verimor.Webhook.EventListener
                             return false;
                         }
                     }
-                case Enums.ConditionTypes.Smaller:
+                case RadiusR.Verimor.CallCenter.Enums.ConditionTypes.Smaller:
                     {
                         if (value < ConditionParameters)
                         {
@@ -587,7 +582,7 @@ namespace Verimor.Webhook.EventListener
                             return false;
                         }
                     }
-                case Enums.ConditionTypes.GreaterEqual:
+                case RadiusR.Verimor.CallCenter.Enums.ConditionTypes.GreaterEqual:
                     {
                         if (value >= ConditionParameters)
                         {
@@ -598,7 +593,7 @@ namespace Verimor.Webhook.EventListener
                             return false;
                         }
                     }
-                case Enums.ConditionTypes.LittleEqual:
+                case RadiusR.Verimor.CallCenter.Enums.ConditionTypes.LittleEqual:
                     {
                         if (value <= ConditionParameters)
                         {
