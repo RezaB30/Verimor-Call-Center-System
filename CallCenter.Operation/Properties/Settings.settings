@@ -8,5 +8,23 @@
     <Setting Name="ExceptionTarget" Type="System.String" Scope="Application">
       <Value Profile="(Default)">queue/201</Value>
     </Setting>
+    <Setting Name="MerchantID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">500259488</Value>
+    </Setting>
+    <Setting Name="StoreKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">hwM2TZw7eRFEa9Yw</Value>
+    </Setting>
+    <Setting Name="UserID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">masterissapi</Value>
+    </Setting>
+    <Setting Name="UserPass" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">kvfQ5NF6Rm16DD1r</Value>
+    </Setting>
+    <Setting Name="MerchantSalt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CurrentVPOSID" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

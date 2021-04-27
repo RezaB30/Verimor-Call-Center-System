@@ -17,6 +17,8 @@
 <div class="centered">
     @Html.ActionLink("Yeni Diyalog Ekle", "CreateDiagram", "VerimorSettings", null, new { @class = "link-button" })
     @Html.ActionLink("Diyalogları Düzenle", "OperationList", "VerimorSettings", null, new { @class = "link-button" })
+    @Html.ActionLink("Diagram Oluştur", "FlowChart", "VerimorSettings", null, new { @class = "link-button" })
+    @Html.ActionLink("Genel Arıza Listesi", "GeneralFaults", "VerimorSettings", null, new { @class = "link-button" })
 </div>
 <div style="margin-bottom:2rem;"></div>
 <h3>Operasyon Yönetimi</h3>
@@ -155,7 +157,6 @@
                     }
                     else {
                         $('#EditOperationID').append("<div>İşlem Başarısız</div>");
-
                     }
                 }
             })
@@ -165,6 +166,10 @@
             for (var i = 0; i < x.length; i++) {
                 var MethodValue = x.options[i].text;
                 if (MethodValue.startsWith("*")) {
+                    // if function remove 
+                    $('#Parent > option:nth-child(' + (i + 1) + ')').text(MethodValue.replace("*","")); 
+                    $('#Child > option:nth-child(' + (i + 1) + ')').text(MethodValue.replace("*", ""));
+
                     $('#Parent > option:nth-child(' + (i + 1) + ')').css("color", "red");
                     $('#Child > option:nth-child(' + (i + 1) + ')').css("color", "red");
                 }

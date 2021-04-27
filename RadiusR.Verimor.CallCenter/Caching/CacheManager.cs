@@ -49,7 +49,9 @@ namespace RadiusR.Verimor.CallCenter.Caching
             WrongDialingMinDigits,
             UnpaidBillList,
             ValidationSMS,
-            CompanyGeneralFault
+            CompanyGeneralFault,
+            CompanyGeneralFaultStartTime,
+            CompanyGeneralFaultEndTime
         }
     }
 }

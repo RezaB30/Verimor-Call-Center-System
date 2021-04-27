@@ -126,7 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicOperationResponse.cs" />
-    <Compile Include="EventListener.cs" />
+    <Compile Include="EventListenerClient.cs" />
+    <Compile Include="WebHooks.cs" />
     <Compile Include="Models\GeneralFault.cs">
       <DependentUpon>VerimorOperationsModel.tt</DependentUpon>
     </Compile>
@@ -157,6 +158,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="StringFormats.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="WebHookOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -176,17 +178,15 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>VerimorOperationsModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Connection.config" />
     <None Include="Models\VerimorOperationsModel.edmx.diagram">
       <DependentUpon>VerimorOperationsModel.edmx</DependentUpon>
     </None>
     <None Include="NLog.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Settings.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\VerimorOperationsModel.Context.tt">

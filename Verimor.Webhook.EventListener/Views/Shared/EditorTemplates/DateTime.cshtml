@@ -1,0 +1,10 @@
+﻿@model DateTime?
+
+@if (Model == null || !Model.HasValue)
+{
+    @: -
+}
+else
+{
+    @: <input name="@Html.IdFor(m=>m)" type="text" value="@Model.Value.ToString("dd.MM.yyyy HH:mm")" />
+}

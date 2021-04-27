@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edit";
+    var operationType = Model.OperationType != 1 ? "Fonksiyon" : "Bilgi Mesajı";
 }
 <style>
     input[type=text], textarea {
@@ -22,7 +23,7 @@
         display: none;
     }
 </style>
-<h3>Operasyon Düzenle</h3>
+<h3>Operasyon Düzenle (@operationType)</h3>
 <div style="margin-bottom:1rem;"></div>
 <div class="container">
     @using (Html.BeginForm())

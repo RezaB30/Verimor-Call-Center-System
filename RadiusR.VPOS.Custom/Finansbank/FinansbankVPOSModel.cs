@@ -66,7 +66,7 @@ namespace RadiusR.VPOS.Custom.Finansbank
                 return new ServiceResponse()
                 {
                     IsSuccess = false,
-                    Code = "0",
+                    Code = ((int)HttpStatusCode.InternalServerError).ToString(),
                     Message = ex.Message
                 };
             }

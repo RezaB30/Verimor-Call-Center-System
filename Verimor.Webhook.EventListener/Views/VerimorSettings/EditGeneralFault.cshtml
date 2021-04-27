@@ -1,0 +1,48 @@
+﻿@model Verimor.Webhook.EventListener.ViewModels.GeneralFaultViewModel
+
+@{
+    ViewBag.Title = "EditGeneralFault";
+}
+<h3 style="margin-bottom:1em;">Genel Arıza Düzenle</h3>
+<div class="container">
+    @using (Html.BeginForm("EditGeneralFault", "VerimorSettings", null, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ID)
+        <table class="table" style="display:flex; justify-content:center; text-align:center;">
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.Description)</td>
+                    <td>@Html.TextAreaFor(m => m.Description, new { @class = "" })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.ProvinceId)</td>
+                    <td>@Html.EditorFor(m => m.ProvinceId, new { htmlAttributes = new { @class = "" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.ProvinceName)</td>
+                    <td>@Html.EditorFor(m => m.ProvinceName, new { htmlAttributes = new { @class = "" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.StartTime)</td>
+                    <td>@Html.EditorFor(m => m.StartTime, new { htmlAttributes = new { @class = "" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(m => m.EndTime)</td>
+                    <td>@Html.EditorFor(m => m.EndTime, new { htmlAttributes = new { @class = "" } })</td>
+                </tr>
+                <tr>
+                    <td>@Html.ActionLink("Geri Dön", "GeneralFaults", "VerimorSettings", null, new { @class = "link-button" })</td>
+                    <td><input type="submit" value="Kaydet" class="link-button" /></td>
+                </tr>
+                @if (!string.IsNullOrEmpty(Html.ValidationSummary().ToString()))
+                {
+                    <tr>
+                        <td colspan="2">@Html.ValidationSummary()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+

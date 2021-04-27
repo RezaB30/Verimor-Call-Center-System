@@ -12,7 +12,7 @@ using System.Web.Mvc.Html;
 
 namespace Verimor.Webhook.EventListener.Controllers
 {
-    public class VerimorSettingsController : Controller
+    public class VerimorSettingsController : BaseController
     {
         // GET: VerimorSettings
         RadiusR_NetSpeed_5Entities db = new RadiusR_NetSpeed_5Entities();
@@ -201,7 +201,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                             verimorOperation = new VerimorOperation()
                             {
                                 Title = verimorDiagramVM.Title,
-                                phrase = verimorDiagramVM.Phrase,
+                                phrase = $"*{verimorDiagramVM.Phrase}",
                                 operationType = verimorDiagramVM.OperationType,
                                 ID = ID.Value,
                                 Condition = verimorDiagramVM.ConditionType == null ? null : $"{verimorDiagramVM.ConditionType},{verimorDiagramVM.ConditionParameters}"
@@ -326,7 +326,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                 ID = operation.ID,
                 Max_Digits = operation.max_digits,
                 Min_Digits = operation.min_digits,
-                Phrase = operation.phrase,
+                Phrase = operation.phrase.Replace("*", ""),
                 OperationType = operation.operationType,
                 Title = operation.Title,
                 Target = operation.target,
@@ -362,7 +362,7 @@ namespace Verimor.Webhook.EventListener.Controllers
                             return View(verimorDiagramVM);
                         }
                         Operation.Title = verimorDiagramVM.Title;
-                        Operation.phrase = verimorDiagramVM.Phrase;
+                        Operation.phrase = Operation.Title.StartsWith("*") ? $"*{verimorDiagramVM.Phrase}" : verimorDiagramVM.Phrase;
                         Operation.max_digits = verimorDiagramVM.Max_Digits;
                         Operation.min_digits = verimorDiagramVM.Min_Digits;
                         Operation.target = verimorDiagramVM.Target;
@@ -458,10 +458,54 @@ namespace Verimor.Webhook.EventListener.Controllers
         }
         public ActionResult GeneralFaults()
         {
-            var credentials = RadiusR.DB.DomainsCache.DomainsCache.GetDomainByID(RadiusR.DB.CustomerWebsiteSettings.WebsiteServicesInfrastructureDomainID);
-            RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient client = new(credentials.TelekomCredential.XDSLWebServiceUsernameInt, credentials.TelekomCredential.XDSLWebServicePassword, credentials.TelekomCredential.XDSLWebServiceCustomerCodeInt);
+            //var credentials = RadiusR.DB.DomainsCache.DomainsCache.GetDomainByID(RadiusR.DB.CustomerWebsiteSettings.WebsiteServicesInfrastructureDomainID);
+            //RezaB.TurkTelekom.WebServices.TTApplication.TTApplicationServiceClient client = new(credentials.TelekomCredential.XDSLWebServiceUsernameInt, credentials.TelekomCredential.XDSLWebServicePassword, credentials.TelekomCredential.XDSLWebServiceCustomerCodeInt);
             var generalFaults = db.GeneralFaults.ToArray();
-            return View();
+            var generalFaultList = generalFaults.Select(gf => new ViewModels.GeneralFaultViewModel()
+            {
+                Description = gf.Description,
+                EndTime = gf.EndTime,
+                ID = gf.ID,
+                ProvinceId = gf.Province,
+                ProvinceName = gf.ProvinceName,
+                StartTime = gf.StartTime,
+                UpdateTime = gf.UpdateTime
+            });
+            return View(generalFaultList);
+        }
+        public ActionResult EditGeneralFault(long ID)
+        {
+            var currentFault = db.GeneralFaults.Find(ID);
+
+            return View(new ViewModels.GeneralFaultViewModel()
+            {
+                Description = currentFault.Description,
+                EndTime = currentFault.EndTime,
+                StartTime = currentFault.StartTime,
+                ProvinceId = currentFault.Province,
+                ProvinceName = currentFault.ProvinceName,
+                ID = currentFault.ID,
+                UpdateTime = currentFault.UpdateTime
+            });
+        }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult EditGeneralFault(ViewModels.GeneralFaultViewModel model)
+        {
+            var currentFault = db.GeneralFaults.Find(model.ID);
+            if (currentFault == null)
+            {
+                return View(model);
+            }
+            currentFault.Description = model.Description;
+            currentFault.EndTime = model.EndTime;
+            currentFault.ProvinceName = model.ProvinceName;
+            currentFault.Province = (int)model.ProvinceId;
+            currentFault.UpdateTime = DateTime.Now;
+            currentFault.StartTime = model.StartTime;
+            ModelState.AddModelError("", "Genel Arıza Güncellendi");
+            db.SaveChanges();
+            return View(model);
         }
     }
 }

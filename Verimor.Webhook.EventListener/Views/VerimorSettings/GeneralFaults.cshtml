@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Verimor.Webhook.EventListener.ViewModels.GeneralFaultViewModel>
+
+@{
+    ViewBag.Title = "GeneralFaults";
+}
+<style>
+    th, td {
+        text-align: center;
+    }
+</style>
+
+<div class="container">
+    <h3>Genel Arıza Listesi</h3>
+    <table class="table" style="margin-top:2em;">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.ProvinceName)</th>
+                <th>@Html.DisplayNameFor(m => m.Description)</th>
+                <th>@Html.DisplayNameFor(m => m.StartTime)</th>
+                <th>@Html.DisplayNameFor(m => m.EndTime)</th>
+                <th>@Html.DisplayNameFor(m => m.UpdateTime)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.ProvinceName)</td>
+                    <td>@Html.DisplayFor(m => item.Description)</td>
+                    <td>@Html.DisplayFor(m => item.StartTime)</td>
+                    <td>@Html.DisplayFor(m => item.EndTime)</td>
+                    <td>@Html.DisplayFor(m => item.UpdateTime)</td>
+                    <td>@Html.ActionLink("Düzenle", "EditGeneralFault", "VerimorSettings", new { item.ID }, new { @class = "link-button" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

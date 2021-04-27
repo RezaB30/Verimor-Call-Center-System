@@ -179,6 +179,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Binders\DateBinder.cs" />
+    <Compile Include="Binders\DateWithTimeBinder.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\VerimorController.cs" />
     <Compile Include="Controllers\VerimorSettingsController.cs" />
@@ -384,10 +387,15 @@
     <Content Include="Views\VerimorSettings\Index.cshtml" />
     <Content Include="Views\VerimorSettings\FlowChart.cshtml" />
     <Content Include="Views\VerimorSettings\OperationList.cshtml" />
+    <Content Include="Views\VerimorSettings\GeneralFaults.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\VerimorSettings\EditGeneralFault.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>

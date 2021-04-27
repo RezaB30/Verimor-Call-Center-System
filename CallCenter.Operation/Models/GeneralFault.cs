@@ -20,5 +20,6 @@ namespace CallCenter.Operation.Models
         public System.DateTime StartTime { get; set; }
         public System.DateTime EndTime { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+        public string ProvinceName { get; set; }
     }
 }

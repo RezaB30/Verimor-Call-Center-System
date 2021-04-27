@@ -120,6 +120,12 @@
   <data name="CompanyGeneralFault" xml:space="preserve">
     <value>Firma Genel Arıza</value>
   </data>
+  <data name="CompanyGeneralFaultEndTime" xml:space="preserve">
+    <value>Firma Genel Arıza Bitiş Zamanı</value>
+  </data>
+  <data name="CompanyGeneralFaultStartTime" xml:space="preserve">
+    <value>Firma Genel Arıza Başlangıç Zamanı</value>
+  </data>
   <data name="CreditCardNo" xml:space="preserve">
     <value>Kredi Kart Numarası</value>
   </data>

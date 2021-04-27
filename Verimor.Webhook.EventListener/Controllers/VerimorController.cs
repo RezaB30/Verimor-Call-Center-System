@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Verimor.Webhook.EventListener.Controllers
 {
-    public class VerimorController : Controller
+    public class VerimorController : BaseController
     {
         // GET: Verimor
         public ActionResult Index()
@@ -17,7 +17,7 @@ namespace Verimor.Webhook.EventListener.Controllers
         }
         public ActionResult Process(WebHookResponse webHookGetEvents)  //response
         {
-            CallCenter.Operation.EventListener listener = new CallCenter.Operation.EventListener();
+            CallCenter.Operation.EventListenerClient listener = new CallCenter.Operation.EventListenerClient();            
             var response = listener.GetWebHook(webHookGetEvents);
             return Json(response, JsonRequestBehavior.AllowGet);            
         }

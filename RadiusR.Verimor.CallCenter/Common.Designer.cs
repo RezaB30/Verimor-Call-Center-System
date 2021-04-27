@@ -70,6 +70,24 @@ namespace RadiusR.Verimor.CallCenter {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Firma Genel Arıza Bitiş Zamanı.
+        /// </summary>
+        public static string CompanyGeneralFaultEndTime {
+            get {
+                return ResourceManager.GetString("CompanyGeneralFaultEndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Firma Genel Arıza Başlangıç Zamanı.
+        /// </summary>
+        public static string CompanyGeneralFaultStartTime {
+            get {
+                return ResourceManager.GetString("CompanyGeneralFaultStartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kredi Kart Numarası.
         /// </summary>
         public static string CreditCardNo {

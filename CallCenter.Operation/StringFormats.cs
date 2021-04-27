@@ -20,6 +20,8 @@ namespace CallCenter.Operation
                 Result = Result.Replace("{CreditCardNo}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.PaymentCardNo));
                 Result = Result.Replace("{GeneralFault}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.GeneralFault));
                 Result = Result.Replace("{CompanyGeneralFault}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.CompanyGeneralFault));
+                Result = Result.Replace("{CompanyGeneralFaultStartTime}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.CompanyGeneralFaultStartTime));
+                Result = Result.Replace("{CompanyGeneralFaultEndTime}", CacheManager.Get(webHookGetEvents.uuid, CacheManager.CacheItemType.CompanyGeneralFaultEndTime));
                 return Result;
             }
             else
@@ -46,6 +48,8 @@ namespace CallCenter.Operation
         UnpaidBillCount,
         CreditCardNo,
         GeneralFault,
-        CompanyGeneralFault
+        CompanyGeneralFault,
+        CompanyGeneralFaultStartTime,
+        CompanyGeneralFaultEndTime
     }
 }

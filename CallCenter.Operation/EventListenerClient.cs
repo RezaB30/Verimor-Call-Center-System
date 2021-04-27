@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CallCenter.Operation
 {
-    public class EventListener
+    public class EventListenerClient
     {
         Models.RadiusR_NetSpeed_5Entities db = new Models.RadiusR_NetSpeed_5Entities();
         RadiusR.DB.RadiusREntities radiusRDb = new RadiusR.DB.RadiusREntities();
