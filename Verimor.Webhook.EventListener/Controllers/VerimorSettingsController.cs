@@ -16,6 +16,10 @@ namespace Verimor.Webhook.EventListener.Controllers
     {
         // GET: VerimorSettings
         RadiusR_NetSpeed_5Entities db = new RadiusR_NetSpeed_5Entities();
+        public ActionResult CreateFlowChart()
+        {
+            return View();
+        }
         public ActionResult FlowChart()
         {
             var Operations = db.VerimorOperations.ToList();
@@ -51,7 +55,7 @@ namespace Verimor.Webhook.EventListener.Controllers
             if (startedOperationId != null)
             {
                 db.VerimorOperationResponses.Add(new VerimorOperationResponse()
-                {
+                { 
                     digit = null,
                     OperationID = startedOperationId.Value,
                     ParentID = null,
@@ -84,11 +88,10 @@ namespace Verimor.Webhook.EventListener.Controllers
         }
         public ActionResult Index()
         {
-
             var Operations = db.VerimorOperations.ToList();
             var OperationResponse = db.VerimorOperationResponses.ToList();
             List<ViewModels.VerimorSettings> settings = new List<ViewModels.VerimorSettings>();
-            var OpList = Operations.Select(m => new SelectListItem
+            var OpList = Operations.OrderBy(m => m.phrase).Select(m => new SelectListItem
             {
                 Text = m.phrase + (string.IsNullOrEmpty(m.target) ? "" : " (" + m.target + ")"),
                 Value = m.ID.ToString()

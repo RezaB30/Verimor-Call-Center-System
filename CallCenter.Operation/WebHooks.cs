@@ -194,16 +194,16 @@ namespace CallCenter.Operation
             if (modemInfoSMS == null)
             {
                 var modemCredentialsText = Common.ResourceManager.GetString("UserCredentialsText", CultureInfo.CreateSpecificCulture(subscription.Customer.Culture))
-                    .Replace("([username])", subscription.Username)
-                    .Replace("([password])", subscription.RadiusPassword)
+                    .Replace("([username])", subscription.RadiusAuthorization.Username)
+                    .Replace("([password])", subscription.RadiusAuthorization.Password)
                     .Replace("([subscriberNo])", subscriberNo);
                 service.SendGenericSMS(subscription.Customer.ContactPhoneNo, subscription.Customer.Culture, rawText: modemCredentialsText);
             }
             else
             {
                 var modemCredentialsText = modemInfoSMS.Text
-                    .Replace("([username])", subscription.Username)
-                    .Replace("([password])", subscription.RadiusPassword)
+                    .Replace("([username])", subscription.RadiusAuthorization.Username)
+                    .Replace("([password])", subscription.RadiusAuthorization.Password)
                     .Replace("([subscriberNo])", subscriberNo);
                 service.SendGenericSMS(subscription.Customer.ContactPhoneNo, subscription.Customer.Culture, rawText: modemCredentialsText);
             }
